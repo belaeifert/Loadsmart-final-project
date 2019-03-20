@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1> It works </h1>
-    <p> to see API Jason acess the url: </p>
-    <a href="{% url 'loads'%}"> List all the loads </a>
-    <br/>
-    <a href="{% url 'load_detail' 1%}"> Show the load with pk 1</a>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %} index {% endblock title %}
+
+{% block content %}
+    <h1> It works</h1>
+{% endblock content%}
