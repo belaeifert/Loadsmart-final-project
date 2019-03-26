@@ -1,0 +1,85 @@
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+
+{% extends 'base_carrier.html' %}
+
+{% block title %} Carrier's Page {% endblock title %}
+
+{% block content %}
+
+<p>{{ linebreaksbr }}</p>
+<p>{{ linebreaksbr }}</p>
+<p>{{ linebreaksbr }}</p>
+
+<div class="TabControl">
+    <div id="header">
+        <ul class="abas">
+            <li>
+                <div class="aba">
+                    <span>Available loads</span>
+                </div>
+            </li>
+            <li>
+                <div class="aba">
+                    <span>Accepted loads</span>
+                </div>
+            </li>
+            <li>
+                <div class="aba">
+                    <span>Rejected loads</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div id="content">
+        <div class="conteudo">
+            <table style="width:80%">
+        <caption>Available loads</caption>
+        <tr >
+            <th>Pickup Date</th>
+            <th>Origin City</th>
+            <th>Destination City</th> 
+            <th>Price</th>
+            <th>Shipper</th>
+        </tr>
+        {% for load in available_loads %}
+            <tr>
+                <td>{{load.pickup_date}}</td>
+                <td>{{load.origin}}</td>
+                <td>{{load.destination}}</td> 
+                <td>{{load.price}}</td>
+                <td>{{load.id_shipper}}</td>
+                <td><a class="btn post" href="{% url 'accept_load' pk_load=load.pk %}"> ACCEPT </a></td>
+                       
+            </tr>    
+        {% endfor %}
+    </table>
+        </div>
+        <div class="conteudo">
+             <table style="width:80%">
+        <caption>Accepted loads</caption>
+        <tr>
+            <th>Pickup Date</th>
+            <th>Origin City</th>
+            <th>Destination City</th> 
+            <th>Price</th>
+            <th>Shipper</th>
+        </tr>
+        {% for load in accepted_loads %}
+            <tr>
+                <td>{{load.pickup_date}}</td>
+                <td>{{load.origin}}</td>
+                <td>{{load.destination}}</td> 
+                <td>{{load.price}}</td>
+                <td>{{load.id_shipper}}</td>
+                </tr>
+        {% endfor %}
+    </table>
+        </div>
+        <div class="conteudo">
+            
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

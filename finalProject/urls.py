@@ -6,4 +6,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
     path('api/', include('finalProject.api.urls')),
+    path('carrier/', include('finalProject.carrier.urls')),
 ]

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'finalProject.core',
     'finalProject.api',
+    'finalProject.carrier',
 ]
 
 MIDDLEWARE = [
