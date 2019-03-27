@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <br />
+    <br />
+    <br />
+    <br />
+     <h5> Posted Loads </h5>
+
+    <section>
+        	<div class="form-group">
+                <h1></h1>
+                <div class="desktop-6">
+                    <form action="." novalidate method="post">
+                        {% csrf_token %}
+                        <div class="form-row label-block input-text">
+                            <label for="{{ form.pickup_date.id_for_label }}">{{ form.pickup_date.label }}</label>
+                            {{ form.pickup_date.errors }}
+                            {{ form.pickup_date }}
+                        </div>
+                        <div class="form-row label-block input-text">
+                            <label for="{{ form.ref.id_for_label }}">{{ form.ref.label }}</label>
+                            {{ form.ref.errors }}
+                            {{ form.ref }}
+                        </div>
+                        <div class="form-row label-block input-text">
+                            <label for="{{ form.origin_city.id_for_label }}">{{ form.origin_city.label }}</label>
+                            {{ form.origin_city.errors }}
+                            {{ form.origin_city }}
+                        </div>
+                        <div class="form-row label-block input-text">
+                            <label for="{{ form.destination_city.id_for_label }}">{{ form.destination_city.label }}</label>
+                            {{ form.destination_city.errors }}
+                            {{ form.destination_city }}
+                        </div>
+                        <div class="form-row label-block input-text">
+                            <label for="{{ form.price.id_for_label }}">{{ form.price.label }}</label>
+                            {{ form.price.errors }}
+                            {{ form.price }}
+                        </div>
+                        <p class="btn-row"><input type="submit" value="Post Load"/></p>
+                    </form>
+                </div>
+            </div>
+    </section>
+{% endblock content %}
