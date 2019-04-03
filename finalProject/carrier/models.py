@@ -19,3 +19,7 @@ class Load(models.Model):
     id_carrier = models.IntegerField(blank=True, null=True)
     #id_carrier = models.ForeignKey(Carrier, on_delete=models.CASCADE, blank=True, null=True)
 
+    def carrier_price(self):
+        return self.price*0.95
+
+

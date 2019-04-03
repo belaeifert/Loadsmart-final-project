@@ -1,66 +1,57 @@
 {% load static %}
 <!DOCTYPE HTML>
 <html lang="en">
-
-<head>
-	<meta charset="utf-8">
-	<title> {% block title %} LoadSmart {% endblock %}</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<link href="{% static 'css/bootstrap-responsive.css'%}" rel="stylesheet">
-	<link href="{% static 'css/style.css'%}" rel="stylesheet">
-	<link href="{% static 'css/default.css'%}" rel="stylesheet">
-	<link rel="shortcut icon" href="{% static 'img/favicon.ico'%}">
-	<link href="{% static 'css/abas.css'%}" rel="stylesheet">
-	<!-- =======================================================
-    Theme Name: Maxim
-    Theme URL: https://bootstrapmade.com/maxim-free-onepage-bootstrap-theme/
-    Author: BootstrapMade.com
-    Author URL: https://bootstrapmade.com
-	======================================================= -->
-</head>
-
-<body>
-	<!-- navbar -->
-	<div class="navbar-wrapper">
-		<div class="navbar navbar-inverse navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container">
-					<!-- Responsive navbar -->
-					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-				</a>
-					<h1 class="brand"><a>LoadSmart - Carrier's Page</a></h1>
-					<!-- navigation -->
-
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Content -->
-	<div>
-		{% block content %}
-		{% endblock content %}
-
-	</div>
-
-	</footer>
-	<a href="#" class="scrollup"><i class="icon-angle-up icon-square icon-bgdark icon-2x"></i></a>
-	<script src="{% static 'js/jquery.js'%}"></script>
-	<script src="{% static 'js/jquery.scrollTo.js'%}"></script>
-	<script src="{% static 'js/jquery.nav.js'%}"></script>
-	<script src="{% static 'js/jquery.localScroll.js'%}"></script>
-	<script src="{% static 'js/bootstrap.js'%}"></script>
-	<script src="{% static 'js/jquery.prettyPhoto.js'%}"></script>
-	<script src="{% static 'js/isotope.js'%}"></script>
-	<script src="{% static 'js/jquery.flexslider.js'%}"></script>
-	<script src="{% static 'js/inview.js'%}"></script>
-	<script src="{% static 'js/animate.js'%}"></script>
-	<script src="{% static 'js/custom.js'%}"></script>
-	<script src="{% static 'js/abas.js'%}"></script>
-
-
-</body>
-
+   <head>
+      <meta charset="utf-8">
+      <title> {% block title %} LoadSmart {% endblock %}</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <link href="{% static 'css/bootstrap-responsive.css'%}" rel="stylesheet">
+      <link href="{% static 'css/style.css'%}" rel="stylesheet">
+      <link href="{% static 'css/default.css'%}" rel="stylesheet">
+      <link rel="shortcut icon" href="{% static 'img/favicon.ico'%}">
+      <link href="{% static 'css/abas.css'%}" rel="stylesheet">
+      <!-- =======================================================
+         Theme Name: Maxim
+         Theme URL: https://bootstrapmade.com/maxim-free-onepage-bootstrap-theme/
+         Author: BootstrapMade.com
+         Author URL: https://bootstrapmade.com
+         ======================================================= -->
+   </head>
+   <body>
+      <!-- navbar -->
+      <div class="navbar-wrapper">
+         <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+               <div class="container">
+                  <!-- Responsive navbar -->
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                  </a>
+                  <h1 class="brand"><a>LoadSmart - Carrier's Page</a></h1>
+                  <!-- navigation -->
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Content -->
+      <div>
+         {% block content %}
+         {% endblock content %}
+      </div>
+      </footer>
+      <a href="#" class="scrollup"><i class="icon-angle-up icon-square icon-bgdark icon-2x"></i></a>
+      <script src="{% static 'js/jquery.js'%}"></script>
+      <script src="{% static 'js/jquery.scrollTo.js'%}"></script>
+      <script src="{% static 'js/jquery.nav.js'%}"></script>
+      <script src="{% static 'js/jquery.localScroll.js'%}"></script>
+      <script src="{% static 'js/bootstrap.js'%}"></script>
+      <script src="{% static 'js/jquery.prettyPhoto.js'%}"></script>
+      <script src="{% static 'js/isotope.js'%}"></script>
+      <script src="{% static 'js/jquery.flexslider.js'%}"></script>
+      <script src="{% static 'js/inview.js'%}"></script>
+      <script src="{% static 'js/animate.js'%}"></script>
+      <script src="{% static 'js/custom.js'%}"></script>
+      <script src="{% static 'js/abas.js'%}"></script>
+   </body>
 </html>
