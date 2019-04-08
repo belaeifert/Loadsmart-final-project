@@ -1,46 +1,35 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <br />
-    <br />
-    <br />
-    <br />
-     <h5> Posted Loads </h5>
+<br/>
+<br/>
+<br/>
+<br/>
+<h5> Posted Loads </h5>
 
-    <section>
-        	<div class="form-group">
-                <h1></h1>
-                <div class="desktop-6">
-                    <form action="." novalidate method="post">
-                        {% csrf_token %}
-                        <div class="form-row label-block input-text">
-                            <label for="{{ form.pickup_date.id_for_label }}">{{ form.pickup_date.label }}</label>
-                            {{ form.pickup_date.errors }}
-                            {{ form.pickup_date }}
-                        </div>
-                        <div class="form-row label-block input-text">
-                            <label for="{{ form.ref.id_for_label }}">{{ form.ref.label }}</label>
-                            {{ form.ref.errors }}
-                            {{ form.ref }}
-                        </div>
-                        <div class="form-row label-block input-text">
-                            <label for="{{ form.origin_city.id_for_label }}">{{ form.origin_city.label }}</label>
-                            {{ form.origin_city.errors }}
-                            {{ form.origin_city }}
-                        </div>
-                        <div class="form-row label-block input-text">
-                            <label for="{{ form.destination_city.id_for_label }}">{{ form.destination_city.label }}</label>
-                            {{ form.destination_city.errors }}
-                            {{ form.destination_city }}
-                        </div>
-                        <div class="form-row label-block input-text">
-                            <label for="{{ form.price.id_for_label }}">{{ form.price.label }}</label>
-                            {{ form.price.errors }}
-                            {{ form.price }}
-                        </div>
-                        <p class="btn-row"><input type="submit" value="Post Load"/></p>
-                    </form>
-                </div>
+<section>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
             </div>
-    </section>
+        </div>
+    </div>
+
+    <!-- Create book button -->
+    <button class="post-load btn btn-primary" type="button" name="button">Post Load</button>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $(".post-load").modalForm({
+                formURL: "{% url 'shipper:post_load' %}"
+            });
+
+        });
+    </script>
+
+</section>
 {% endblock content %}
+
+

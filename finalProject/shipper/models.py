@@ -16,11 +16,11 @@ class Shipper(models.Model):
 
 
 class Load(models.Model):
-    pickup_date = models.DateTimeField()
+    #pickup_date = models.DateTimeField()
     ref = models.CharField(max_length=50) # which pattern
     origin_city = models.CharField(max_length=500, blank=True)
-    destionation_city = models.CharField(max_length=500, blank=True)
+    destination_city = models.CharField(max_length=500, blank=True)
     price = models.FloatField()
-    suggested_price = models.FloatField(blank=True)
-    carrier = models.ForeignKey(Carrier, blank=True, on_delete=models.CASCADE)
-    shipper = models.ForeignKey(Shipper, blank=True, on_delete=models.CASCADE) #blank=False
+    #suggested_price = models.FloatField(blank=True)
+    #carrier = models.ForeignKey(Carrier, blank=True, on_delete=models.CASCADE)
+    #shipper = models.ForeignKey(Shipper, blank=True, on_delete=models.CASCADE) #blank=False
