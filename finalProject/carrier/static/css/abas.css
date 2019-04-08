@@ -1,0 +1,16 @@
+
+body{font-family:Calibri, Tahoma, Arial}
+.TabControl{ width:100%; overflow:hidden; height:400px}
+.TabControl #header{ width:100%; border: solid 1px; overflow:hidden; cursor:hand}
+.TabControl #content{ width:100%; border: solid 1px;overflow:hidden; height:100%; }
+.TabControl .abas{display:inline;}
+.TabControl .abas li{float:left}
+.aba{width:100px; height:30px; border:solid 1px; border-radius:5px 5px 0 0;
+    text-align:center; padding-top:5px; background:rgb(38, 163, 22)}
+.ativa{width:100px; height:30px; border:solid 1 px; border-radius:5px 5px 0 0;
+    text-align:center; padding-top:5px; background:rgb(0, 92, 0);}
+.ativa span, .selected span{color:#fff}
+.TabControl #content{background:rgb(0, 92, 0)}
+.TabControl .conteudo{width:100%;  background:#fff; display:none; height:100%;color:#fff}
+.selected{width:100px; height:30px; border:solid 1 px; border-radius:5px 5px 0 0;
+    text-align:center; padding-top:5px; background:rgb(0, 92, 0)}

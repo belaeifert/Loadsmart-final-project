@@ -43,8 +43,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'bootstrap_modal_forms',
     'finalProject.core',
+    'finalProject.api',
+    'finalProject.carrier',
     'finalProject.shipper'
-    #'finalProject.api',
 ]
 
 MIDDLEWARE = [
