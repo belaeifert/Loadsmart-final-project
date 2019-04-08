@@ -7,4 +7,5 @@ urlpatterns = [
     path('', views.index),
     path('api/', include('finalProject.api.urls')),
     path('carrier/', include('finalProject.carrier.urls')),
+    path('shipper/', include('finalProject.shipper.urls'))
 ]

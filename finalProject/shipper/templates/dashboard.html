@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br/>
+<br/>
+<br/>
+<br/>
+<h5> Posted Loads </h5>
+
+<section>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Create book button -->
+    <button class="post-load btn btn-primary" type="button" name="button">Post Load</button>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $(".post-load").modalForm({
+                formURL: "{% url 'shipper:post_load' %}"
+            });
+
+        });
+    </script>
+
+</section>
+{% endblock content %}
+
+
