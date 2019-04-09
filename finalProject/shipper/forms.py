@@ -4,7 +4,7 @@ from finalProject.shipper.models import Load
 
 
 class LoadForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
-    pickup_date = forms.DateField(label='Pickup date')
+    pickup_date = forms.DateField(label='Pickup date', widget=forms.SelectDateWidget())
     ref = forms.CharField(label='Ref')
     origin_city = forms.CharField(label='Origin City')
     destination_city = forms.CharField(label='Destination City')
