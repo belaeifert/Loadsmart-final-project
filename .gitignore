@@ -8,3 +8,5 @@ __pycache__
 *.json
 main.py
 myvenv
+*.mwb
+*.mwb.bak
