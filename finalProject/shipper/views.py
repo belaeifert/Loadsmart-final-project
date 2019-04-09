@@ -22,3 +22,6 @@ class PostLoadView(PassRequestMixin, SuccessMessageMixin, generic.CreateView):
     form_class = LoadForm
     success_message = 'Success: Load was posted.'
     success_url = reverse_lazy('shipper:dashboard')
+
+def defineSuggestedPrice(miles):
+    return (miles * 1.50) / 1.05
