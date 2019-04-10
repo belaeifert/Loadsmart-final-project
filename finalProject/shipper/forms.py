@@ -4,7 +4,7 @@ from finalProject.shipper.models import Load
 
 
 class LoadForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
-    pickup_date = forms.DateField(label='Pickup date', widget=forms.SelectDateWidget())
+    pickup_date = forms.DateField(label='Pickup date', widget=forms.widgets.DateInput(attrs={'type': 'date'}))
     ref = forms.CharField(label='Ref')
     origin_city = forms.CharField(label='Origin City')
     destination_city = forms.CharField(label='Destination City')
@@ -12,5 +12,5 @@ class LoadForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
 
     class Meta:
         model = Load
-        fields = ['ref', 'origin_city', 'destination_city', 'price' ]
+        fields = ['pickup_date', 'ref', 'origin_city', 'destination_city', 'price' ]
 
