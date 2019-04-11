@@ -11,7 +11,7 @@ def list_loads(request, pk_carrier):
 def accept_load(request, pk_load):
     load = Load.objects.get(pk=pk_load)
     load.status = 'accepted'
-    #load.id_carrier = request.user.pk
+    #load.id_carrier = request.user.id
     load.id_carrier = 1
     load.save()
     return redirect('list_loads', pk_carrier=1)

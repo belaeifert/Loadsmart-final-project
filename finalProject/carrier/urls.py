@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+app_name = "carrier"
 
 urlpatterns = [
     path('home/<int:pk_carrier>/', views.list_loads, name='list_loads'),
