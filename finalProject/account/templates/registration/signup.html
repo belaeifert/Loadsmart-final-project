@@ -1,0 +1,7 @@
+<h2>Sign up</h2>
+<form method="post">
+  {% csrf_token %}
+  <td><a class="btn post" href="{% url 'account:shipper_signup' %}"> I'm a Shipper </a></td>
+  <p>{{ linebreaksbr }}</p>
+  <td><a class="btn post" href="{% url 'account:carrier_signup' %}"> I'm a Carrier </a></td>
+</form>

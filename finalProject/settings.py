@@ -30,6 +30,9 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
+# AUTHENTICATION
+AUTH_USER_MODEL = 'account.User'
+LOGIN_REDIRECT_URL = 'account:redirect_home'
 
 # Application definition
 
@@ -45,7 +48,8 @@ INSTALLED_APPS = [
     'finalProject.core',
     'finalProject.api',
     'finalProject.carrier',
-    'finalProject.shipper'
+    'finalProject.shipper',
+    'finalProject.account',
 ]
 
 MIDDLEWARE = [
