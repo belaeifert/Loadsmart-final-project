@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from .models import Load, RejectedLoad
 
 
-def list_loads(request, pk_carrier):
+def list_loads(request):
+    pk_carrier = request.user.id
+
     rej_loads = RejectedLoad.objects.filter(id_carrier=pk_carrier)
     
     available_loads = Load.objects.filter(status='available').exclude(
@@ -20,15 +22,15 @@ def list_loads(request, pk_carrier):
 def accept_load(request, pk_load):
     load = Load.objects.get(pk=pk_load)
     load.status = 'accepted'
-    #load.id_carrier = request.user.pk
-    load.id_carrier = 1
+    load.id_carrier = request.user.id
     load.save()
-    return redirect('list_loads', pk_carrier=1)
+    return redirect('list_loads')
 
 
 def reject_load(request, pk_load):
-    rej_load = RejectedLoad.objects.create(id_load=pk_load, id_carrier=1)
-    return redirect('list_loads', pk_carrier=1)
+    rej_load = RejectedLoad.objects.create(
+        id_load=pk_load, id_carrier=request.user.id)
+    return redirect('list_loads')
 
 
 def drop_load(request, pk_load):
@@ -37,6 +39,7 @@ def drop_load(request, pk_load):
     load.id_carrier = None
     load.save()
 
-    drop_load = RejectedLoad.objects.create(id_load=pk_load, id_carrier=1)
+    drop_load = RejectedLoad.objects.create(
+        id_load=pk_load, id_carrier=request.user.id)
 
-    return redirect('list_loads', pk_carrier=1)
+    return redirect('list_loads')
