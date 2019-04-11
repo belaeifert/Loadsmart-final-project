@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 from finalProject.shipper.forms import LoadForm
+from django.conf import settings
 
 
 def shipper_view(request):
@@ -14,7 +15,8 @@ def shipper_view(request):
             Load.objects.create(**form.cleaned_data)
             messages.success(request, 'Successful Post!')
     '''
-    return render(request, 'dashboard.html', {'form':LoadForm()})
+    context = {'form':LoadForm(), 'api_key': settings.GOOGLE_API_KEY}
+    return render(request, 'dashboard.html', context)
 
 
 class PostLoadView(PassRequestMixin, SuccessMessageMixin, generic.CreateView):
