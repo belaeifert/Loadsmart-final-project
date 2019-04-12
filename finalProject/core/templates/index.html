@@ -7,11 +7,32 @@
 <li><a title="carrier" href="#">Become a Carrier</a></li>
 <li><a title="about us" href="#">About us</a></li>
 <li><a title="sing up" href="{% url 'account:signup' %}">Sign up</a></li>
-<li><a title="login" href="{% url 'account:login' %}">Login</a></li> 
+<li><a title="login" class="login-popup" >Login</a></li> 
 
 {% endblock navbar-options%}
 
+
 {% block content %}
+
+<!-- Login popup -->
+<section>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $(".login-popup").modalForm({
+                formURL: "{% url 'account:login' %}"
+            });
+        });
+    </script>
+</section> 
 
 
 <!-- Header area -->
