@@ -28,8 +28,9 @@
 </form>
 
 <script>
-      var origin_city_autocomplete = new google.maps.places.Autocomplete(document.getElementById('origin_city_id'));
-      var destination_city_autocomplete = new google.maps.places.Autocomplete(document.getElementById('destination_city_id'));
+      var options = { types: ['(cities)'] };
+      var origin_city_autocomplete = new google.maps.places.Autocomplete(document.getElementById('origin_city_id'), options);
+      var destination_city_autocomplete = new google.maps.places.Autocomplete(document.getElementById('destination_city_id'), options);
 
       // calculate distance
         function calculateDistance() {
