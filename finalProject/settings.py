@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ['*']
 # AUTHENTICATION
 AUTH_USER_MODEL = 'account.User'
 LOGIN_REDIRECT_URL = 'account:redirect_home'
+LOGOUT_REDIRECT_URL = 'index'
+
 
 # Application definition
 

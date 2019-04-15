@@ -6,6 +6,7 @@
 {% block title %} Carrier's Page {% endblock title %} 
 
 {% block navbar-options %} 
+<li><a title="logout" href="{% url 'account:logout' %}" onclick="return confirm('Are you sure you want to logout?')">Logout</a></li> 
 {% endblock navbar-options%}
 
 {% block content %}
@@ -50,8 +51,8 @@
                <td>{{load.destination}}</td>
                <td>{{load.carrier_price}}</td>
                <td>{{load.id_shipper}}</td>
-               <td><a class="btn post" href="{% url 'accept_load' pk_load=load.pk %}"> ACCEPT </a></td>
-               <td><a class="btn post" href="{% url 'reject_load' pk_load=load.pk %}"> REJECT </a></td>
+               <td><a class="btn post" href="{% url 'carrier:accept_load' pk_load=load.pk %}"> ACCEPT </a></td>
+               <td><a class="btn post" href="{% url 'carrier:reject_load' pk_load=load.pk %}"> REJECT </a></td>
             </tr>
             {% endfor %}
          </table>
@@ -73,7 +74,7 @@
                <td>{{load.destination}}</td>
                <td>{{load.carrier_price}}</td>
                <td>{{load.id_shipper}}</td>
-               <td><a class="btn post" href="{% url 'drop_load' pk_load=load.pk %}"> DROP </a></td>
+               <td><a class="btn post" href="{% url 'carrier:drop_load' pk_load=load.pk %}"> DROP </a></td>
             </tr>
             {% endfor %}
          </table>

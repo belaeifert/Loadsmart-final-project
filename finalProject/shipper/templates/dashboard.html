@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block navbar-options %} 
+<li><a title="logout" href="{% url 'account:logout' %}" onclick="return confirm('Are you sure you want to logout?')">Logout</a></li> 
+{% endblock navbar-options%}
+
 {% block content %}
 <br/>
 <br/>
