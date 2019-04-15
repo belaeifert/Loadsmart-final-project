@@ -1,13 +1,17 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 
-{% extends 'base_carrier.html' %}
+{% extends 'base.html' %}
 
-{% block title %} Carrier's Page {% endblock title %}
+
+{% block title %} Carrier's Page {% endblock title %} 
+
+{% block navbar-options %} 
+{% endblock navbar-options%}
 
 {% block content %}
-<p>{{ linebreaksbr }}</p>
-<p>{{ linebreaksbr }}</p>
-<p>{{ linebreaksbr }}</p>
+<br/>
+
+
 <div class="TabControl">
    <div id="header">
       <ul class="abas">
@@ -47,6 +51,7 @@
                <td>{{load.carrier_price}}</td>
                <td>{{load.id_shipper}}</td>
                <td><a class="btn post" href="{% url 'accept_load' pk_load=load.pk %}"> ACCEPT </a></td>
+               <td><a class="btn post" href="{% url 'reject_load' pk_load=load.pk %}"> REJECT </a></td>
             </tr>
             {% endfor %}
          </table>
@@ -68,11 +73,31 @@
                <td>{{load.destination}}</td>
                <td>{{load.carrier_price}}</td>
                <td>{{load.id_shipper}}</td>
+               <td><a class="btn post" href="{% url 'drop_load' pk_load=load.pk %}"> DROP </a></td>
             </tr>
             {% endfor %}
          </table>
       </div>
       <div class="conteudo">
+         <table style="width:80%">
+            <caption>Rejected loads</caption>
+            <tr>
+               <th>Pickup Date</th>
+               <th>Origin City</th>
+               <th>Destination City</th>
+               <th>Price</th>
+               <th>Shipper</th>
+            </tr>
+            {% for load in rejected_loads %}
+            <tr>
+               <td>{{load.pickup_date}}</td>
+               <td>{{load.origin}}</td>
+               <td>{{load.destination}}</td>
+               <td>{{load.carrier_price}}</td>
+               <td>{{load.id_shipper}}</td>
+            </tr>
+            {% endfor %}
+         </table>
       </div>
    </div>
 </div>
