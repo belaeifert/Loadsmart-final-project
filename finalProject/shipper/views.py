@@ -6,7 +6,6 @@ from django.views import generic
 from finalProject.shipper.forms import LoadForm
 from django.conf import settings
 
-
 def shipper_view(request):
     '''
     if request.method == 'POST':
@@ -25,5 +24,4 @@ class PostLoadView(PassRequestMixin, SuccessMessageMixin, generic.CreateView):
     success_message = 'Success: Load was posted.'
     success_url = reverse_lazy('shipper:dashboard')
 
-def defineSuggestedPrice(miles):
-    return (miles * 1.50) / 1.05
+
