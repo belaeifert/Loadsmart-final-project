@@ -25,6 +25,6 @@ class PostLoadView(PassRequestMixin, SuccessMessageMixin, generic.CreateView):
     template_name = 'post-load.html'
     form_class = LoadForm
     success_message = 'Success: Load was posted.'
-    success_url = reverse_lazy('shipper:dashboard')
+    success_url = reverse_lazy('shipper:home')
 
 

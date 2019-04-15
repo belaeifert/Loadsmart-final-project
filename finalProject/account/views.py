@@ -22,7 +22,7 @@ def RedirectHome(request):
     # After login, redirect Shipper/Carrier to respective homepage
     try:
         shipper = Shipper.objects.get(user__id=request.user.id)
-        return redirect('shipper:dashboard')
+        return redirect('shipper:home')
     except:
         pass
     try:
@@ -43,7 +43,7 @@ class ShipperSignUpView(PassRequestMixin, SuccessMessageMixin, CreateView):
             user = form.save()
             login(self.request, user)
             #messages.success(self.request, self.success_message)
-        return redirect('shipper:dashboard')
+        return redirect('shipper:home')
 
 
 class CarrierSignUpView(PassRequestMixin, SuccessMessageMixin, CreateView):
