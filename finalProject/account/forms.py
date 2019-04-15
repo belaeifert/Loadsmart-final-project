@@ -5,7 +5,7 @@ from .models import Shipper, Carrier, User
 from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
 
 
-class ShipperSignUpForm2(PopRequestMixin, CreateUpdateAjaxMixin,
+class ShipperSignUpForm(PopRequestMixin, CreateUpdateAjaxMixin,
                              UserCreationForm):
     user_type = "Shipper" 
 
@@ -21,7 +21,7 @@ class ShipperSignUpForm2(PopRequestMixin, CreateUpdateAjaxMixin,
         return user 
 
 
-class CarrierSignUpForm2(PopRequestMixin, CreateUpdateAjaxMixin,
+class CarrierSignUpForm(PopRequestMixin, CreateUpdateAjaxMixin,
                              UserCreationForm): 
     user_type = "Carrier" 
 

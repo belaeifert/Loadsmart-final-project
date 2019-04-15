@@ -3,12 +3,13 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from .models import Carrier, Shipper
-from .forms import CarrierSignUpForm2, ShipperSignUpForm2
+from .forms import CarrierSignUpForm, ShipperSignUpForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.messages.views import SuccessMessageMixin
 from bootstrap_modal_forms.mixins import LoginAjaxMixin, PassRequestMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 class CustomLoginView(LoginAjaxMixin, SuccessMessageMixin, LoginView):
     authentication_form = AuthenticationForm
@@ -31,12 +32,11 @@ def RedirectHome(request):
         pass
 
 
-class ShipperSignUpView2(PassRequestMixin, SuccessMessageMixin, CreateView):
+class ShipperSignUpView(PassRequestMixin, SuccessMessageMixin, CreateView):
     model = Shipper
-    form_class = ShipperSignUpForm2
+    form_class = ShipperSignUpForm
     template_name = 'registration/signup_form.html'
     success_message = 'Success: Sign up succeeded.'
-    #success_url = reverse_lazy('shipper:dashboard')
 
     def form_valid(self, form):
         if not self.request.is_ajax():
@@ -46,12 +46,11 @@ class ShipperSignUpView2(PassRequestMixin, SuccessMessageMixin, CreateView):
         return redirect('shipper:dashboard')
 
 
-class CarrierSignUpView2(PassRequestMixin, SuccessMessageMixin, CreateView):
+class CarrierSignUpView(PassRequestMixin, SuccessMessageMixin, CreateView):
     model = Carrier
-    form_class = CarrierSignUpForm2
+    form_class = CarrierSignUpForm
     template_name = 'registration/signup_form.html'
     success_message = 'Success: Sign up succeeded.'
-    #success_url = reverse_lazy('carrier:list_loads', pk_carrier=2)
 
     def form_valid(self, form):
         if not self.request.is_ajax():
