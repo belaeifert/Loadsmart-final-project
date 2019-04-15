@@ -3,16 +3,45 @@
 <!-- navbar -->
 {% block navbar-options %}
 
-<li><a title="shipper" href="{% url 'shipper:home' %}">Shipper</a></li>
-<li><a title="carrier" href="#">Become a Carrier</a></li>
 <li><a title="about us" href="#">About us</a></li>
-<li><a title="sing up" href="{% url 'account:signup' %}">Sign up</a></li>
-<li><a title="login" href="{% url 'account:login' %}">Login</a></li> 
-
+{% if user.is_authenticated %}
+    <li><a title="home" href="{% url 'account:redirect_home' %}">Homepage</a></li>
+    <li><a title="logout" href="{% url 'account:logout' %}" onclick="return confirm('Are you sure you want to logout?')">Logout</a></li> 
+{% else %}
+    <li><a title="sign up shipper" class="shipper-signup-popup-button" >Become a Shipper</a></li>  
+    <li><a title="sign up carrier" class="carrier-signup-popup-button" >Become a Carrier</a></li>   
+    <li><a title="login" class="login-popup-button" >Login</a></li>   
+{% endif %}
+ 
 {% endblock navbar-options%}
+
 
 {% block content %}
 
+<!-- Popups -->
+<section>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" >
+        $(document).ready(function() {
+            $(".login-popup-button").modalForm({
+                formURL: "{% url 'account:login' %}" 
+            });
+            $(".shipper-signup-popup-button").modalForm({
+                formURL: "{% url 'account:shipper_signup' %}" 
+            });
+            $(".carrier-signup-popup-button").modalForm({
+                formURL: "{% url 'account:carrier_signup' %}" 
+            });
+        });
+    </script>
+</section>  
 
 <!-- Header area -->
 <div id="header-wrapper" class="header-slider">
