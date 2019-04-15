@@ -23,3 +23,6 @@ class Load(models.Model):
         return self.price*0.95
 
 
+class RejectedLoad(models.Model):
+    id_load = models.IntegerField()
+    id_carrier = models.IntegerField()

@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Shipper, Load
 
-# Register your models here.
+
+admin.site.register(Shipper)
+admin.site.register(Load)

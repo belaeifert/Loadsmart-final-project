@@ -22,17 +22,70 @@
 
   <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <button type="button" class="submit-btn btn btn-primary">Create</button>
+    <button id="post_load_button" type="button" class="submit-btn btn btn-primary">Post Load</button>
   </div>
 
 </form>
 
 <script>
-      var origin_city_input = document.getElementById('origin_city_id');
-      var origin_city_autocomplete = new google.maps.places.Autocomplete(origin_city_input);
+      var origin_city_autocomplete = new google.maps.places.Autocomplete(document.getElementById('origin_city_id'));
+      var destination_city_autocomplete = new google.maps.places.Autocomplete(document.getElementById('destination_city_id'));
 
-      var destination_city_input = document.getElementById('destination_city_id');
-      var destination_city_autocomplete = new google.maps.places.Autocomplete(destination_city_input);
+      // calculate distance
+        function calculateDistance() {
+            var origin = $('#origin_city_id').val();
+            var destination = $('#destination_city_id').val();
+
+            if(origin != "" && destination != ""){
+                var service = new google.maps.DistanceMatrixService();
+                service.getDistanceMatrix(
+                    {
+                        origins: [origin],
+                        destinations: [destination],
+                        travelMode: google.maps.TravelMode.DRIVING,
+                        unitSystem: google.maps.UnitSystem.IMPERIAL, // miles and feet.
+                        avoidHighways: false,
+                        avoidTolls: false
+                    }, callback);
+            } else{
+                console.log("origin or destination is empty");
+            }
+        }
+
+      // get distance results
+        function callback(response, status) {
+            console.log('callback function')
+            if (status != google.maps.DistanceMatrixStatus.OK) {
+                $('#suggested_price_id').html(err);
+            } else {
+                var origin = response.originAddresses[0];
+                var destination = response.destinationAddresses[0];
+                if (response.rows[0].elements[0].status === "NOT_FOUND" ||
+                        response.rows[0].elements[0].status === "ZERO_RESULTS") {
+                    document.getElementById("suggested_price_id").value = 'There are no roads between origin and destination places';
+                } else {
+                    console.log(response)
+                    var distance = response.rows[0].elements[0].distance;
+                    var distance_in_mile = distance.value / 1609.34; // the mile
+                    sugestedPrice(distance_in_mile);
+                }
+            }
+        }
+
+      // calculate suggested price
+      function sugestedPrice(miles){
+        document.getElementById("suggested_price_id").value = (miles * 1.50).toFixed(2);
+      }
+
+    google.maps.event.addListener(origin_city_autocomplete, 'place_changed', function() {
+        calculateDistance();
+    });
+
+    google.maps.event.addListener(destination_city_autocomplete, 'place_changed', function() {
+        calculateDistance();
+    });
+
+
 </script>
 
 
