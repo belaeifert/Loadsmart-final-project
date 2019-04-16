@@ -64,7 +64,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None):
         send_mail(subject, message, from_email, [self.email])
 
-
+'''
 class Carrier(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='carrier_user')
@@ -74,3 +74,4 @@ class Carrier(models.Model):
 class Shipper(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='shipper_user')
+'''

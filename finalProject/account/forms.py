@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
-from .models import Shipper, Carrier, User
+from .models import User
+from finalProject.carrier.models import CarrierUser
+from finalProject.shipper.models import ShipperUser
 from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
 
 
@@ -17,7 +19,7 @@ class ShipperSignUpForm(PopRequestMixin, CreateUpdateAjaxMixin,
     def save(self):
         user = super().save(commit=False)
         user.save()
-        shipper = Shipper.objects.create(user=user)
+        shipper = ShipperUser.objects.create(user=user)
         return user 
 
 
@@ -35,6 +37,6 @@ class CarrierSignUpForm(PopRequestMixin, CreateUpdateAjaxMixin,
     def save(self):
         user = super().save(commit=False)
         user.save()
-        carrier = Carrier.objects.create(
+        carrier = CarrierUser.objects.create(
             user=user, MC_number=self.cleaned_data["mc_numb"])
         return user

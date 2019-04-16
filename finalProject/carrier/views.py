@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Load, RejectedLoad
+from finalProject.shipper.models import Load
+from finalProject.carrier.models import RejectedLoad
 from django.contrib.auth.decorators import login_required
 
 
