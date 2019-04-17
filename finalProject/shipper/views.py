@@ -28,3 +28,5 @@ class PostLoadView(PassRequestMixin, SuccessMessageMixin, generic.CreateView):
     success_url = reverse_lazy('shipper:home')
 
 
+
+
