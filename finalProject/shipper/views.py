@@ -31,7 +31,6 @@ class PostLoadView(PassRequestMixin, SuccessMessageMixin, generic.CreateView):
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.shipper = ShipperUser.objects.get(pk=self.request.user.id)
-        obj.save()
         super().form_valid(form)
         return redirect('shipper:home')
 
