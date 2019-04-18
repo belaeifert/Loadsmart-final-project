@@ -25,4 +25,3 @@ class Load(models.Model):
     def carrier_price(self):
         return self.price*0.95
 
-

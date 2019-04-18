@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from finalProject.shipper.models import Load
-from finalProject.carrier.models import RejectedLoad
+from finalProject.carrier.models import RejectedLoad, CarrierUser
 from django.contrib.auth.decorators import login_required
 
 
@@ -8,13 +8,19 @@ from django.contrib.auth.decorators import login_required
 def list_loads(request):
     pk_carrier = request.user.id
 
-    rej_loads = RejectedLoad.objects.filter(id_carrier=pk_carrier)
+    #rej_loads = RejectedLoad.objects.filter(id_carrier=pk_carrier)
+    rej_loads = RejectedLoad.objects.filter(carrier_id=pk_carrier)
 
+    #available_loads = Load.objects.filter(status='available').exclude(
+    #    id__in=rej_loads.values('id_load'))
     available_loads = Load.objects.filter(status='available').exclude(
-        id__in=rej_loads.values('id_load'))
+        id__in=rej_loads.values('load_id'))
+    #accepted_loads = Load.objects.filter(
+    #    status='accepted', id_carrier=pk_carrier)
     accepted_loads = Load.objects.filter(
-        status='accepted', id_carrier=pk_carrier)
-    rejected_loads = Load.objects.filter(id__in=rej_loads.values('id_load'))
+        status='accepted', carrier_id=pk_carrier)
+    #rejected_loads = Load.objects.filter(id__in=rej_loads.values('id_load'))
+    rejected_loads = Load.objects.filter(id__in=rej_loads.values('load_id'))
 
     return render(request, 'carrier_abas.html', {
         'available_loads': available_loads,
@@ -23,26 +29,35 @@ def list_loads(request):
 
 
 def accept_load(request, pk_load):
+    carrier = CarrierUser.objects.get(pk=request.user.id)
     load = Load.objects.get(pk=pk_load)
     load.status = 'accepted'
-    load.id_carrier = request.user.id
+    load.carrier = carrier
     load.save()
     return redirect('carrier:list_loads')
 
 
 def reject_load(request, pk_load):
+    load = Load.objects.get(pk=pk_load)
+    carrier = CarrierUser.objects.get(pk=request.user.id)
+    #rej_load = RejectedLoad.objects.create(
+    #    id_load=pk_load, id_carrier=request.user.id)
     rej_load = RejectedLoad.objects.create(
-        id_load=pk_load, id_carrier=request.user.id)
+        load=load, carrier=carrier)
     return redirect('carrier:list_loads')
 
 
 def drop_load(request, pk_load):
     load = Load.objects.get(pk=pk_load)
     load.status = 'available'
-    load.id_carrier = None
+    load.carrier = None
     load.save()
 
+    carrier = CarrierUser.objects.get(pk=request.user.id)
+
+    #drop_load = RejectedLoad.objects.create(
+    #    id_load=pk_load, id_carrier=request.user.id)
     drop_load = RejectedLoad.objects.create(
-        id_load=pk_load, id_carrier=request.user.id)
+        load=load, carrier=carrier)
 
     return redirect('carrier:list_loads')

@@ -2,7 +2,6 @@
 
 {% extends 'base.html' %}
 
-
 {% block title %} Carrier's Page {% endblock title %} 
 
 {% block navbar-options %} 
@@ -11,7 +10,6 @@
 
 {% block content %}
 <br/>
-
 
 <div class="TabControl">
    <div id="header">
@@ -35,8 +33,9 @@
    </div>
    <div id="content">
       <div class="conteudo">
-         <table style="width:80%">
+         <table class="table table-striped" style="width:80%">
             <caption>Available loads</caption>
+            <thead>
             <tr >
                <th>Pickup Date</th>
                <th>Origin City</th>
@@ -44,21 +43,24 @@
                <th>Price</th>
                <th>Shipper</th>
             </tr>
+            </thead>
+            <tbody>
             {% for load in available_loads %}
             <tr>
                <td>{{load.pickup_date}}</td>
-               <td>{{load.origin}}</td>
-               <td>{{load.destination}}</td>
+               <td>{{load.origin_city}}</td>
+               <td>{{load.destination_city}}</td>
                <td>{{load.carrier_price}}</td>
-               <td>{{load.id_shipper}}</td>
-               <td><a class="btn post" href="{% url 'carrier:accept_load' pk_load=load.pk %}"> ACCEPT </a></td>
-               <td><a class="btn post" href="{% url 'carrier:reject_load' pk_load=load.pk %}"> REJECT </a></td>
+               <td>{{load.shipper.user.get_full_name}}</td>
+               <td><a class="btn btn-primary" href="{% url 'carrier:accept_load' pk_load=load.pk %}"> ACCEPT </a></td>
+               <td><a class="btn btn-primary" href="{% url 'carrier:reject_load' pk_load=load.pk %}"> REJECT </a></td>
             </tr>
             {% endfor %}
+            </tbody>
          </table>
       </div>
       <div class="conteudo">
-         <table style="width:80%">
+         <table class="table table-striped" style="width:80%">
             <caption>Accepted loads</caption>
             <tr>
                <th>Pickup Date</th>
@@ -70,17 +72,17 @@
             {% for load in accepted_loads %}
             <tr>
                <td>{{load.pickup_date}}</td>
-               <td>{{load.origin}}</td>
-               <td>{{load.destination}}</td>
+               <td>{{load.origin_city}}</td>
+               <td>{{load.destination_city}}</td>
                <td>{{load.carrier_price}}</td>
-               <td>{{load.id_shipper}}</td>
-               <td><a class="btn post" href="{% url 'carrier:drop_load' pk_load=load.pk %}"> DROP </a></td>
+               <td>{{load.shipper.user.get_full_name}}</td>
+               <td><a class="btn btn-primary" href="{% url 'carrier:drop_load' pk_load=load.pk %}"> DROP </a></td>
             </tr>
             {% endfor %}
          </table>
       </div>
       <div class="conteudo">
-         <table style="width:80%">
+         <table class="table table-striped" style="width:80%">
             <caption>Rejected loads</caption>
             <tr>
                <th>Pickup Date</th>
@@ -92,10 +94,10 @@
             {% for load in rejected_loads %}
             <tr>
                <td>{{load.pickup_date}}</td>
-               <td>{{load.origin}}</td>
-               <td>{{load.destination}}</td>
+               <td>{{load.origin_city}}</td>
+               <td>{{load.destination_city}}</td>
                <td>{{load.carrier_price}}</td>
-               <td>{{load.id_shipper}}</td>
+               <td>{{load.shipper.user.get_full_name}}</td>
             </tr>
             {% endfor %}
          </table>
