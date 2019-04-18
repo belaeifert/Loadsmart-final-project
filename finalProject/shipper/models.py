@@ -16,7 +16,7 @@ class Load(models.Model):
     origin_city = models.CharField(max_length=500, blank=True)
     destination_city = models.CharField(max_length=500, blank=True)
     price = models.FloatField()
-    status = models.CharField(max_length=50)
+    status = models.CharField(max_length=50, default="available")
     suggested_price = models.FloatField(null=True)
     carrier = models.ForeignKey('carrier.CarrierUser', on_delete=models.CASCADE, blank=True, null=True)
     shipper = models.ForeignKey(ShipperUser, on_delete=models.CASCADE, blank=True)
