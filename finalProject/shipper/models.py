@@ -22,8 +22,9 @@ class Load(models.Model):
     shipper = models.ForeignKey(ShipperUser, on_delete=models.CASCADE, blank=True)
 
     def __repr__(self):
-        return "Pickup date: {}, REF: {}, Origin City: {}, Destination city: {}, Price: {}".format(
-            self.pickup_date, self.ref, self.origin_city, self.destination_city, self.price)
+        return "Pickup date: {}, REF: {}, Origin City: {}, Destination city: {}, Price: {}, Carrier: {}, Shipper: {}".format(
+            self.pickup_date, self.ref, self.origin_city, self.destination_city,
+            self.price, self.carrier.user.id, self.shipper.user.id)
 
     def carrier_price(self):
         return self.price*0.95

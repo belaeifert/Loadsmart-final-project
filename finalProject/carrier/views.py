@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def list_loads(request):
     pk_carrier = request.user.id
+    print("**********************************************")
+    print(pk_carrier)
 
     rej_loads = RejectedLoad.objects.filter(carrier_id=pk_carrier)
     available_loads = Load.objects.filter(status='available').exclude(
@@ -22,7 +24,9 @@ def list_loads(request):
 
 
 def accept_load(request, pk_load):
-    carrier = CarrierUser.objects.get(pk=request.user.id)
+    print("****************************************8*******")
+    print(CarrierUser.objects.get(user_id=request.user.id))
+    carrier = CarrierUser.objects.get(user_id=request.user.id)
     load = Load.objects.get(pk=pk_load)
     load.status = 'accepted'
     load.carrier = carrier
@@ -32,7 +36,7 @@ def accept_load(request, pk_load):
 
 def reject_load(request, pk_load):
     load = Load.objects.get(pk=pk_load)
-    carrier = CarrierUser.objects.get(pk=request.user.id)
+    carrier = CarrierUser.objects.get(user_id=request.user.id)
     rej_load = RejectedLoad.objects.create(
         load=load, carrier=carrier)
     return redirect('carrier:list_loads')
