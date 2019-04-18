@@ -8,7 +8,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class CarrierUser(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='carrier_user')
-    MC_number = models.IntegerField(_('MC number'), max_length=8, null=False, blank=False)
+    MC_number = models.IntegerField(_('MC number'), null=False, blank=False)
 
 
 class RejectedLoad(models.Model):

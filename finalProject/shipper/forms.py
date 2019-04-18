@@ -1,7 +1,6 @@
 from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
 from django import forms
-from finalProject.shipper.models import Load
-from finalProject.shipper import views
+from finalProject.shipper.models import Load, ShipperUser
 
 
 class LoadForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
@@ -12,7 +11,14 @@ class LoadForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
     price = forms.FloatField(label='Price')
     suggested_price = forms.FloatField(label='Suggested price', disabled=True, required=False, widget=forms.TextInput(attrs={'id':'suggested_price_id'}))
 
+
     class Meta:
         model = Load
         fields = ['pickup_date', 'ref', 'origin_city', 'destination_city', 'price', 'suggested_price']
-
+'''
+    @transaction.atomic
+    def save(self):
+        shipper = ShipperUser.objects.get(pk=self.request.user.id)
+        self.request.
+        super().save()
+'''
