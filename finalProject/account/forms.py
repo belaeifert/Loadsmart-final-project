@@ -5,6 +5,7 @@ from .models import User
 from finalProject.carrier.models import CarrierUser
 from finalProject.shipper.models import ShipperUser
 from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class ShipperSignUpForm(PopRequestMixin, CreateUpdateAjaxMixin,
@@ -27,7 +28,10 @@ class CarrierSignUpForm(PopRequestMixin, CreateUpdateAjaxMixin,
                              UserCreationForm): 
     user_type = "Carrier" 
 
-    mc_numb = forms.IntegerField(label='MC Number', required=True)
+    mc_numb = forms.IntegerField(label='MC Number', required=True, validators=[
+                                    MaxValueValidator(99999999),
+                                    MinValueValidator(1)
+                                ])
 
     class Meta(UserCreationForm):
         model = User

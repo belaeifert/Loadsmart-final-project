@@ -2,7 +2,7 @@ from django.db import models
 from finalProject.account.models import User
 from finalProject.shipper.models import Load
 from django.utils.translation import ugettext_lazy as _
-
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class CarrierUser(models.Model):
