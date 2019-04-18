@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from finalProject.api.models import Load
+from finalProject.api.models import LoadAPI
 
 
 class LoadSerializer(serializers.Serializer):
@@ -13,7 +13,7 @@ class LoadSerializer(serializers.Serializer):
         """
         Create and return a new `Load` instance, given the validated data.
         """
-        return Load.objects.create(**validated_data)
+        return LoadAPI.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         """

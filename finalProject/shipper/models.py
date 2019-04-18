@@ -1,22 +1,30 @@
 from django.db import models
+from finalProject.account.models import User
 
-class Shipper(models.Model):
-    name = models.CharField(max_length=50, blank=True)
-    last_name = models.CharField(max_length=50, blank=True)
-    email = models.EmailField(blank=True)
-    #password
+
+class ShipperUser(models.Model):
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='shipper_user')
+
+    def __repr__(self):
+        return "ID: {}, Name: {}".format(self.pk, self.user.first_name)
 
 
 class Load(models.Model):
-    pickup_date = models.DateTimeField(blank=True, null=True)
-    ref = models.CharField(max_length=50) # which pattern
+    pickup_date = models.DateField(blank=True, null=True)
+    ref = models.CharField(max_length=50)
     origin_city = models.CharField(max_length=500, blank=True)
     destination_city = models.CharField(max_length=500, blank=True)
     price = models.FloatField()
-    #suggested_price = models.FloatField(blank=True)
-    #carrier = models.ForeignKey(Carrier, blank=True, on_delete=models.CASCADE)
-    #shipper = models.ForeignKey(Shipper, blank=True, on_delete=models.CASCADE) #blank=False
+    status = models.CharField(max_length=50)
+    suggested_price = models.FloatField(null=True)
+    carrier = models.ForeignKey('carrier.CarrierUser', on_delete=models.CASCADE, blank=True, null=True)
+    shipper = models.ForeignKey(ShipperUser, on_delete=models.CASCADE, blank=True)
 
     def __repr__(self):
         return "Pickup date: {}, REF: {}, Origin City: {}, Destination city: {}, Price: {}".format(
             self.pickup_date, self.ref, self.origin_city, self.destination_city, self.price)
+
+    def carrier_price(self):
+        return self.price*0.95
+

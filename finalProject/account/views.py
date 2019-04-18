@@ -2,7 +2,8 @@ from django.contrib.auth import login
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from .models import Carrier, Shipper
+from finalProject.carrier.models import CarrierUser
+from finalProject.shipper.models import ShipperUser
 from .forms import CarrierSignUpForm, ShipperSignUpForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
@@ -21,19 +22,19 @@ class CustomLoginView(LoginAjaxMixin, SuccessMessageMixin, LoginView):
 def RedirectHome(request):
     # After login, redirect Shipper/Carrier to respective homepage
     try:
-        shipper = Shipper.objects.get(user__id=request.user.id)
+        shipper = ShipperUser.objects.get(user__id=request.user.id)
         return redirect('shipper:home')
     except:
         pass
     try:
-        carrier = Carrier.objects.get(user__id=request.user.id)
+        carrier = CarrierUser.objects.get(user__id=request.user.id)
         return redirect('carrier:list_loads')
     except:
         pass
 
 
 class ShipperSignUpView(PassRequestMixin, SuccessMessageMixin, CreateView):
-    model = Shipper
+    model = ShipperUser
     form_class = ShipperSignUpForm
     template_name = 'registration/signup_form.html'
     success_message = 'Success: Sign up succeeded.'
@@ -47,7 +48,7 @@ class ShipperSignUpView(PassRequestMixin, SuccessMessageMixin, CreateView):
 
 
 class CarrierSignUpView(PassRequestMixin, SuccessMessageMixin, CreateView):
-    model = Carrier
+    model = CarrierUser
     form_class = CarrierSignUpForm
     template_name = 'registration/signup_form.html'
     success_message = 'Success: Sign up succeeded.'

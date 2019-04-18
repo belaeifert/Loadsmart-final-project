@@ -1,11 +1,12 @@
 from bootstrap_modal_forms.mixins import PassRequestMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from finalProject.shipper.forms import LoadForm
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from finalProject.shipper.models import ShipperUser
 
 
 @login_required
@@ -27,6 +28,12 @@ class PostLoadView(PassRequestMixin, SuccessMessageMixin, generic.CreateView):
     success_message = 'Success: Load was posted.'
     success_url = reverse_lazy('shipper:home')
 
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.shipper = ShipperUser.objects.get(pk=self.request.user.id)
+        obj.save()
+        super().form_valid(form)
+        return redirect('shipper:home')
 
 
 

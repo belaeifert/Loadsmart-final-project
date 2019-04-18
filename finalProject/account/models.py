@@ -1,12 +1,8 @@
-import re
 from django.db import models
-from django.core import validators
 from django.utils import timezone
 from django.core.mail import send_mail
-from django.utils.http import urlquote
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-from django.conf import settings
 
 
 class UserManager(BaseUserManager):
@@ -63,14 +59,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def email_user(self, subject, message, from_email=None):
         send_mail(subject, message, from_email, [self.email])
-
-
-class Carrier(models.Model):
-    user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name='carrier_user')
-    MC_number = models.IntegerField(_('MC number'), null=False, blank=False)
-
-
-class Shipper(models.Model):
-    user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name='shipper_user')

@@ -1,28 +1,16 @@
 from django.db import models
+from finalProject.account.models import User
+from finalProject.shipper.models import Load
+from django.utils.translation import ugettext_lazy as _
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
-class Carrier(models.Model):
-    name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
-    MC_number = models.IntegerField()
-    # password
-
-
-class Load(models.Model):
-    pickup_date = models.DateField()
-    origin = models.CharField(max_length=100)
-    destination = models.CharField(max_length=100)
-    status = models.CharField(max_length=50)
-    price = models.FloatField()
-    id_shipper = models.IntegerField()
-    id_carrier = models.IntegerField(blank=True, null=True)
-    #id_carrier = models.ForeignKey(Carrier, on_delete=models.CASCADE, blank=True, null=True)
-
-    def carrier_price(self):
-        return self.price*0.95
+class CarrierUser(models.Model):
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='carrier_user')
+    MC_number = models.IntegerField(_('MC number'), null=False, blank=False)
 
 
 class RejectedLoad(models.Model):
-    id_load = models.IntegerField()
-    id_carrier = models.IntegerField()
+    load = models.ForeignKey(Load, on_delete=models.CASCADE)
+    carrier = models.ForeignKey(CarrierUser, on_delete=models.CASCADE)

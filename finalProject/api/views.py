@@ -1,16 +1,16 @@
-from finalProject.api.models import Load
+from finalProject.api.models import LoadAPI
 from finalProject.api.serializers import LoadSerializer
 from rest_framework import generics
 from rest_framework import mixins
 from rest_framework import generics
 
 class LoadList(generics.ListCreateAPIView):
-    queryset = Load.objects.all()
+    queryset = LoadAPI.objects.all()
     serializer_class = LoadSerializer
 
 
 class LoadDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Load.objects.all()
+    queryset = LoadAPI.objects.all()
     serializer_class = LoadSerializer
 
 '''
