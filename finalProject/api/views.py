@@ -2,14 +2,20 @@ from finalProject.api.serializers import LoadSerializer
 from rest_framework import generics, viewsets
 from rest_framework import mixins
 from rest_framework import generics
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from finalProject.shipper.models import Load
 
 class LoadViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     queryset = Load.objects.all()
     serializer_class = LoadSerializer
+    
 
 '''
 class LoadList(generics.ListCreateAPIView):
