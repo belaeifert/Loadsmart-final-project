@@ -41,7 +41,7 @@ class CarrierSignUpForm(PopRequestMixin, CreateUpdateAjaxMixin,
     def clean_mc_numb(self):
         MC_number = self.cleaned_data['mc_numb']
         if CarrierUser.objects.filter(MC_number=MC_number).exists():
-            raise ValidationError("MC number already exists")
+            raise ValidationError("This MC number is already registered")
         return MC_number
 
     @transaction.atomic
