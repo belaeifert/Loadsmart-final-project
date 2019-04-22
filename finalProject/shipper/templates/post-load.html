@@ -28,7 +28,7 @@
 </form>
 
 <script>
-      var options = { types: ['(cities)'] };
+      var options = { types: ['(cities)'], componentRestrictions: {country: 'us'} };
       var origin_city_autocomplete = new google.maps.places.Autocomplete(document.getElementById('origin_city_id'), options);
       var destination_city_autocomplete = new google.maps.places.Autocomplete(document.getElementById('destination_city_id'), options);
 
@@ -63,7 +63,6 @@
                 var destination = response.destinationAddresses[0];
                 if (response.rows[0].elements[0].status === "NOT_FOUND" ||
                         response.rows[0].elements[0].status === "ZERO_RESULTS") {
-                    document.getElementById("suggested_price_id").value = 'There are no roads between origin and destination places';
                 } else {
                     console.log(response)
                     var distance = response.rows[0].elements[0].distance;
