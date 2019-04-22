@@ -8,6 +8,9 @@ class ShipperUser(models.Model):
 
     def __repr__(self):
         return "ID: {}, Name: {}".format(self.pk, self.user.first_name)
+    
+    def __str__(self):
+        return self.user.first_name + ' ' + self.user.last_name
 
 
 class Load(models.Model):
@@ -25,6 +28,9 @@ class Load(models.Model):
         return "Pickup date: {}, REF: {}, Origin City: {}, Destination city: {}, Price: {}, Carrier: {}, Shipper: {}".format(
             self.pickup_date, self.ref, self.origin_city, self.destination_city,
             self.price, self.carrier.user.id, self.shipper.user.id)
+
+    def __str__(self):
+        return self.ref
 
     def carrier_price(self):
         return self.price*0.95

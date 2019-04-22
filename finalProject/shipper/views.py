@@ -8,6 +8,8 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from finalProject.shipper.models import ShipperUser
 
+from .models import Load
+
 
 @login_required
 def shipper_view(request):
@@ -18,7 +20,7 @@ def shipper_view(request):
             Load.objects.create(**form.cleaned_data)
             messages.success(request, 'Successful Post!')
     '''
-    context = {'form':LoadForm(), 'api_key': settings.GOOGLE_API_KEY}
+    context = {'loads': Load.objects.all(), 'form':LoadForm(), 'api_key': settings.GOOGLE_API_KEY}
     return render(request, 'dashboard.html', context)
 
 
