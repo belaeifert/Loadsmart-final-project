@@ -76,6 +76,8 @@
       // calculate suggested price
       function sugestedPrice(miles){
         document.getElementById("suggested_price_id").value = (miles * 1.50).toFixed(2);
+        document.getElementById("suggested_price_id").disabled = true;
+
       }
 
     google.maps.event.addListener(origin_city_autocomplete, 'place_changed', function() {
