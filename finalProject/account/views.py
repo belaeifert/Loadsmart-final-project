@@ -16,7 +16,7 @@ class CustomLoginView(LoginAjaxMixin, SuccessMessageMixin, LoginView):
     authentication_form = AuthenticationForm
     template_name = 'registration/login.html'
     success_message = 'Success: You were successfully logged in.'
-    success_url = reverse_lazy('account:redirect_home')
+    redirect_authenticated_user = True
 
 
 def RedirectHome(request):
@@ -25,12 +25,11 @@ def RedirectHome(request):
         shipper = ShipperUser.objects.get(user__id=request.user.id)
         return redirect('shipper:home')
     except:
-        pass
-    try:
-        carrier = CarrierUser.objects.get(user__id=request.user.id)
-        return redirect('carrier:list_loads')
-    except:
-        pass
+        try:
+            carrier = CarrierUser.objects.get(user__id=request.user.id)
+            return redirect('carrier:list_loads')
+        except:
+            return redirect('index')
 
 
 class ShipperSignUpView(PassRequestMixin, SuccessMessageMixin, CreateView):

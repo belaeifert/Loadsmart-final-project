@@ -1,5 +1,3 @@
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-
 {% extends 'base.html' %}
 
 {% block title %} Carrier's Page {% endblock title %} 
@@ -9,35 +7,87 @@
 {% endblock navbar-options%}
 
 {% block content %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+
+<br/>
+<br/>
 <br/>
 
-<div class="TabControl">
-   <div id="header">
-      <ul class="abas">
-         <li>
-            <div class="aba">
-               <span>Available loads</span>
-            </div>
-         </li>
-         <li>
-            <div class="aba">
-               <span>Accepted loads</span>
-            </div>
-         </li>
-         <li>
-            <div class="aba">
-               <span>Rejected loads</span>
-            </div>
-         </li>
-      </ul>
-   </div>
-   <div id="content">
-      <div class="conteudo">
-         <table class="table table-striped" style="width:80%">
-            <caption>Available loads</caption>
-            <thead>
+<ul class="nav nav-pills" id="pills-tab" style="width:80%; margin: 0px auto; ">
+   <li class="active"><a href="#tab1" data-toggle="tab">Available loads</a></li>
+   <li><a href="#tab2" data-toggle="tab">Accepted loads</a></li>
+   <li><a href="#tab3" data-toggle="tab">Rejected loads</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="tab1" style="width:80%; margin: 0px auto;">
+      <table id="tableAvailable" class="table " >
+            <thead style="color:white; background-color: #4c4c4c;">
             <tr >
                <th>Pickup Date</th>
+               <th>Ref.</th>
+               <th>Origin City</th>
+               <th>Destination City</th>
+               <th>Price</th>
+               <th>Shipper</th>
+               <th> </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for load in available_loads %}
+            <tr>
+               <td>{{load.pickup_date}}</td>
+               <td>{{load.ref}}</td>
+               <td>{{load.origin_city}}</td>
+               <td>{{load.destination_city}}</td>
+               <td>${{load.carrier_price}}</td>
+               <td>{{load.shipper.user.get_full_name}}</td>
+               <td style="text-align: center;">
+                  <a class="btn " href="{% url 'carrier:reject_load' pk_load=load.pk %}"> Reject </a>
+                  <a class="btn btn-success " href="{% url 'carrier:accept_load' pk_load=load.pk %}"> Accept </a>
+               </td>
+               
+            </tr>
+            {% endfor %}
+            </tbody>
+         </table>
+         <br/> <br/> <br/>
+    </div>
+    <div class="tab-pane" id="tab2" style="width:80%; margin: 0px auto;">
+      <table id="tableAccepted" class="table " >
+            <thead style="color:white; background-color: #4c4c4c;">
+            <tr>
+               <th>Pickup Date</th>
+               <th>Ref.</th>
+               <th>Origin City</th>
+               <th>Destination City</th>
+               <th>Price</th>
+               <th>Shipper</th>
+               <th> </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for load in accepted_loads %}
+            <tr>
+               <td>{{load.pickup_date}}</td>
+               <td>{{load.ref}}</td>
+               <td>{{load.origin_city}}</td>
+               <td>{{load.destination_city}}</td>
+               <td>${{load.carrier_price}}</td>
+               <td>{{load.shipper.user.get_full_name}}</td>
+               <td style="text-align: center;"><a class="btn " href="{% url 'carrier:drop_load' pk_load=load.pk %}"> Drop </a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+         </table>
+         <br/> <br/> <br/>
+    </div>
+    <div class="tab-pane" id="tab3" style="width:80%; margin: 0px auto;">
+      <table id="tableRejected" class="table " >
+            <thead style="color:white; background-color: #4c4c4c;">
+            <tr>
+               <th>Pickup Date</th>
+               <th>Ref.</th>
                <th>Origin City</th>
                <th>Destination City</th>
                <th>Price</th>
@@ -45,63 +95,46 @@
             </tr>
             </thead>
             <tbody>
-            {% for load in available_loads %}
+            {% for load in rejected_loads %}
             <tr>
                <td>{{load.pickup_date}}</td>
+               <td>{{load.ref}}</td>
                <td>{{load.origin_city}}</td>
                <td>{{load.destination_city}}</td>
-               <td>{{load.carrier_price}}</td>
+               <td>${{load.carrier_price}}</td>
                <td>{{load.shipper.user.get_full_name}}</td>
-               <td><a class="btn btn-primary" href="{% url 'carrier:accept_load' pk_load=load.pk %}"> ACCEPT </a></td>
-               <td><a class="btn btn-primary" href="{% url 'carrier:reject_load' pk_load=load.pk %}"> REJECT </a></td>
             </tr>
             {% endfor %}
             </tbody>
          </table>
-      </div>
-      <div class="conteudo">
-         <table class="table table-striped" style="width:80%">
-            <caption>Accepted loads</caption>
-            <tr>
-               <th>Pickup Date</th>
-               <th>Origin City</th>
-               <th>Destination City</th>
-               <th>Price</th>
-               <th>Shipper</th>
-            </tr>
-            {% for load in accepted_loads %}
-            <tr>
-               <td>{{load.pickup_date}}</td>
-               <td>{{load.origin_city}}</td>
-               <td>{{load.destination_city}}</td>
-               <td>{{load.carrier_price}}</td>
-               <td>{{load.shipper.user.get_full_name}}</td>
-               <td><a class="btn btn-primary" href="{% url 'carrier:drop_load' pk_load=load.pk %}"> DROP </a></td>
-            </tr>
-            {% endfor %}
-         </table>
-      </div>
-      <div class="conteudo">
-         <table class="table table-striped" style="width:80%">
-            <caption>Rejected loads</caption>
-            <tr>
-               <th>Pickup Date</th>
-               <th>Origin City</th>
-               <th>Destination City</th>
-               <th>Price</th>
-               <th>Shipper</th>
-            </tr>
-            {% for load in rejected_loads %}
-            <tr>
-               <td>{{load.pickup_date}}</td>
-               <td>{{load.origin_city}}</td>
-               <td>{{load.destination_city}}</td>
-               <td>{{load.carrier_price}}</td>
-               <td>{{load.shipper.user.get_full_name}}</td>
-            </tr>
-            {% endfor %}
-         </table>
-      </div>
-   </div>
+         <br/> <br/> <br/>
+    </div>
 </div>
+
+<script>
+   $(document).ready( function () {
+      $('#tableAvailable').DataTable({
+         "paging": false,
+         "info": false,
+         "language": {
+            "emptyTable": "There are no available loads"
+         }
+      });
+      $('#tableAccepted').DataTable({
+         "paging": false,
+         "info": false,
+         "language": {
+            "emptyTable": "There are no accepted loads"
+         }
+      });
+      $('#tableRejected').DataTable({
+         "paging": false,
+         "info": false,
+         "language": {
+            "emptyTable": "There are no rejected loads"
+         }
+      });
+   } );
+</script>
+
 {% endblock %}
