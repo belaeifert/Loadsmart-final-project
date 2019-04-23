@@ -9,14 +9,14 @@ class ShipperUser(models.Model):
     class Meta:
         verbose_name = 'Shipper'
         verbose_name_plural = 'Shippers'
-'''
+    '''
     def __str__(self):
         return "shipper id: {}, user id: {}, Name: {}".format(
             self.pk, self.user.pk, self.user.first_name
         )
     def __repr__(self):
         return "ID: {}, Name: {}".format(self.pk, self.user.first_name)
-'''    
+    '''
     def __str__(self):
         return self.user.first_name + ' ' + self.user.last_name
 
