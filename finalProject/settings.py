@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'bootstrap_modal_forms',
     'finalProject.core',
     'finalProject.api',
-    'finalProject.carrier',
+    'finalProject.carrier.apps.CarrierConfig',
     'finalProject.shipper.apps.ShipperConfig',
     'finalProject.account',
 ]

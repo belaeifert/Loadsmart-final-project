@@ -61,10 +61,8 @@
             } else {
                 var origin = response.originAddresses[0];
                 var destination = response.destinationAddresses[0];
-                if (response.rows[0].elements[0].status === "NOT_FOUND" ||
-                        response.rows[0].elements[0].status === "ZERO_RESULTS") {
-                    document.getElementById("suggested_price_id").value = 'There are no roads between origin and destination places';
-                } else {
+                if (!(response.rows[0].elements[0].status === "NOT_FOUND" ||
+                        response.rows[0].elements[0].status === "ZERO_RESULTS")) {
                     console.log(response)
                     var distance = response.rows[0].elements[0].distance;
                     var distance_in_mile = distance.value / 1609.34; // the mile

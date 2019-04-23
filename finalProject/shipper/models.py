@@ -6,8 +6,14 @@ class ShipperUser(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='shipper_user')
 
-    def __repr__(self):
-        return "ID: {}, Name: {}".format(self.pk, self.user.first_name)
+    class Meta:
+        verbose_name = 'Shipper'
+        verbose_name_plural = 'Shippers'
+
+    def __str__(self):
+        return "shipper id: {}, user id: {}, Name: {}".format(
+            self.pk, self.user.pk, self.user.first_name
+        )
 
 
 class Load(models.Model):
