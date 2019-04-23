@@ -14,7 +14,9 @@
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
         {{ field }}
         {% for error in field.errors %}
-          <p class="help-block">{{ error }}</p>
+            <div class="alert alert-danger" role="alert">
+                <p class="help-block">{{ error }}</p>
+            </div>
         {% endfor %}
       </div>
     {% endfor %}
@@ -28,7 +30,7 @@
 </form>
 
 <script>
-      var options = { types: ['(cities)'] };
+      var options = { types: ['(cities)'], componentRestrictions: {country: 'us'} };
       var origin_city_autocomplete = new google.maps.places.Autocomplete(document.getElementById('origin_city_id'), options);
       var destination_city_autocomplete = new google.maps.places.Autocomplete(document.getElementById('destination_city_id'), options);
 
