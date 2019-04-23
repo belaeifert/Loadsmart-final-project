@@ -3,8 +3,15 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from finalProject.api import views
 
 urlpatterns = [
-    path('loads/', views.LoadList.as_view(), name='loads'),
-    path('loads/<int:pk>/', views.LoadDetail.as_view(), name='load_detail'),
+    path('get-token/', views.get_token),
+    path('carrier/list-available/', views.CarrierAvailableLoads.as_view({'get': 'list'})),
+    path('carrier/list-accepted/', views.CarrierAcceptedLoads.as_view({'get': 'list'})),
+    path('carrier/list-rejected/', views.CarrierRejectedLoads.as_view({'get': 'list'})),
+    path('carrier/accept-load/<int:pk_load>/', views.CarrierAccept),
+    path('carrier/reject-load/<int:pk_load>/', views.CarrierReject),
+    path('carrier/drop-load/<int:pk_load>/', views.CarrierDrop),
+    path('shipper/list-available/', views.ShipperAvailableLoads.as_view({'get': 'list'})),
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
