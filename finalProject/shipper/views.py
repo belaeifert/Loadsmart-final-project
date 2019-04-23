@@ -20,7 +20,9 @@ def shipper_view(request):
             Load.objects.create(**form.cleaned_data)
             messages.success(request, 'Successful Post!')
     '''
-    context = {'loads': Load.objects.all(), 'form':LoadForm(), 'api_key': settings.GOOGLE_API_KEY}
+    shipper = ShipperUser.objects.get(user_id=request.user.id)
+    shipper_loads = Load.objects.filter(shipper=shipper)
+    context = {'loads': shipper_loads, 'form':LoadForm(), 'api_key': settings.GOOGLE_API_KEY}
     return render(request, 'dashboard.html', context)
 
 
