@@ -25,7 +25,10 @@ class LoadSerializerForShipper(serializers.HyperlinkedModelSerializer):
 
     @classmethod
     def get_carrier_name(self, object):
-        return object.carrier.user.get_full_name()
+        try:
+            return object.carrier.user.get_full_name()
+        except:
+            return None
 
     class Meta:
         model = Load
