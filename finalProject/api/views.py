@@ -11,7 +11,7 @@ from rest_framework.status import (
 from finalProject.api.serializers import (
     LoadSerializerForCarrier, LoadSerializerForShipper)
 from finalProject.api.permissions import IsCarrier, IsShipper
-from finalProject.shipper.models import Load
+from finalProject.shipper.models import Load, ShipperUser
 from finalProject.carrier.models import CarrierUser, RejectedLoad
 
 
@@ -122,3 +122,14 @@ def CarrierDrop(request, pk_load):
     return Response({'success': 'Load dropped successfully'},
                     status=HTTP_200_OK)
 
+
+class ShipperAvailableLoads(viewsets.ReadOnlyModelViewSet):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated, IsShipper,)
+    serializer_class = LoadSerializerForShipper
+
+    def get_queryset(self):
+        #shipper = ShipperUser.objects.get(user_id=self.request.user.id)
+        shipper = ShipperUser.objects.get(id=2)
+        available_loads = Load.objects.filter(status='available', shipper=shipper)
+        return available_loads

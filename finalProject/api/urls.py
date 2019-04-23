@@ -10,5 +10,6 @@ urlpatterns = [
     path('carrier/accept-load/<int:pk_load>/', views.CarrierAccept),
     path('carrier/reject-load/<int:pk_load>/', views.CarrierReject),
     path('carrier/drop-load/<int:pk_load>/', views.CarrierDrop),
+    path('shipper/list-available/', views.ShipperAvailableLoads.as_view({'get': 'list'})),
 
 ]
