@@ -133,3 +133,19 @@ class ShipperAvailableLoads(viewsets.ReadOnlyModelViewSet):
         shipper = ShipperUser.objects.get(id=2)
         available_loads = Load.objects.filter(status='available', shipper=shipper)
         return available_loads
+
+@api_view(["POST"])
+@permission_classes((IsAuthenticated, IsShipper,))
+def ShipperPostLoad(request):
+    shipper = ShipperUser.objects.get(user_id=request.user.id)
+    load = Load(
+        pickup_date = request.data['pickup_date'],
+        ref = request.data['ref'],
+        origin_city = request.data['origin_city'],
+        destination_city = request.data['destination_city'],
+        price = request.data['price'],
+        shipper = shipper
+    )
+
+    return Response({'success': 'Load posted successfully'},
+                    status=HTTP_200_OK)
