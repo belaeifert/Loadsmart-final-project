@@ -1,6 +1,6 @@
 from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 from finalProject.api import views
-
 
 urlpatterns = [
     path('get-token/', views.get_token),
@@ -11,5 +11,9 @@ urlpatterns = [
     path('carrier/reject-load/<int:pk_load>/', views.CarrierReject),
     path('carrier/drop-load/<int:pk_load>/', views.CarrierDrop),
     path('shipper/list-available/', views.ShipperAvailableLoads.as_view({'get': 'list'})),
+    path('shipper/list-accepted/', views.ShipperAcceptedLoads.as_view({'get': 'list'})),
     path('shipper/post-load/', views.ShipperPostLoad),
+
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

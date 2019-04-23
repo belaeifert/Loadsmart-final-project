@@ -50,13 +50,13 @@ class CarrierAcceptedLoads(viewsets.ReadOnlyModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, IsCarrier,)
     serializer_class = LoadSerializerForCarrier
-    
+
     def get_queryset(self):
         carrier = CarrierUser.objects.get(user_id=self.request.user.id)
         accepted_loads = Load.objects.filter(
             status='accepted', carrier=carrier)
         return accepted_loads
-    
+
 
 class CarrierRejectedLoads(viewsets.ReadOnlyModelViewSet):
     authentication_classes = (TokenAuthentication,)
@@ -116,7 +116,7 @@ def CarrierDrop(request, pk_load):
     load.status = 'available'
     load.carrier = None
     load.save()
-    
+
     drop_load = RejectedLoad.objects.create(
         load=load, carrier=carrier)
     return Response({'success': 'Load dropped successfully'},
@@ -129,10 +129,19 @@ class ShipperAvailableLoads(viewsets.ReadOnlyModelViewSet):
     serializer_class = LoadSerializerForShipper
 
     def get_queryset(self):
-        #shipper = ShipperUser.objects.get(user_id=self.request.user.id)
-        shipper = ShipperUser.objects.get(id=2)
+        shipper = ShipperUser.objects.get(user_id=self.request.user.id)
         available_loads = Load.objects.filter(status='available', shipper=shipper)
         return available_loads
+
+class ShipperAcceptedLoads(viewsets.ReadOnlyModelViewSet):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated, IsShipper,)
+    serializer_class = LoadSerializerForShipper
+
+    def get_queryset(self):
+        shipper = ShipperUser.objects.get(user_id=self.request.user.id)
+        accepted_loads = Load.objects.filter(status='accepted', shipper=shipper)
+        return accepted_loads
 
 @api_view(["POST"])
 @permission_classes((IsAuthenticated, IsShipper,))

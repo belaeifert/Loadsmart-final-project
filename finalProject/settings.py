@@ -50,8 +50,8 @@ INSTALLED_APPS = [
     'bootstrap_modal_forms',
     'finalProject.core',
     'finalProject.api',
-    'finalProject.carrier',
-    'finalProject.shipper',
+    'finalProject.carrier.apps.CarrierConfig',
+    'finalProject.shipper.apps.ShipperConfig',
     'finalProject.account',
 ]
 
@@ -136,7 +136,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 #GOOGLE API KEY
 GOOGLE_API_KEY = config('GOOGLE_API_KEY')
-
 
 # API
 REST_FRAMEWORK = {
