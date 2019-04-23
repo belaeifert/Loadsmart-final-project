@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'finalProject.core',
     'finalProject.api',
     'finalProject.carrier',
-    'finalProject.shipper',
+    'finalProject.shipper.apps.ShipperConfig',
     'finalProject.account',
 ]
 

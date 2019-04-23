@@ -21,10 +21,14 @@ class Load(models.Model):
     carrier = models.ForeignKey('carrier.CarrierUser', on_delete=models.CASCADE, blank=True, null=True)
     shipper = models.ForeignKey(ShipperUser, on_delete=models.CASCADE, blank=True)
 
-    def __repr__(self):
+    class Meta:
+        verbose_name = 'Load'
+        verbose_name_plural = 'Loads'
+
+    def __str__(self):
         return "Pickup date: {}, REF: {}, Origin City: {}, Destination city: {}, Price: {}, Carrier: {}, Shipper: {}".format(
             self.pickup_date, self.ref, self.origin_city, self.destination_city,
-            self.price, self.carrier.user.id, self.shipper.user.id)
+            self.price, self.carrier, self.shipper)
 
     def carrier_price(self):
         return self.price*0.95

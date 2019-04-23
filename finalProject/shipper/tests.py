@@ -2,6 +2,7 @@ from django.test import TestCase
 
 # Create your tests here.
 from finalProject.shipper.forms import LoadForm
+from finalProject.shipper.models import Load
 
 
 class DashboardGetTest(TestCase):
@@ -28,13 +29,14 @@ class DashboardGetTest(TestCase):
 class PostLoadTest(TestCase):
 
     def setUp(self):
-        data = dict(
-            ref='#0123456789',
-            origin_city='Miami',
-            destination_city='New York',
-            price=1000,
+        self.obj = Load(
+            pickup_date = '2019-04-17',
+            ref = 123
+            origin_city = 'Miami Gardens, FL, USA',
+            destination_city = 'Florida City, FL, USA',
+            price = 50.0,
+
         )
-        self.response = self.client.post('/shipper/dashboard/', data)
 
 
     def test_post_load (self):
