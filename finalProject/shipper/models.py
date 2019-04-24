@@ -35,6 +35,10 @@ class Load(models.Model):
     carrier = models.ForeignKey('carrier.CarrierUser', on_delete=models.CASCADE, blank=True, null=True)
     shipper = models.ForeignKey(ShipperUser, on_delete=models.CASCADE, blank=True)
 
+    class Meta:
+        verbose_name = 'Load'
+        verbose_name_plural = 'Loads'
+
     def accept_load(self, carrier):
         self.status = 'accepted'
         self.carrier = carrier
@@ -45,18 +49,11 @@ class Load(models.Model):
         self.carrier = None
         self.save()
 
-    class Meta:
-        verbose_name = 'Load'
-        verbose_name_plural = 'Loads'
+    def carrier_price(self):
+        return round(self.price*0.95, 2)
 
     def __str__(self):
         return "Pickup date: {}, REF: {}, Origin City: {}, Destination city: {}, Price: {}, Carrier: {}, Shipper: {}".format(
             self.pickup_date, self.ref, self.origin_city, self.destination_city,
             self.price, self.carrier, self.shipper)
-
-    #def __str__(self):
-    #    return self.ref
-
-    def carrier_price(self):
-        return round(self.price*0.95, 2)
 
