@@ -1,36 +1,30 @@
 from rest_framework import serializers
-from finalProject.shipper.models import Load
+from finalProject.shipper.models import Load, ShipperUser
 
 
-class LoadSerializerForCarrier(serializers.HyperlinkedModelSerializer):
-    shipper_name = serializers.SerializerMethodField()
-    carrier_price = serializers.SerializerMethodField()
-
-    @classmethod
-    def get_shipper_name(self, object):
-        return object.shipper.user.get_full_name()
-
-    @classmethod
-    def get_carrier_price(self, object):
-        return object.carrier_price()
+class LoadSerializer(serializers.HyperlinkedModelSerializer):
+    price = serializers.SerializerMethodField()
+    shipper = serializers.SerializerMethodField()
+    carrier = serializers.SerializerMethodField()
 
     class Meta:
         model = Load
-        fields = ('id', 'pickup_date', 'ref', 'origin_city', 'destination_city',
-                  'status', 'shipper_name', 'carrier_price')
+        fields = ('id', 'pickup_date', 'ref', 'origin_city', 'destination_city', 'price',
+                  'status', 'shipper', 'carrier')
 
+    def get_price(self, object):
+        try:
+            ShipperUser.objects.get(user_id=self.context['request'].user.id)
+            return object.price
+        except:
+            return object.carrier_price()
 
-class LoadSerializerForShipper(serializers.HyperlinkedModelSerializer):
-    carrier_name = serializers.SerializerMethodField()
+    def get_shipper(self, object):
+        return object.shipper.user.get_full_name()
 
-    @classmethod
-    def get_carrier_name(self, object):
+    def get_carrier(self, object):
         try:
             return object.carrier.user.get_full_name()
         except:
             return None
 
-    class Meta:
-        model = Load
-        fields = ('id', 'pickup_date', 'ref', 'origin_city', 'destination_city',
-                  'status', 'carrier_name', 'price')

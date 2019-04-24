@@ -53,5 +53,5 @@ class Load(models.Model):
         return self.ref
 
     def carrier_price(self):
-        return self.price*0.95
+        return round(self.price*0.95, 2)
 

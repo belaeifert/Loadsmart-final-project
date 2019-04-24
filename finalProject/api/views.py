@@ -6,10 +6,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.status import (
-    HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_200_OK)
-from finalProject.api.serializers import (
-    LoadSerializerForCarrier, LoadSerializerForShipper)
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_200_OK
+from finalProject.api.serializers import LoadSerializer
 from finalProject.api.permissions import IsCarrier, IsShipper
 from finalProject.shipper.models import Load, ShipperUser
 from finalProject.carrier.models import CarrierUser, RejectedLoad
@@ -36,7 +34,7 @@ def get_token(request):
 class CarrierAvailableLoads(viewsets.ReadOnlyModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, IsCarrier,)
-    serializer_class = LoadSerializerForCarrier
+    serializer_class = LoadSerializer
 
     def get_queryset(self):
         carrier = CarrierUser.objects.get(user_id=self.request.user.id)
@@ -45,11 +43,10 @@ class CarrierAvailableLoads(viewsets.ReadOnlyModelViewSet):
             id__in=rej_loads.values('load_id'))
         return available_loads
 
-
 class CarrierAcceptedLoads(viewsets.ReadOnlyModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, IsCarrier,)
-    serializer_class = LoadSerializerForCarrier
+    serializer_class = LoadSerializer
 
     def get_queryset(self):
         carrier = CarrierUser.objects.get(user_id=self.request.user.id)
@@ -61,7 +58,7 @@ class CarrierAcceptedLoads(viewsets.ReadOnlyModelViewSet):
 class CarrierRejectedLoads(viewsets.ReadOnlyModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, IsCarrier,)
-    serializer_class = LoadSerializerForCarrier
+    serializer_class = LoadSerializer
 
     def get_queryset(self):
         carrier = CarrierUser.objects.get(user_id=self.request.user.id)
@@ -126,27 +123,28 @@ def CarrierDrop(request, pk_load):
 class ShipperAvailableLoads(viewsets.ReadOnlyModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, IsShipper,)
-    serializer_class = LoadSerializerForShipper
+    serializer_class = LoadSerializer
 
     def get_queryset(self):
         shipper = ShipperUser.objects.get(user_id=self.request.user.id)
-        available_loads = Load.objects.filter(status='available', shipper=shipper)
+        available_loads = Load.objects.filter(status='available')
         return available_loads
 
 class ShipperAcceptedLoads(viewsets.ReadOnlyModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, IsShipper,)
-    serializer_class = LoadSerializerForShipper
+    serializer_class = LoadSerializer
 
     def get_queryset(self):
         shipper = ShipperUser.objects.get(user_id=self.request.user.id)
         accepted_loads = Load.objects.filter(status='accepted', shipper=shipper)
         return accepted_loads
 
+
 @api_view(["POST"])
 @permission_classes((IsAuthenticated, IsShipper,))
 def ShipperPostLoad(request):
-    serializer = LoadSerializerForShipper(data=request.data)
+    serializer = LoadSerializer(data=request.data)
 
     if serializer.is_valid():
         shipper = ShipperUser.objects.get(user_id=request.user.id)
