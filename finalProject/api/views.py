@@ -120,7 +120,7 @@ class ShipperAvailableLoads(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         shipper = ShipperUser.objects.get(user_id=self.request.user.id)
-        available_loads = Load.objects.filter(status='available')
+        available_loads = Load.objects.filter(status='available', shipper=shipper)
         return available_loads
 
 
