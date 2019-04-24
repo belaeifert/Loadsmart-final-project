@@ -80,9 +80,7 @@ def CarrierAccept(request, pk_load):
                         status=HTTP_404_NOT_FOUND)
 
     carrier = CarrierUser.objects.get(user_id=request.user.id)
-    load.status = 'accepted'
-    load.carrier = carrier
-    load.save()
+    load.accept_load(carrier)
     return Response({'success': 'Load accepted successfully'},
                     status=HTTP_200_OK)
 
@@ -97,8 +95,7 @@ def CarrierReject(request, pk_load):
                         status=HTTP_404_NOT_FOUND)
 
     carrier = CarrierUser.objects.get(user_id=request.user.id)
-    rej_load = RejectedLoad.objects.create(
-        load=load, carrier=carrier)
+    rej_load = RejectedLoad.objects.create(load=load, carrier=carrier)
     return Response({'success': 'Load rejected successfully'},
                     status=HTTP_200_OK)
 
@@ -112,13 +109,9 @@ def CarrierDrop(request, pk_load):
     except:
         return Response({'error': 'Load not found or Load is not accepted by you'},
                         status=HTTP_404_NOT_FOUND)
-
-    load.status = 'available'
-    load.carrier = None
-    load.save()
-
-    drop_load = RejectedLoad.objects.create(
-        load=load, carrier=carrier)
+    
+    load.drop_load()
+    drop_load = RejectedLoad.objects.create(load=load, carrier=carrier)
     return Response({'success': 'Load dropped successfully'},
                     status=HTTP_200_OK)
 
@@ -133,6 +126,7 @@ class ShipperAvailableLoads(viewsets.ReadOnlyModelViewSet):
         available_loads = Load.objects.filter(status='available', shipper=shipper)
         return available_loads
 
+
 class ShipperAcceptedLoads(viewsets.ReadOnlyModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, IsShipper,)
@@ -142,6 +136,7 @@ class ShipperAcceptedLoads(viewsets.ReadOnlyModelViewSet):
         shipper = ShipperUser.objects.get(user_id=self.request.user.id)
         accepted_loads = Load.objects.filter(status='accepted', shipper=shipper)
         return accepted_loads
+
 
 @api_view(["POST"])
 @permission_classes((IsAuthenticated, IsShipper,))
