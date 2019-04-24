@@ -40,6 +40,11 @@ class Load(models.Model):
         self.carrier = carrier
         self.save()
 
+    def drop_load(self):
+        self.status = 'available'
+        self.carrier = None
+        self.save()
+
     class Meta:
         verbose_name = 'Load'
         verbose_name_plural = 'Loads'
@@ -49,8 +54,8 @@ class Load(models.Model):
             self.pickup_date, self.ref, self.origin_city, self.destination_city,
             self.price, self.carrier, self.shipper)
 
-    def __str__(self):
-        return self.ref
+    #def __str__(self):
+    #    return self.ref
 
     def carrier_price(self):
         return round(self.price*0.95, 2)
