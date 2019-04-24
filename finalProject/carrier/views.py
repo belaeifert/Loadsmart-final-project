@@ -25,9 +25,7 @@ def list_loads(request):
 def accept_load(request, pk_load):
     carrier = CarrierUser.objects.get(user_id=request.user.id)
     load = Load.objects.get(pk=pk_load)
-    load.status = 'accepted'
-    load.carrier = carrier
-    load.save()
+    load.accept_load(carrier)
     return redirect('carrier:list_loads')
 
 @transaction.atomic

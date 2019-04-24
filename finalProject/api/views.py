@@ -146,26 +146,12 @@ class ShipperAcceptedLoads(viewsets.ReadOnlyModelViewSet):
 @api_view(["POST"])
 @permission_classes((IsAuthenticated, IsShipper,))
 def ShipperPostLoad(request):
-    print("********************************")
-    print(request.data)
-    serializer = Load(data=request.data)
+    serializer = LoadSerializerForShipper(data=request.data)
+
     if serializer.is_valid():
-        serializer.save()
+        shipper = ShipperUser.objects.get(user_id=request.user.id)
+        serializer.save(shipper=shipper)
         return Response({'success': 'Load posted successfully'},
                         status=HTTP_200_OK)
     return Response(serializer.errors,
                     status=HTTP_400_BAD_REQUEST)
-    '''
-    shipper = ShipperUser.objects.get(user_id=request.user.id)
-    load = Load(
-        pickup_date = request.data['pickup_date'],
-        ref = request.data['ref'],
-        origin_city = request.data['origin_city'],
-        destination_city = request.data['destination_city'],
-        price = request.data['price'],
-        shipper = shipper
-    )
-    
-    return Response({'success': 'Load posted successfully'},
-                    status=HTTP_200_OK)
-    '''

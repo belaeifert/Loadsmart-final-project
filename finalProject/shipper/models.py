@@ -35,6 +35,11 @@ class Load(models.Model):
     carrier = models.ForeignKey('carrier.CarrierUser', on_delete=models.CASCADE, blank=True, null=True)
     shipper = models.ForeignKey(ShipperUser, on_delete=models.CASCADE, blank=True)
 
+    def accept_load(self, carrier):
+        self.status = 'accepted'
+        self.carrier = carrier
+        self.save()
+
     class Meta:
         verbose_name = 'Load'
         verbose_name_plural = 'Loads'
