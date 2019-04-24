@@ -1,55 +1,81 @@
 {% extends 'base.html' %}
 
 {% block navbar-options %} 
-<li><a title="logout" href="{% url 'account:logout' %}" onclick="return confirm('Are you sure you want to logout?')">Logout</a></li> 
+<li><a title="logout" href="{% url 'account:logout' %}" onclick="return confirm('Are you sure you want to logout?')">Logout</a></li>
 {% endblock navbar-options%}
 
 {% block content %}
-    {% if messages %}
-        <div class="alert alert-success" role="alert">
-           <ul class="messages">
-              {% for message in messages %}
-              <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-              {% endfor %}
-           </ul>
-        </div>
-    {% endif %}
+<br/>
+
+{% if messages %}
+<div class="alert alert-success" role="alert">
+   <ul class="messages">
+      {% for message in messages %}
+      <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+   </ul>
+</div>
+{% endif %}
+
+<div class="container">
+   <div class="row-fluid">
+      <div class="span12 main">
+         <div class="control-label span3">
+            <h3>Posted Loads</h3>
+         </div>
+         <div class="span2">
+            <button class="post-load btn btn-block " type="button" name="button" style="border-radius: 20px;">
+            <i class="fas fa-plus-circle"></i>
+            Add New
+            </button>
+         </div>
+      </div>
+   </div>
+</div>
 
 <br/>
-<br/>
-<br/>
-<br/>
-<h4>Posted Loads</h4>
-<table class="table table-hover">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">PICK UP</th>
-            <th scope="col">REF #</th>
-            <th scope="col">ORIGIN</th>
-            <th scope="col">DESTINATION</th>
-            <th scope="col">STATUS</th>
-            <th scope="col">PRICE</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr><th colspan=8>Accepted Loads<th></tr>
-        {% for load in loads %}
+
+<div style="width:80%; margin: 0px auto;">
+   <table id="tableShipperLoads" class="table" >
+      <thead style="color:white; background-color: #4c4c4c;">
+         <tr>
+            <th>PICK UP</th>
+            <th>REF.#</th>
+            <th>ORIGIN</th>
+            <th>DESTINATION</th>
+            <th>STATUS</th>
+            <th>PRICE</th>
+            <th></th>
+            <th></th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <th colspan=100%>Accepted Loads
+            <th>
+         </tr>
+         {% for load in loads %}
             {% if load.status == 'accepted' %}
             <tr>
                 <td>{{ load.pickup_date }}</td>
                 <td>{{ load.ref }}</td>
                 <td>{{ load.origin_city }}</td>
                 <td>{{ load.destination_city }}</td>
-                <td>{{ load.status }}</td>
-                <td>{{ load.price }}</td>
-                <td colspan=2><button type="button" class="btn btn-block btn-light">Cancel</button></td>
+                <td>{{ load.status }} by {{load.carrier.user.get_full_name}}</td>
+                <td>${{ load.price }}</td>
+                <td> </td>
+                <td style="text-align: center;"><button type="button" class="btn">
+                <i class="far fa-trash-alt"></i> Cancel</button>
+                </td>
             </tr>
             {% endif %}
-        {% endfor %}
-        <tr><th colspan=8>Available Loads</th></tr>
-        {% for load in loads %}
+         {% endfor %}
+      </tbody>
+      <tbody>
+         <tr>
+            <th colspan=100%>Available Loads</th>
+         </tr>
+         {% for load in loads %}
             {% if load.status == 'available' %}
             <tr>
                 <td>{{ load.pickup_date }}</td>
@@ -57,44 +83,38 @@
                 <td>{{ load.origin_city }}</td>
                 <td>{{ load.destination_city }}</td>
                 <td>{{ load.status }}</td>
-                <td>{{ load.price }}</td>
-                <td><button type="button" class="btn btn-block btn-light">Edit Rate</button></td>
-                <td><button type="button" class="btn btn-block btn-light">Cancel</button></td>
+                <td>${{ load.price }}</td>
+                <td style="text-align: center;"><button type="button" class="btn ">
+                <i class="far fa-edit"></i> Edit Rate</button>
+                </td>
+                <td style="text-align: center;"><button type="button" class="btn ">
+                <i class="far fa-trash-alt"></i> Cancel</button>
+                </td>
             </tr>
             {% endif %}
-        {% endfor %}
-    </tbody>
-</table>
-<hr/>
+         {% endfor %}
+      </tbody>
+   </table>
+   <br/> <br/> <br/>
+</div>
 
 <section>
-    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
 
-            </div>
-        </div>
-    </div>
+   <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+         </div>
+      </div>
+   </div>
 
-    <!-- Create book button -->
-    <button class="post-load btn btn-primary" type="button" name="button">Post Load</button>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-
-            $(".post-load").modalForm({
-                formURL: "{% url 'shipper:post_load' %}"
-            });
-
-        });
-    </script>
-
+   <script type="text/javascript">
+      $(document).ready(function() {
+          $(".post-load").modalForm({
+              formURL: "{% url 'shipper:post_load' %}"
+          });
+      });
+   </script>
 
 </section>
+
 {% endblock content %}
-
-
