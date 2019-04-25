@@ -1,5 +1,5 @@
 from django.contrib.auth import login
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from finalProject.carrier.models import CarrierUser
@@ -17,6 +17,10 @@ class CustomLoginView(LoginAjaxMixin, SuccessMessageMixin, LoginView):
     template_name = 'registration/login.html'
     success_message = 'Success: You were successfully logged in.'
     redirect_authenticated_user = True
+
+
+def LogoutPopup(request):
+    return render(request,'registration/logout_modal.html')
 
 
 def RedirectHome(request):
