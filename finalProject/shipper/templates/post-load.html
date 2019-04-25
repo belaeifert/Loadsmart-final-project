@@ -45,12 +45,10 @@
       var options = { types: ['(cities)'], componentRestrictions: {country: 'us'} };
       var origin_city_autocomplete = new google.maps.places.Autocomplete(document.getElementById('origin_city_id'), options);
       var destination_city_autocomplete = new google.maps.places.Autocomplete(document.getElementById('destination_city_id'), options);
-
       // calculate distance
         function calculateDistance() {
             var origin = $('#origin_city_id').val();
             var destination = $('#destination_city_id').val();
-
             if(origin != "" && destination != ""){
                 var service = new google.maps.DistanceMatrixService();
                 service.getDistanceMatrix(
@@ -66,7 +64,6 @@
                 console.log("origin or destination is empty");
             }
         }
-
       // get distance results
         function callback(response, status) {
             console.log('callback function')
@@ -84,23 +81,15 @@
                 }
             }
         }
-
       // calculate suggested price
       function sugestedPrice(miles){
         document.getElementById("suggested_price_id").value = (miles * 1.50).toFixed(2);
       }
-
     google.maps.event.addListener(origin_city_autocomplete, 'place_changed', function() {
         calculateDistance();
     });
-
     google.maps.event.addListener(destination_city_autocomplete, 'place_changed', function() {
         calculateDistance();
     });
 
-
-
-
 </script>
-
-
