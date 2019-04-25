@@ -21,33 +21,30 @@ def list_loads(request):
         'accepted_loads': accepted_loads,
         'rejected_loads': rejected_loads})
 
+
+@login_required
 @transaction.atomic
 def accept_load(request, pk_load):
     carrier = CarrierUser.objects.get(user_id=request.user.id)
     load = Load.objects.get(pk=pk_load)
-    load.status = 'accepted'
-    load.carrier = carrier
-    load.save()
+    load.accept_load(carrier)
     return redirect('carrier:list_loads')
 
+
+@login_required
 @transaction.atomic
 def reject_load(request, pk_load):
     load = Load.objects.get(pk=pk_load)
     carrier = CarrierUser.objects.get(user_id=request.user.id)
-    rej_load = RejectedLoad.objects.create(
-        load=load, carrier=carrier)
+    rej_load = RejectedLoad.objects.create(load=load, carrier=carrier)
     return redirect('carrier:list_loads')
 
+
+@login_required
 @transaction.atomic
 def drop_load(request, pk_load):
     load = Load.objects.get(pk=pk_load)
-    load.status = 'available'
-    load.carrier = None
-    load.save()
-
+    load.drop_load()
     carrier = CarrierUser.objects.get(user_id=request.user.id)
-
-    drop_load = RejectedLoad.objects.create(
-        load=load, carrier=carrier)
-
+    drop_load = RejectedLoad.objects.create(load=load, carrier=carrier)
     return redirect('carrier:list_loads')

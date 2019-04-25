@@ -39,6 +39,8 @@
 	<!-- API google Maps -->
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{api_key}}&libraries=places&language=en-US"></script>
 	<link href="{% static 'css/main.css'%}" rel="stylesheet">
+	<!-- Fontawesome icons-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
 </head>
 
@@ -68,7 +70,7 @@
 	</div>
 
 	<!-- Content -->
-	<div class="container">
+	<div id="content" style="margin-top: 20px;">
 		{% block content %}
 		{% endblock content %}
 	</div>
