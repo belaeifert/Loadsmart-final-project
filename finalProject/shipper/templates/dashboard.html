@@ -15,16 +15,28 @@
         </div>
     {% endif %}
 
-<br/>
-<br/>
-<br/>
-<br/>
-<h4>Posted Loads</h4>
+<div class="container">
+    <div class="row-fluid">
+        <div class="span12 main">
+            <div class="control-label span3">
+                <h3>Posted Loads</h3>
+            </div>
+            <div class="span2">
+                <button class="post-load btn btn-block btn-light" type="button" name="button">
+                    <i class="fas fa-plus-circle"></i>
+                    Add New
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <table class="table table-hover">
     <thead class="thead-dark">
         <tr>
             <th scope="col">PICK UP</th>
-            <th scope="col">REF #</th>
+            <th scope="col">REF.#</th>
             <th scope="col">ORIGIN</th>
             <th scope="col">DESTINATION</th>
             <th scope="col">STATUS</th>
@@ -76,12 +88,6 @@
         </div>
     </div>
 
-    <!-- Create book button -->
-    <button class="post-load btn btn-primary" type="button" name="button">Post Load</button>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
 
     <script type="text/javascript">
         $(document).ready(function() {
