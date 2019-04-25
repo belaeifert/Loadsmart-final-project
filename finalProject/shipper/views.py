@@ -1,32 +1,31 @@
 from bootstrap_modal_forms.mixins import PassRequestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
+from django.views.generic import ListView
 from finalProject.shipper.forms import LoadForm
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from finalProject.shipper.models import ShipperUser
-
 from .models import Load
 
 
-@login_required
-def shipper_view(request):
-    '''
-    if request.method == 'POST':
-        form = LoadForm(request.POST)
-        if form.is_valid():
-            Load.objects.create(**form.cleaned_data)
-            messages.success(request, 'Successful Post!')
-    '''
-    shipper = ShipperUser.objects.get(user_id=request.user.id)
-    shipper_loads = Load.objects.filter(shipper=shipper)
-    context = {'loads': shipper_loads, 'form':LoadForm(), 'api_key': settings.GOOGLE_API_KEY}
-    return render(request, 'dashboard.html', context)
+class ShipperView(LoginRequiredMixin, ListView):
+    template_name = 'shipper_home.html'
+    context_object_name = 'loads'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['api_key'] = settings.GOOGLE_API_KEY
+        return context
+
+    def get_queryset(self):
+        shipper = ShipperUser.objects.get(user_id=self.request.user.id)
+        return Load.objects.filter(shipper=shipper)
 
 
-class PostLoadView(PassRequestMixin, SuccessMessageMixin, generic.CreateView):
+class PostLoadView(LoginRequiredMixin, PassRequestMixin, SuccessMessageMixin, generic.CreateView):
     template_name = 'post-load.html'
     form_class = LoadForm
     success_message = 'Success: Load was posted.'
@@ -37,6 +36,3 @@ class PostLoadView(PassRequestMixin, SuccessMessageMixin, generic.CreateView):
         obj.shipper = ShipperUser.objects.get(user_id=self.request.user.id)
         super().form_valid(form)
         return redirect('shipper:home')
-
-
-

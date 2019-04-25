@@ -1,26 +1,22 @@
 from datetime import date
-
 from django.test import TestCase
+from django.urls import reverse
 
-# Create your tests here.
 from finalProject.account.models import User
 from finalProject.shipper.forms import LoadForm
 from finalProject.shipper.models import Load, ShipperUser
 
-'''
+
 class HomeGetTest(TestCase):
 
     def setUp(self):
-        self.response = self.client.get('/shipper/home/')
+        self.response = self.client.get(reverse('shipper:home'))
 
     def test_get(self):
-        self.assertEqual(200, self.response.status_code)
-
+        self.assertEqual(302, self.response.status_code)
+    '''
     def test_template(self):
-        self.assertTemplateUsed(self.response, 'dashboard.html')
-
-    def test_html(self):
-        self.assertContains(self.response, '<form')
+        self.assertTemplateUsed(self.response, 'shipper_home.html')
 
     def test_csrf(self):
         self.assertContains(self.response, 'csrfmiddlewaretoken')
@@ -28,8 +24,10 @@ class HomeGetTest(TestCase):
     def test_has_form(self):
         form = self.response.context['form']
         self.assertIsInstance(form, LoadForm)
-'''
 
+    def test_post_load_html(self):
+        self.assertContains(self.response, '<form')
+    '''
 
 class PostLoadTest(TestCase):
 
@@ -59,6 +57,7 @@ class PostLoadTest(TestCase):
         self.obj.save()
 
     def test_create(self):
+        ''' Data from valid Post must exist in database'''
         self.assertTrue(Load.objects.exists())
 
     def test_str(self):
@@ -66,11 +65,11 @@ class PostLoadTest(TestCase):
             self.obj.pickup_date, self.obj.ref, self.obj.origin_city, self.obj.destination_city,
             self.obj.price, self.obj.carrier, self.obj.shipper)
         self.assertEqual(test_str, str(self.obj))
-'''
-    def test_post_load(self):
-         Valid post should return to shipper home
-        self.assertEqual(200, self.response.status_code)
-        '''
+
+    #def test_post_load(self):
+    #    ''' Valid Post must return status code 200 '''
+    #    self.assertEqual(200, self.response.status_code)
+
 
 class CreateShipperUserTest(TestCase):
 
