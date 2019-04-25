@@ -22,6 +22,7 @@ class ShipperUser(models.Model):
     #    return self.user.first_name + ' ' + self.user.last_name
 
 
+
 class Load(models.Model):
     pickup_date = models.DateField(blank=True, null=True)
     ref = models.CharField(max_length=50)
@@ -37,6 +38,19 @@ class Load(models.Model):
         verbose_name = 'Load'
         verbose_name_plural = 'Loads'
 
+    def accept_load(self, carrier):
+        self.status = 'accepted'
+        self.carrier = carrier
+        self.save()
+
+    def drop_load(self):
+        self.status = 'available'
+        self.carrier = None
+        self.save()
+
+    def carrier_price(self):
+        return round(self.price*0.95, 2)
+
     def __str__(self):
         return "Pickup date: {}, REF: {}, Origin City: {}, Destination city: {}, Price: {}, Carrier: {}, Shipper: {}".format(
             self.pickup_date, self.ref, self.origin_city, self.destination_city,
@@ -44,7 +58,4 @@ class Load(models.Model):
 
     #def __str__(self):
     #    return self.ref
-
-    def carrier_price(self):
-        return self.price*0.95
 
