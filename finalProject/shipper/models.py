@@ -22,7 +22,6 @@ class ShipperUser(models.Model):
     #    return self.user.first_name + ' ' + self.user.last_name
 
 
-
 class Load(models.Model):
     pickup_date = models.DateField(blank=True, null=True)
     ref = models.CharField(max_length=50)
