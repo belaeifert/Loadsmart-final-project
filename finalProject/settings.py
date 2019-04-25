@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'bootstrap_modal_forms',
     'finalProject.core',
     'finalProject.api',
@@ -135,3 +136,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 #GOOGLE API KEY
 GOOGLE_API_KEY = config('GOOGLE_API_KEY')
+
+# API
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
