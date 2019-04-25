@@ -6,11 +6,22 @@ class ShipperUser(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='shipper_user')
 
+    class Meta:
+        verbose_name = 'Shipper'
+        verbose_name_plural = 'Shippers'
+
+    def __str__(self):
+        return "shipper id: {}, user id: {}, Name: {}".format(
+            self.pk, self.user.pk, self.user.first_name
+        )
+
+    '''
     def __repr__(self):
         return "ID: {}, Name: {}".format(self.pk, self.user.first_name)
     
     def __str__(self):
         return self.user.first_name + ' ' + self.user.last_name
+    '''
 
 
 class Load(models.Model):
@@ -24,14 +35,25 @@ class Load(models.Model):
     carrier = models.ForeignKey('carrier.CarrierUser', on_delete=models.CASCADE, blank=True, null=True)
     shipper = models.ForeignKey(ShipperUser, on_delete=models.CASCADE, blank=True)
 
-    def __repr__(self):
-        return "Pickup date: {}, REF: {}, Origin City: {}, Destination city: {}, Price: {}, Carrier: {}, Shipper: {}".format(
-            self.pickup_date, self.ref, self.origin_city, self.destination_city,
-            self.price, self.carrier.user.id, self.shipper.user.id)
+    class Meta:
+        verbose_name = 'Load'
+        verbose_name_plural = 'Loads'
 
-    def __str__(self):
-        return self.ref
+    def accept_load(self, carrier):
+        self.status = 'accepted'
+        self.carrier = carrier
+        self.save()
+
+    def drop_load(self):
+        self.status = 'available'
+        self.carrier = None
+        self.save()
 
     def carrier_price(self):
-        return self.price*0.95
+        return round(self.price*0.95, 2)
+
+    def __str__(self):
+        return "Pickup date: {}, REF: {}, Origin City: {}, Destination city: {}, Price: {}, Carrier: {}, Shipper: {}".format(
+            self.pickup_date, self.ref, self.origin_city, self.destination_city,
+            self.price, self.carrier, self.shipper)
 

@@ -14,6 +14,16 @@ class CarrierUser(models.Model):
         return self.user.first_name + ' ' + self.user.last_name
 
 
+    '''
+        return "carrier id: {}, User id: {}, Name: {}, MC Number: {}".format(
+            self.pk, self.user.pk, self.user.first_name, self.MC_number
+        )
+    '''
+
+
 class RejectedLoad(models.Model):
     load = models.ForeignKey(Load, on_delete=models.CASCADE)
     carrier = models.ForeignKey(CarrierUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "Load: {}, Carrier: {}".format(self.load, self.carrier)
