@@ -11,14 +11,11 @@ class CarrierUser(models.Model):
     MC_number = models.IntegerField(_('MC number'), null=False, blank=False, unique=True)
 
     def __str__(self):
-        return self.user.first_name + ' ' + self.user.last_name
-
-
-    '''
         return "carrier id: {}, User id: {}, Name: {}, MC Number: {}".format(
             self.pk, self.user.pk, self.user.first_name, self.MC_number
         )
-    '''
+
+        #return self.user.first_name + ' ' + self.user.last_name
 
 
 class RejectedLoad(models.Model):
