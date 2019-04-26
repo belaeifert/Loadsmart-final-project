@@ -5,9 +5,12 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import ListView
+
 from finalProject.shipper.forms import LoadForm
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from finalProject.shipper.models import ShipperUser
+
 from .models import Load
 
 
