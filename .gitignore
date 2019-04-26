@@ -10,3 +10,4 @@ main.py
 myvenv
 *.mwb
 *.mwb.bak
+staticfiles

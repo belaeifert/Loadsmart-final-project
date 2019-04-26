@@ -12,16 +12,13 @@
     <li><a title="sign up carrier" class="carrier-signup-popup-button" >Become a Carrier</a></li>   
     <li><a title="login" class="login-popup-button" >Login</a></li>   
 {% endif %}
- 
+
 {% endblock navbar-options%}
 
-
-{% block content %}
-
+{% block modal-content %}
 <!-- Popups -->
 <section>
-
-   <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
       <div class="modal-dialog" role="document">
          <div class="modal-content">
          </div>
@@ -31,21 +28,26 @@
    <script type="text/javascript" >
       $(document).ready(function() {
           $(".login-popup-button").modalForm({
-              formURL: "{% url 'account:login' %}" 
+              formURL: "{% url 'account:login' %}"
           });
           $(".shipper-signup-popup-button").modalForm({
-              formURL: "{% url 'account:shipper_signup' %}" 
+              formURL: "{% url 'account:shipper_signup' %}"
           });
           $(".carrier-signup-popup-button").modalForm({
-              formURL: "{% url 'account:carrier_signup' %}" 
-          }); 
+              formURL: "{% url 'account:carrier_signup' %}"
+          });
           $(".logout-popup-button").modalForm({
-              formURL: "{% url 'account:logout_popup' %}" 
-          });      
-      }); 
+              formURL: "{% url 'account:logout_popup' %}"
+          });
+      });
    </script>
 
-</section>  
+</section>
+{% endblock modal-content %}
+
+
+{% block content %}
+
 
 <!-- Header area -->
 <div id="header-wrapper" class="header-slider">
