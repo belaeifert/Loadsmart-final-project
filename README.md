@@ -1,3 +1,44 @@
+#LoadSmart Final Project squad 1
+
+## How to Develop?
+1. Clone repository
+2. Create a virtualenv with python 3.6
+3. Activate virtualenv
+4. Install the dependencies
+5. Set instance .env
+6. Run the tests
+
+```console
+git clone git@github.com:belaeifert/Loadsmart-final-project.git finalProject
+cd finalProject
+python -m venv .finalProject
+source .finalProject/bin/activate
+pip install -r requirements.txt
+cp contrib/env-sample .env
+python manage.py test
+```
+
+## How to activate Google API services
+1. Create a project on https://console.developers.google.com
+2. Enable Places API, Distance Matrix API and Maps JavaScript API to your project
+3. Create credentials
+3. Create API key
+
+## How to deploy?
+1. Create an instance in heroku
+2. Send settings to heroku
+3. Set a secure SECRET_KEY for the instance
+4. Set DEBUG=FALSE
+5. Send the code to heroku
+
+```console
+heroku create instancename
+heroku config:push
+heroku config:set SECRET_KEY=`python contrib/secret_gen.py`
+heroku config:set DEBUG=False
+git push heroku master --force
+```
+
 ## About
 
 Loadsmart is a New York company that facilitates how shippers and freight brokers find the right carriers to move their shipments.
@@ -5,6 +46,7 @@ Loadsmart is a New York company that facilitates how shippers and freight broker
 ## Objective
 
 You will create a platform that on one side (Shipper/ Freight Broker) allows them to post loads that they need to find a truck for (eg New York, NY - Albany, NY), and on the other side allows carriers to have access to these loads and accept them.
+
 
 ## Attributes required in the Register
 
