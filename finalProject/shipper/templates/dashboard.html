@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block navbar-options %} 
-<li><a title="logout" href="{% url 'account:logout' %}" onclick="return confirm('Are you sure you want to logout?')">Logout</a></li>
+<li><a title="logout" class="logout-popup-button" >Logout</a></li>
 {% endblock navbar-options%}
 
 {% block content %}
@@ -111,6 +111,9 @@
       $(document).ready(function() {
           $(".post-load").modalForm({
               formURL: "{% url 'shipper:post_load' %}"
+          });
+          $(".logout-popup-button").modalForm({
+              formURL: "{% url 'account:logout_popup' %}" 
           });
       });
    </script>

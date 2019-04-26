@@ -6,7 +6,7 @@
 <li><a title="about us" href="#">About us</a></li>
 {% if user.is_authenticated %}
     <li><a title="home" href="{% url 'account:redirect_home' %}">Homepage</a></li>
-    <li><a title="logout" href="{% url 'account:logout' %}" onclick="return confirm('Are you sure you want to logout?')">Logout</a></li> 
+    <li><a title="logout" class="logout-popup-button" >Logout</a></li>
 {% else %}
     <li><a title="sign up shipper" class="shipper-signup-popup-button" >Become a Shipper</a></li>  
     <li><a title="sign up carrier" class="carrier-signup-popup-button" >Become a Carrier</a></li>   
@@ -20,27 +20,31 @@
 
 <!-- Popups -->
 <section>
-    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                
-            </div>
-        </div>
-    </div>
 
-    <script type="text/javascript" >
-        $(document).ready(function() {
-            $(".login-popup-button").modalForm({
-                formURL: "{% url 'account:login' %}" 
-            });
-            $(".shipper-signup-popup-button").modalForm({
-                formURL: "{% url 'account:shipper_signup' %}" 
-            });
-            $(".carrier-signup-popup-button").modalForm({
-                formURL: "{% url 'account:carrier_signup' %}" 
-            });
-        });
-    </script>
+   <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+         </div>
+      </div>
+   </div>
+
+   <script type="text/javascript" >
+      $(document).ready(function() {
+          $(".login-popup-button").modalForm({
+              formURL: "{% url 'account:login' %}" 
+          });
+          $(".shipper-signup-popup-button").modalForm({
+              formURL: "{% url 'account:shipper_signup' %}" 
+          });
+          $(".carrier-signup-popup-button").modalForm({
+              formURL: "{% url 'account:carrier_signup' %}" 
+          }); 
+          $(".logout-popup-button").modalForm({
+              formURL: "{% url 'account:logout_popup' %}" 
+          });      
+      }); 
+   </script>
+
 </section>  
 
 <!-- Header area -->
