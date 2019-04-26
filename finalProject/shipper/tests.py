@@ -1,5 +1,5 @@
 from datetime import date
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.urls import reverse
 
 from finalProject.account.models import User
@@ -7,17 +7,50 @@ from finalProject.shipper.forms import LoadForm
 from finalProject.shipper.models import Load, ShipperUser
 
 
-class HomeGetTest(TestCase):
+class ShipperHomeGet(TestCase):
 
     def setUp(self):
-        self.response = self.client.get(reverse('shipper:home'))
+        self.client = Client()
 
+        self.user = User.objects.create(email='shipper@teste.com', first_name='shipper', last_name='doe')
+        self.user.save()
+        self.user.set_password('teste1234')
+
+        self.shipper = ShipperUser.objects.create(user=self.user)
+        self.shipper.save()
+
+        #self.client.force_login(self.user)
+
+        self.login = self.client.login(email=self.user.email, password=self.user.password)
+        self.response = self.client.get(r'shipper:home')
+
+
+    def test_template(self):
+        print(self.response)
+        self.assertTemplateUsed(self.response, 'shipper_home.html')
+    '''
     def test_get(self):
         self.assertEqual(302, self.response.status_code)
-    '''
+
+    
     def test_template(self):
+        print(self.response)
         self.assertTemplateUsed(self.response, 'shipper_home.html')
 
+    def test_post_load_html(self):
+        tags = (
+            ('<form', 1),
+            ('input', 7),
+            ('type="date"', 1),
+            ('type=text', 4),
+            ('type=decimal', 1),
+            ('type=submit', 1),
+        )
+        for text, count in tags:
+            with self.subTest():
+                self.assertContains(self.response, text, count)
+
+    
     def test_csrf(self):
         self.assertContains(self.response, 'csrfmiddlewaretoken')
 

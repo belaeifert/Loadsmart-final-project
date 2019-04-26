@@ -45,6 +45,8 @@
 </head>
 
 <body>
+	<div id="general" >
+		<div id="content-wrap">
 
 	<!-- navbar -->
 	<div class="navbar-wrapper">
@@ -68,21 +70,18 @@
 	</div>
 
 	<!-- Content -->
-	<div id="content" style="margin-top: 20px;">
-		{% block content %}
-		{% endblock content %}
-	</div>
+		<div id="content" style="margin-top: 20px;">
+			{% block modal-content %}
+			{% endblock modal-content %}
 
-	<footer>
+			{% block content %}
+			{% endblock content %}
+		</div>
+		</div>
+	<footer id="footer">
 		<div class="container">
 			<div class="row">
 				<div class="span6 offset3">
-					<ul class="social-networks">
-						<li><a href="#"><i class="icon-circled icon-bgdark icon-instagram icon-2x"></i></a></li>
-						<li><a href="#"><i class="icon-circled icon-bgdark icon-twitter icon-2x"></i></a></li>
-						<li><a href="#"><i class="icon-circled icon-bgdark icon-dribbble icon-2x"></i></a></li>
-						<li><a href="#"><i class="icon-circled icon-bgdark icon-pinterest icon-2x"></i></a></li>
-					</ul>
 					<p class="copyright">
 						&copy; Maxim Theme. All rights reserved.
 						<div class="credits">
@@ -100,8 +99,7 @@
 		</div>
 		<!-- ./container -->
 	</footer>
-	<a href="#" class="scrollup"><i class="icon-angle-up icon-square icon-bgdark icon-2x"></i></a>
-
+	</div>
 </body>
 
 </html>
