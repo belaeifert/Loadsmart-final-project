@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
 from rest_framework import generics, viewsets, mixins
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -147,3 +148,8 @@ def ShipperPostLoad(request):
                         status=HTTP_200_OK)
     return Response(serializer.errors,
                     status=HTTP_400_BAD_REQUEST)
+
+
+def apiDocumentation(request):
+    return render(request,'index_api.html')
+
