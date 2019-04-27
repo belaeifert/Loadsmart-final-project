@@ -28,13 +28,14 @@ def list_loads(request):
 def accept_load(request, pk_load):
     try:
         load = Load.objects.get(pk=pk_load, status='available')
-        carrier = CarrierUser.objects.get(user_id=request.user.id)
-        load.accept_load(carrier)
-        messages.success(request, 'Load accepted successfully')
-        return redirect('carrier:list_loads')
     except:
         messages.error(request, 'ERROR: This load is not available anymore')
         return redirect('carrier:list_loads')
+
+    carrier = CarrierUser.objects.get(user_id=request.user.id)
+    load.accept_load(carrier)
+    messages.success(request, 'Load accepted successfully')
+    return redirect('carrier:list_loads')
 
 
 @login_required
@@ -42,13 +43,14 @@ def accept_load(request, pk_load):
 def reject_load(request, pk_load):
     try:
         load = Load.objects.get(pk=pk_load, status='available')
-        carrier = CarrierUser.objects.get(user_id=request.user.id)
-        rej_load = RejectedLoad.objects.create(load=load, carrier=carrier)
-        messages.success(request, 'Load rejected successfully')
-        return redirect('carrier:list_loads')
     except:
         messages.error(request, 'ERROR: This load is not available anymore')
         return redirect('carrier:list_loads')
+
+    carrier = CarrierUser.objects.get(user_id=request.user.id)
+    rej_load = RejectedLoad.objects.create(load=load, carrier=carrier)
+    messages.success(request, 'Load rejected successfully')
+    return redirect('carrier:list_loads')
 
 
 @login_required
@@ -57,10 +59,11 @@ def drop_load(request, pk_load):
     try:
         carrier = CarrierUser.objects.get(user_id=request.user.id)
         load = Load.objects.get(pk=pk_load, status='accepted', carrier=carrier)
-        load.drop_load()
-        drop_load = RejectedLoad.objects.create(load=load, carrier=carrier)
-        messages.success(request, 'Load dropped successfully')
-        return redirect('carrier:list_loads')
     except:
         messages.error(request, 'ERROR: This load is not accepted by you')
         return redirect('carrier:list_loads')
+
+    load.drop_load()
+    drop_load = RejectedLoad.objects.create(load=load, carrier=carrier)
+    messages.success(request, 'Load dropped successfully')
+    return redirect('carrier:list_loads')
