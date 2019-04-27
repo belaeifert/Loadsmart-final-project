@@ -40,7 +40,7 @@
                <td>{{load.ref}}</td>
                <td>{{load.origin_city}}</td>
                <td>{{load.destination_city}}</td>
-               <td>${{load.carrier_price}}</td>
+               <td>${{load.carrier_price|floatformat:2}}</td>
                <td>{{load.shipper.user.get_full_name}}</td>
                <td style="text-align: center;">
                   <a class="btn " href="{% url 'carrier:reject_load' pk_load=load.pk %}"> Reject </a>
@@ -73,7 +73,7 @@
                <td>{{load.ref}}</td>
                <td>{{load.origin_city}}</td>
                <td>{{load.destination_city}}</td>
-               <td>${{load.carrier_price}}</td>
+               <td>${{load.carrier_price|floatformat:2 }}</td>
                <td>{{load.shipper.user.get_full_name}}</td>
                <td style="text-align: center;"><a class="btn " href="{% url 'carrier:drop_load' pk_load=load.pk %}"> Drop </a></td>
             </tr>
@@ -101,7 +101,7 @@
                <td>{{load.ref}}</td>
                <td>{{load.origin_city}}</td>
                <td>{{load.destination_city}}</td>
-               <td>${{load.carrier_price}}</td>
+               <td>${{load.carrier_price|floatformat:2}}</td>
                <td>{{load.shipper.user.get_full_name}}</td>
             </tr>
             {% endfor %}

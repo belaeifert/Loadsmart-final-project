@@ -62,7 +62,7 @@
                 <td>{{ load.origin_city }}</td>
                 <td>{{ load.destination_city }}</td>
                 <td>{{ load.status }} by {{load.carrier.user.get_full_name}}</td>
-                <td>${{ load.price }}</td>
+                <td>${{ load.price|floatformat:2 }}</td>
                 <td> </td>
                 <td style="text-align: center;"><button type="button" class="btn">
                 <i class="far fa-trash-alt"></i> Cancel</button>
@@ -83,7 +83,7 @@
                 <td>{{ load.origin_city }}</td>
                 <td>{{ load.destination_city }}</td>
                 <td>{{ load.status }}</td>
-                <td>${{ load.price }}</td>
+                <td>${{ load.price|floatformat:2 }}</td>
                 <td style="text-align: center;"><button type="button" class="btn ">
                 <i class="far fa-edit"></i> Edit Rate</button>
                 </td>
