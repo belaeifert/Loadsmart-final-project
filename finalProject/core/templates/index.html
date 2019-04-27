@@ -4,7 +4,7 @@
 {% block navbar-options %}
 
 <li><a title="about us" href="#">About us</a></li>
-<li><a title="api doc" href="{% url 'api:docs' %}">API</a></li>
+<li><a title="api doc" href="{% url 'api:docs' %}" target="_blank">API</a></li>
 {% if user.is_authenticated %}
     <li><a title="home" href="{% url 'account:redirect_home' %}">Homepage</a></li>
     <li><a title="logout" class="logout-popup-button" >Logout</a></li>
