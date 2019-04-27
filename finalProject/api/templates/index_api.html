@@ -1,0 +1,932 @@
+{% load static %}
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title>Loadsmart API Documentation &#8212; LoadsmartAPI 0.0.1 documentation</title>
+      <link rel="stylesheet" href="{% static 'css/alabaster.css'%}" type="text/css" />
+      <link rel="stylesheet" href="{% static 'css/pygments.css'%}" type="text/css" />
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="{% static 'js/documentation_options.js'%}"></script>
+      <script type="text/javascript" src="{% static 'js/jquery.js'%}"></script>
+      <script type="text/javascript" src="{% static 'js/underscore.js'%}"></script>
+      <script type="text/javascript" src="{% static 'js/doctools.js'%}"></script>
+      <link rel="index" title="Index" href="genindex.html" />
+      <link rel="stylesheet" href="{% static 'css/custom.css'%}" type="text/css" />
+      <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+   </head>
+   <body>
+      <div class="document">
+         <div class="documentwrapper">
+            <div class="bodywrapper">
+               <div class="body" role="main">
+                  <div class="section" id="loadsmart-api-documentation">
+                     <h1>Loadsmart API Documentation<a class="headerlink" href="#loadsmart-api-documentation" title="Permalink to this headline">¶</a></h1>
+                     <div class="toctree-wrapper compound"></div>
+                     <div class="section" id="authentication">
+                        <h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
+                        <ol class="arabic">
+                           <li>
+                              <p class="first">Register on our website:</p>
+                              <blockquote>
+                                 <div>
+                                    <p><a class="reference external" href="https://loadsmart-aceleradev.herokuapp.com/">https://loadsmart-aceleradev.herokuapp.com/</a></p>
+                                 </div>
+                              </blockquote>
+                           </li>
+                           <li>
+                              <p class="first">Get your token to use Loadsmart API using your credentials (email and password):</p>
+                              <blockquote>
+                                 <div>
+                                    <table class="docutils field-list" frame="void" rules="none">
+                                       <col class="field-name" />
+                                       <col class="field-body" />
+                                       <tbody valign="top">
+                                          <tr class="field-odd field">
+                                             <th class="field-name">Request:</th>
+                                             <td class="field-body">POST /api/get-token/</td>
+                                          </tr>
+                                          <tr class="field-even field">
+                                             <th class="field-name">Parameters:</th>
+                                             <td class="field-body">email, password</td>
+                                          </tr>
+                                          <tr class="field-odd field">
+                                             <th class="field-name">Returns:</th>
+                                             <td class="field-body">Your token to use the API</td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                    <ul>
+                                       <li>
+                                          <p class="first">Example:</p>
+                                          <div class="highlight-default notranslate">
+                                             <div class="highlight">
+                                                <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">d</span> <span class="s2">&quot;email=johndoe@test.com&amp;password=1234&quot;</span> \
+        <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">get</span><span class="o">-</span><span class="n">token</span><span class="o">/</span>
+</pre>
+                                             </div>
+                                          </div>
+                                       </li>
+                                       <li>
+                                          <p class="first">Expected Success Response:</p>
+                                          <div class="highlight-default notranslate">
+                                             <div class="highlight">
+                                                <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="p">{</span><span class="s2">&quot;token&quot;</span><span class="p">:</span><span class="s2">&quot;a58d372f58af11ac458f3695bb8504ca8e462af4&quot;</span><span class="p">}</span>
+</pre>
+                                             </div>
+                                          </div>
+                                       </li>
+                                       <li>
+                                          <p class="first">Expected Fail Response:</p>
+                                          <div class="highlight-default notranslate">
+                                             <div class="highlight">
+                                                <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">404</span>
+
+<span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span><span class="s2">&quot;Invalid Credentials&quot;</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">400</span>
+
+<span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Please provide both email and password&quot;</span><span class="p">}</span>
+</pre>
+                                             </div>
+                                          </div>
+                                       </li>
+                                    </ul>
+                                 </div>
+                              </blockquote>
+                           </li>
+                        </ol>
+                     </div>
+                     <div class="section" id="for-shippers">
+                        <h2>For Shippers<a class="headerlink" href="#for-shippers" title="Permalink to this headline">¶</a></h2>
+                        <div class="section" id="list-available-loads">
+                           <h3>List Available Loads<a class="headerlink" href="#list-available-loads" title="Permalink to this headline">¶</a></h3>
+                           <p>This method allows users to get a list of their available loads.</p>
+                           <p>It returns the following information for each load:
+                              ID, Pick up date, Reference, Origin city, Destination city, Price, Status, Shipper’s name and Carrier’s name.
+                           </p>
+                           <blockquote>
+                              <div>
+                                 <table class="docutils field-list" frame="void" rules="none">
+                                    <col class="field-name" />
+                                    <col class="field-body" />
+                                    <tbody valign="top">
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Request:</th>
+                                          <td class="field-body">GET /api/shipper/list-available/</td>
+                                       </tr>
+                                       <tr class="field-even field">
+                                          <th class="field-name">Parameters:</th>
+                                          <td class="field-body">Authentication token</td>
+                                       </tr>
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Returns:</th>
+                                          <td class="field-body">List of available loads in JSON format</td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                                 <ul>
+                                    <li>
+                                       <p class="first">Example:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token 09211697a0acc58e598f18f13d6b1cd73ebd91e6&quot;</span> \
+        <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">shipper</span><span class="o">/</span><span class="nb">list</span><span class="o">-</span><span class="n">available</span><span class="o">/</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Success Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="p">{</span>
+  <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s2">&quot;next&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">&quot;previous&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="p">[</span>
+         <span class="p">{</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+           <span class="s2">&quot;pickup_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-05-01&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="s2">&quot;3345&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;origin_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Miami Beach, FL, USA&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;destination_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Orlando, FL, USA&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">350</span><span class="p">,</span>
+           <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;available&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;shipper&quot;</span><span class="p">:</span> <span class="s2">&quot;Shipper1 Doe&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;carrier&quot;</span><span class="p">:</span> <span class="n">null</span>
+         <span class="p">},</span>
+         <span class="p">{</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+           <span class="s2">&quot;pickup_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-05-04&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="s2">&quot;9090&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;origin_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Dallas, TX, USA&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;destination_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Los Angeles, CA, USA&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">2200</span><span class="p">,</span>
+           <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;available&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;shipper&quot;</span><span class="p">:</span> <span class="s2">&quot;Shipper1 Doe&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;carrier&quot;</span><span class="p">:</span> <span class="n">null</span>
+         <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Fail Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Authentication credentials were not provided.&quot;</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid token.&quot;</span><span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </blockquote>
+                        </div>
+                        <div class="section" id="list-accepted-loads">
+                           <h3>List Accepted Loads<a class="headerlink" href="#list-accepted-loads" title="Permalink to this headline">¶</a></h3>
+                           <p>This method allows users to get a list of their accepted loads.</p>
+                           <p>It returns the following information for each load:
+                              ID, Pick up date, Reference, Origin city, Destination city, Price, Status, Shipper’s name and Carrier’s name.
+                           </p>
+                           <blockquote>
+                              <div>
+                                 <table class="docutils field-list" frame="void" rules="none">
+                                    <col class="field-name" />
+                                    <col class="field-body" />
+                                    <tbody valign="top">
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Request:</th>
+                                          <td class="field-body">GET /api/shipper/list-accepted/</td>
+                                       </tr>
+                                       <tr class="field-even field">
+                                          <th class="field-name">Parameters:</th>
+                                          <td class="field-body">Authentication token</td>
+                                       </tr>
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Returns:</th>
+                                          <td class="field-body">List of accepted loads in JSON format</td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                                 <ul>
+                                    <li>
+                                       <p class="first">Example:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token 09211697a0acc58e598f18f13d6b1cd73ebd91e6&quot;</span> \
+        <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">shipper</span><span class="o">/</span><span class="nb">list</span><span class="o">-</span><span class="n">accepted</span><span class="o">/</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Success Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="p">{</span>
+  <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">&quot;next&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">&quot;previous&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="p">[</span>
+         <span class="p">{</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+           <span class="s2">&quot;pickup_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-04-27&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="s2">&quot;1234&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;origin_city&quot;</span><span class="p">:</span> <span class="s2">&quot;New York, NY, USA&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;destination_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Chicago, IL, USA&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">1200</span><span class="p">,</span>
+           <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;accepted&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;shipper&quot;</span><span class="p">:</span> <span class="s2">&quot;Shipper1 Doe&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;carrier&quot;</span><span class="p">:</span> <span class="s2">&quot;Carrier1 Doe&quot;</span>
+         <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Fail Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Authentication credentials were not provided.&quot;</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid token.&quot;</span><span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </blockquote>
+                        </div>
+                        <div class="section" id="post-a-load">
+                           <h3>Post a Load<a class="headerlink" href="#post-a-load" title="Permalink to this headline">¶</a></h3>
+                           <p>This method allows users to post a new load.</p>
+                           <blockquote>
+                              <div>
+                                 <table class="docutils field-list" frame="void" rules="none">
+                                    <col class="field-name" />
+                                    <col class="field-body" />
+                                    <tbody valign="top">
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Request:</th>
+                                          <td class="field-body">
+                                             <p class="first">POST /api/shipper/post-load/</p>
+                                          </td>
+                                       </tr>
+                                       <tr class="field-even field">
+                                          <th class="field-name">Parameters:</th>
+                                          <td class="field-body">
+                                             <ul class="first simple">
+                                                <li><strong>Authentication token</strong></li>
+                                                <li><strong>pickup_date</strong>: <em>string (YYYY-MM-DD)</em></li>
+                                                <li><strong>ref</strong>: <em>string</em></li>
+                                                <li><strong>origin_city</strong>: <em>string</em></li>
+                                                <li><strong>destination_city</strong>: <em>string</em></li>
+                                                <li><strong>price</strong>: <em>float</em></li>
+                                             </ul>
+                                          </td>
+                                       </tr>
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Returns:</th>
+                                          <td class="field-body">
+                                             <p class="first last">Message informing that the load was posted successfully</p>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                                 <ul>
+                                    <li>
+                                       <p class="first">Example:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token 09211697a0acc58e598f18f13d6b1cd73ebd91e6&quot;</span> \
+        <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Content-Type: application/json&quot;</span> \
+        <span class="o">-</span><span class="n">d</span> <span class="s2">&quot;{&quot;</span><span class="n">pickup_date</span><span class="s2">&quot;:&quot;</span><span class="mi">2019</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">13</span><span class="s2">&quot;, &quot;</span><span class="n">ref</span><span class="s2">&quot;:&quot;</span><span class="mi">3550</span><span class="s2">&quot;, &quot;</span><span class="n">origin_city</span><span class="s2">&quot;:&quot;</span><span class="n">Houston</span><span class="s2">&quot;, &quot;</span><span class="n">destination_city</span><span class="s2">&quot;:&quot;</span><span class="n">San</span> <span class="n">Diego</span><span class="s2">&quot;, &quot;</span><span class="n">price</span><span class="s2">&quot;:1000}&quot;</span> \
+        <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">shipper</span><span class="o">/</span><span class="n">post</span><span class="o">-</span><span class="n">load</span><span class="o">/</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Success Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="p">{</span><span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="s2">&quot;Load posted successfully&quot;</span><span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Fail Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Authentication credentials were not provided.&quot;</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid token.&quot;</span><span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </blockquote>
+                        </div>
+                     </div>
+                     <div class="section" id="for-carriers">
+                        <h2>For Carriers<a class="headerlink" href="#for-carriers" title="Permalink to this headline">¶</a></h2>
+                        <div class="section" id="carrier-available-loads">
+                           <span id="id1"></span>
+                           <h3>List Available Loads<a class="headerlink" href="#carrier-available-loads" title="Permalink to this headline">¶</a></h3>
+                           <p>This method allows users to get a list of their available loads.</p>
+                           <p>It returns the following information for each load:
+                              ID, Pick up date, Reference, Origin city, Destination city, Price, Status, Shipper’s name and Carrier’s name.
+                           </p>
+                           <blockquote>
+                              <div>
+                                 <table class="docutils field-list" frame="void" rules="none">
+                                    <col class="field-name" />
+                                    <col class="field-body" />
+                                    <tbody valign="top">
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Request:</th>
+                                          <td class="field-body">GET /api/carrier/list-available/</td>
+                                       </tr>
+                                       <tr class="field-even field">
+                                          <th class="field-name">Parameters:</th>
+                                          <td class="field-body">Authentication token</td>
+                                       </tr>
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Returns:</th>
+                                          <td class="field-body">List of available loads in JSON format</td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                                 <ul>
+                                    <li>
+                                       <p class="first">Example:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token a58d372f58af11ac458f3695bb8504ca8e462af4&quot;</span> \
+        <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="nb">list</span><span class="o">-</span><span class="n">available</span><span class="o">/</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Success Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="p">{</span>
+  <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">&quot;next&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">&quot;previous&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="p">[</span>
+         <span class="p">{</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+           <span class="s2">&quot;pickup_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-05-04&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="s2">&quot;9090&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;origin_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Dallas, TX, USA&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;destination_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Los Angeles, CA, USA&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">2200</span><span class="p">,</span>
+           <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;available&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;shipper&quot;</span><span class="p">:</span> <span class="s2">&quot;Shipper1 Doe&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;carrier&quot;</span><span class="p">:</span> <span class="n">null</span>
+         <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Fail Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Authentication credentials were not provided.&quot;</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid token.&quot;</span><span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </blockquote>
+                        </div>
+                        <div class="section" id="carrier-accepted-loads">
+                           <span id="id2"></span>
+                           <h3>List Accepted Loads<a class="headerlink" href="#carrier-accepted-loads" title="Permalink to this headline">¶</a></h3>
+                           <p>This method allows users to get a list of their accepted loads.</p>
+                           <p>It returns the following information for each load:
+                              ID, Pick up date, Reference, Origin city, Destination city, Price, Status, Shipper’s name and Carrier’s name.
+                           </p>
+                           <blockquote>
+                              <div>
+                                 <table class="docutils field-list" frame="void" rules="none">
+                                    <col class="field-name" />
+                                    <col class="field-body" />
+                                    <tbody valign="top">
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Request:</th>
+                                          <td class="field-body">GET /api/carrier/list-accepted/</td>
+                                       </tr>
+                                       <tr class="field-even field">
+                                          <th class="field-name">Parameters:</th>
+                                          <td class="field-body">Authentication token</td>
+                                       </tr>
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Returns:</th>
+                                          <td class="field-body">List of accepted loads in JSON format</td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                                 <ul>
+                                    <li>
+                                       <p class="first">Example:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token a58d372f58af11ac458f3695bb8504ca8e462af4&quot;</span> \
+        <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="nb">list</span><span class="o">-</span><span class="n">accepted</span><span class="o">/</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Success Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="p">{</span>
+  <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">&quot;next&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">&quot;previous&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="p">[</span>
+         <span class="p">{</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+           <span class="s2">&quot;pickup_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-04-27&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="s2">&quot;1234&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;origin_city&quot;</span><span class="p">:</span> <span class="s2">&quot;New York, NY, USA&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;destination_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Chicago, IL, USA&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">1200</span><span class="p">,</span>
+           <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;accepted&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;shipper&quot;</span><span class="p">:</span> <span class="s2">&quot;Shipper1 Doe&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;carrier&quot;</span><span class="p">:</span> <span class="s2">&quot;Carrier1 Doe&quot;</span>
+         <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Fail Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Authentication credentials were not provided.&quot;</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid token.&quot;</span><span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </blockquote>
+                        </div>
+                        <div class="section" id="list-rejected-loads">
+                           <h3>List Rejected Loads<a class="headerlink" href="#list-rejected-loads" title="Permalink to this headline">¶</a></h3>
+                           <p>This method allows users to get a list of their rejected loads.</p>
+                           <p>It returns the following information for each load:
+                              ID, Pick up date, Reference, Origin city, Destination city, Price, Status, Shipper’s name and Carrier’s name.
+                           </p>
+                           <blockquote>
+                              <div>
+                                 <table class="docutils field-list" frame="void" rules="none">
+                                    <col class="field-name" />
+                                    <col class="field-body" />
+                                    <tbody valign="top">
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Request:</th>
+                                          <td class="field-body">GET /api/carrier/list-rejected/</td>
+                                       </tr>
+                                       <tr class="field-even field">
+                                          <th class="field-name">Parameters:</th>
+                                          <td class="field-body">Authentication token</td>
+                                       </tr>
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Returns:</th>
+                                          <td class="field-body">List of rejected loads in JSON format</td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                                 <ul>
+                                    <li>
+                                       <p class="first">Example:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token a58d372f58af11ac458f3695bb8504ca8e462af4&quot;</span> \
+        <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="nb">list</span><span class="o">-</span><span class="n">rejected</span><span class="o">/</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Success Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="p">{</span>
+  <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">&quot;next&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">&quot;previous&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="p">[</span>
+         <span class="p">{</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+           <span class="s2">&quot;pickup_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-05-01&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="s2">&quot;3345&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;origin_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Miami Beach, FL, USA&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;destination_city&quot;</span><span class="p">:</span> <span class="s2">&quot;Orlando, FL, USA&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">350</span><span class="p">,</span>
+           <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;available&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;shipper&quot;</span><span class="p">:</span> <span class="s2">&quot;Shipper1 Doe&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;carrier&quot;</span><span class="p">:</span> <span class="n">null</span>
+         <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Fail Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Authentication credentials were not provided.&quot;</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid token.&quot;</span><span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </blockquote>
+                        </div>
+                        <div class="section" id="accept-a-load">
+                           <h3>Accept a Load<a class="headerlink" href="#accept-a-load" title="Permalink to this headline">¶</a></h3>
+                           <p>This method allows users to accept a load.</p>
+                           <p>Only available loads can be accepted. In order to see which loads are available and their IDs, see <a class="reference internal" href="#carrier-available-loads"><span class="std std-ref">List Available Loads</span></a>.</p>
+                           <blockquote>
+                              <div>
+                                 <table class="docutils field-list" frame="void" rules="none">
+                                    <col class="field-name" />
+                                    <col class="field-body" />
+                                    <tbody valign="top">
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Request:</th>
+                                          <td class="field-body">
+                                             <p class="first">POST /api/carrier/accept-load/&lt;<em>int:load_id</em>&gt;/</p>
+                                          </td>
+                                       </tr>
+                                       <tr class="field-even field">
+                                          <th class="field-name">Parameters:</th>
+                                          <td class="field-body">
+                                             <ul class="first simple">
+                                                <li><strong>Authentication token</strong></li>
+                                                <li><strong>load_id</strong>: <em>integer</em></li>
+                                             </ul>
+                                          </td>
+                                       </tr>
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Returns:</th>
+                                          <td class="field-body">
+                                             <p class="first last">Message informing that the load was posted successfully</p>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                                 <ul>
+                                    <li>
+                                       <p class="first">Example:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token a58d372f58af11ac458f3695bb8504ca8e462af4&quot;</span> \
+        <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="n">accept</span><span class="o">-</span><span class="n">load</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Success Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="p">{</span><span class="s2">&quot;success&quot;</span><span class="p">:</span><span class="s2">&quot;Load accepted successfully&quot;</span><span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Fail Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Authentication credentials were not provided.&quot;</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid token.&quot;</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">404</span>
+
+<span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Load not found or Load not available&quot;</span><span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </blockquote>
+                        </div>
+                        <div class="section" id="reject-a-load">
+                           <h3>Reject a Load<a class="headerlink" href="#reject-a-load" title="Permalink to this headline">¶</a></h3>
+                           <p>This method allows users to reject a load.</p>
+                           <p>Only available loads can be rejected. In order to see which loads are available and their IDs, see <a class="reference internal" href="#carrier-available-loads"><span class="std std-ref">List Available Loads</span></a>.</p>
+                           <blockquote>
+                              <div>
+                                 <table class="docutils field-list" frame="void" rules="none">
+                                    <col class="field-name" />
+                                    <col class="field-body" />
+                                    <tbody valign="top">
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Request:</th>
+                                          <td class="field-body">
+                                             <p class="first">POST /api/carrier/reject-load/&lt;<em>int:load_id</em>&gt;/</p>
+                                          </td>
+                                       </tr>
+                                       <tr class="field-even field">
+                                          <th class="field-name">Parameters:</th>
+                                          <td class="field-body">
+                                             <ul class="first simple">
+                                                <li><strong>Authentication token</strong></li>
+                                                <li><strong>load_id</strong>: <em>integer</em></li>
+                                             </ul>
+                                          </td>
+                                       </tr>
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Returns:</th>
+                                          <td class="field-body">
+                                             <p class="first last">Message informing that the load was rejected successfully</p>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                                 <ul>
+                                    <li>
+                                       <p class="first">Example:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token a58d372f58af11ac458f3695bb8504ca8e462af4&quot;</span> \
+        <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="n">reject</span><span class="o">-</span><span class="n">load</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Success Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="p">{</span><span class="s2">&quot;success&quot;</span><span class="p">:</span><span class="s2">&quot;Load rejected successfully&quot;</span><span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Fail Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Authentication credentials were not provided.&quot;</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid token.&quot;</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">404</span>
+
+<span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Load not found or Load not available&quot;</span><span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </blockquote>
+                        </div>
+                        <div class="section" id="drop-a-load">
+                           <h3>Drop a Load<a class="headerlink" href="#drop-a-load" title="Permalink to this headline">¶</a></h3>
+                           <p>This method allows users to drop a load.</p>
+                           <p>Only loads that are accepted can be dropped. In order to see which loads are accepted and their IDs, see <a class="reference internal" href="#carrier-accepted-loads"><span class="std std-ref">List Accepted Loads</span></a>.</p>
+                           <blockquote>
+                              <div>
+                                 <table class="docutils field-list" frame="void" rules="none">
+                                    <col class="field-name" />
+                                    <col class="field-body" />
+                                    <tbody valign="top">
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Request:</th>
+                                          <td class="field-body">
+                                             <p class="first">POST /api/carrier/drop-load/&lt;<em>int:load_id</em>&gt;/</p>
+                                          </td>
+                                       </tr>
+                                       <tr class="field-even field">
+                                          <th class="field-name">Parameters:</th>
+                                          <td class="field-body">
+                                             <ul class="first simple">
+                                                <li><strong>Authentication token</strong></li>
+                                                <li><strong>load_id</strong>: <em>integer</em></li>
+                                             </ul>
+                                          </td>
+                                       </tr>
+                                       <tr class="field-odd field">
+                                          <th class="field-name">Returns:</th>
+                                          <td class="field-body">
+                                             <p class="first last">Message informing that the load was dropped successfully</p>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                                 <ul>
+                                    <li>
+                                       <p class="first">Example:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token a58d372f58af11ac458f3695bb8504ca8e462af4&quot;</span> \
+        <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="n">drop</span><span class="o">-</span><span class="n">load</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Success Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">200</span>
+
+<span class="p">{</span><span class="s2">&quot;success&quot;</span><span class="p">:</span><span class="s2">&quot;Load dropped successfully&quot;</span><span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li>
+                                       <p class="first">Expected Fail Response:</p>
+                                       <div class="highlight-default notranslate">
+                                          <div class="highlight">
+                                             <pre><span></span><span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Authentication credentials were not provided.&quot;</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">401</span>
+
+<span class="p">{</span><span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid token.&quot;</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="n">HTTP</span> <span class="n">Status</span> <span class="n">Code</span><span class="p">:</span> <span class="mi">404</span>
+
+<span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Load not found or Load is not accepted by you&quot;</span><span class="p">}</span>
+</pre>
+                                          </div>
+                                       </div>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </blockquote>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+            <div class="sphinxsidebarwrapper">
+               <h3><a href="#">Table Of Contents</a></h3>
+               <ul>
+                  <li>
+                     <a class="reference internal" href="#">Loadsmart API Documentation</a>
+                     <ul>
+                        <li><a class="reference internal" href="#authentication">Authentication</a></li>
+                        <li>
+                           <a class="reference internal" href="#for-shippers">For Shippers</a>
+                           <ul>
+                              <li><a class="reference internal" href="#list-available-loads">List Available Loads</a></li>
+                              <li><a class="reference internal" href="#list-accepted-loads">List Accepted Loads</a></li>
+                              <li><a class="reference internal" href="#post-a-load">Post a Load</a></li>
+                           </ul>
+                        </li>
+                        <li>
+                           <a class="reference internal" href="#for-carriers">For Carriers</a>
+                           <ul>
+                              <li><a class="reference internal" href="#carrier-available-loads">List Available Loads</a></li>
+                              <li><a class="reference internal" href="#carrier-accepted-loads">List Accepted Loads</a></li>
+                              <li><a class="reference internal" href="#list-rejected-loads">List Rejected Loads</a></li>
+                              <li><a class="reference internal" href="#accept-a-load">Accept a Load</a></li>
+                              <li><a class="reference internal" href="#reject-a-load">Reject a Load</a></li>
+                              <li><a class="reference internal" href="#drop-a-load">Drop a Load</a></li>
+                           </ul>
+                        </li>
+                     </ul>
+                  </li>
+               </ul>
+               <div class="relations">
+                  <h3>Related Topics</h3>
+                  <ul>
+                     <li>
+                        <a href="#">Documentation overview</a>
+                        <ul>
+                        </ul>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <div class="clearer"></div>
+      </div>
+      <div class="footer">
+         &copy;2019, Loadsmart.
+         |
+         Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+         &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      </div>
+   </body>
+</html>

@@ -2,6 +2,8 @@ from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 from finalProject.api import views
 
+app_name = "api"
+
 urlpatterns = [
     path('get-token/', views.get_token),
     path('carrier/list-available/', views.CarrierAvailableLoads.as_view({'get': 'list'})),
@@ -13,6 +15,7 @@ urlpatterns = [
     path('shipper/list-available/', views.ShipperAvailableLoads.as_view({'get': 'list'})),
     path('shipper/list-accepted/', views.ShipperAcceptedLoads.as_view({'get': 'list'})),
     path('shipper/post-load/', views.ShipperPostLoad),
+    path('documentation/', views.apiDocumentation, name="docs"),
 
 ]
 
