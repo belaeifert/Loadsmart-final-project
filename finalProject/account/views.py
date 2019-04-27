@@ -7,15 +7,13 @@ from finalProject.shipper.models import ShipperUser
 from .forms import CarrierSignUpForm, ShipperSignUpForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.messages.views import SuccessMessageMixin
 from bootstrap_modal_forms.mixins import LoginAjaxMixin, PassRequestMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class CustomLoginView(LoginAjaxMixin, SuccessMessageMixin, LoginView):
+class CustomLoginView(LoginAjaxMixin, LoginView):
     authentication_form = AuthenticationForm
     template_name = 'registration/login.html'
-    success_message = 'Success: You were successfully logged in.'
+    success_message = None
     redirect_authenticated_user = True
 
 
@@ -36,30 +34,26 @@ def RedirectHome(request):
             return redirect('index')
 
 
-class ShipperSignUpView(PassRequestMixin, SuccessMessageMixin, CreateView):
+class ShipperSignUpView(PassRequestMixin, CreateView):
     model = ShipperUser
     form_class = ShipperSignUpForm
     template_name = 'registration/signup_form.html'
-    success_message = 'Success: Sign up succeeded.'
 
     def form_valid(self, form):
         if not self.request.is_ajax():
             user = form.save()
             login(self.request, user)
-            #messages.success(self.request, self.success_message)
         return redirect('shipper:home')
 
 
-class CarrierSignUpView(PassRequestMixin, SuccessMessageMixin, CreateView):
+class CarrierSignUpView(PassRequestMixin, CreateView):
     model = CarrierUser
     form_class = CarrierSignUpForm
     template_name = 'registration/signup_form.html'
-    success_message = 'Success: Sign up succeeded.'
 
     def form_valid(self, form):
         if not self.request.is_ajax():
             user = form.save()
             login(self.request, user)
-            #messages.success(self.request, self.success_message)
         return redirect('carrier:list_loads')
 
