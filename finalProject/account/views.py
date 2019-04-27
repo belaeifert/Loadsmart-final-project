@@ -7,9 +7,7 @@ from finalProject.shipper.models import ShipperUser
 from .forms import CarrierSignUpForm, ShipperSignUpForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.messages.views import SuccessMessageMixin
 from bootstrap_modal_forms.mixins import LoginAjaxMixin, PassRequestMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class CustomLoginView(LoginAjaxMixin, LoginView):
