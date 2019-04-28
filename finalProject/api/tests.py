@@ -57,7 +57,19 @@ class ListCarrierAvailableLoads(TestCase):
         self.assertEqual(len(self.response.data['results']), Load.objects.filter(status='available').count())
 
     def test_json(self):
-        pass
+        self.assertEqual(self.response.json()['results'][0],
+                         {
+                             'id': 1,
+                             'pickup_date': '2019-04-17',
+                             'ref': '123',
+                             'origin_city': 'Miami Gardens, FL, USA',
+                             'destination_city': 'Florida City, FL, USA',
+                             'price': 47.5, 'status': 'available',
+                             'shipper': 'shipper teste',
+                             'carrier': None}
+                         )
+
+
 
 class ListCarrierAcceptedLoads(TestCase):
     def setUp(self):
@@ -88,7 +100,18 @@ class ListCarrierAcceptedLoads(TestCase):
         self.assertEqual(len(self.response.data['results']), Load.objects.filter(carrier=self.carrier, status='accepted').count())
 
     def test_json(self):
-        pass
+        self.assertEqual(self.response.json()['results'][0],
+                         {
+                             'id': 1,
+                             'pickup_date': '2019-04-17',
+                             'ref': '123',
+                             'origin_city': 'Miami Gardens, FL, USA',
+                             'destination_city': 'Florida City, FL, USA',
+                             'price': 47.5,
+                             'status': 'accepted',
+                             'shipper': 'shipper teste',
+                             'carrier': 'carrier teste'
+                         })
 
 class ListCarrierRejectedLoads(TestCase):
     def setUp(self):
@@ -108,6 +131,10 @@ class ListCarrierRejectedLoads(TestCase):
             shipper=self.shipper,
         )
         self.obj.save()
+
+        self.obj_rejected = RejectedLoad(load=self.obj, carrier=self.carrier)
+        self.obj_rejected.save()
+
         self.response = self.client.get(r('api:list_carrier_rejected'), format='json')
 
 
@@ -118,7 +145,19 @@ class ListCarrierRejectedLoads(TestCase):
         self.assertEqual(len(self.response.data['results']), RejectedLoad.objects.filter(carrier=self.carrier, load=self.obj).count())
 
     def test_json(self):
-        pass
+        self.assertEqual(self.response.json()['results'][0],
+            {
+                'id': 1,
+                'pickup_date': '2019-04-17',
+                'ref': '123',
+                'origin_city': 'Miami Gardens, FL, USA',
+                'destination_city': 'Florida City, FL, USA',
+                'price': 47.5,
+                'status': 'available',
+                'shipper': 'shipper teste',
+                'carrier': None
+            })
+
 
 class AcceptLoadTest(TestCase):
     def setUp(self):
@@ -143,7 +182,6 @@ class AcceptLoadTest(TestCase):
 
     def test_status_code(self):
         self.assertEqual(self.response.status_code, 200)
-        print(self.response)
 
     def test_accepted_loads(self):
         self.assertTrue(Load.objects.filter(carrier=self.carrier, status='accepted').count())
@@ -258,7 +296,17 @@ class ListShipperAvailableLoads(TestCase):
 
     def test_json(self):
         self.assertEqual(self.response.json()['results'][0],
-                         {'id': 1, 'pickup_date': '2019-04-17', 'ref': '123', 'origin_city': 'Miami Gardens, FL, USA', 'destination_city': 'Florida City, FL, USA', 'price': 50.0, 'status': 'available', 'shipper': 'shipper teste', 'carrier': None})
+                         {
+                             'id': 1,
+                             'pickup_date': '2019-04-17',
+                             'ref': '123',
+                             'origin_city': 'Miami Gardens, FL, USA',
+                             'destination_city': 'Florida City, FL, USA',
+                             'price': 50.0,
+                             'status': 'available',
+                             'shipper': 'shipper teste',
+                             'carrier': None
+                         })
 
 
 class ListShipperAcceptedLoads(TestCase):
@@ -287,7 +335,17 @@ class ListShipperAcceptedLoads(TestCase):
 
     def test_json(self):
         self.assertEqual(self.response.json()['results'][0],
-                            {'id': 1, 'pickup_date': '2019-04-17', 'ref': '123', 'origin_city': 'Miami Gardens, FL, USA', 'destination_city': 'Florida City, FL, USA', 'price': 50.0, 'status': 'accepted', 'shipper': 'shipper teste', 'carrier': None})
+                            {
+                                'id': 1,
+                                'pickup_date': '2019-04-17',
+                                'ref': '123',
+                                'origin_city': 'Miami Gardens, FL, USA',
+                                'destination_city': 'Florida City, FL, USA',
+                                'price': 50.0,
+                                'status': 'accepted',
+                                'shipper': 'shipper teste',
+                                'carrier': None
+                            })
 
 
 class PostLoadTest(APITestCase):
@@ -296,7 +354,13 @@ class PostLoadTest(APITestCase):
         self.client = set_auth_client(self.user)
 
         self.response = self.client.post(r("api:post_load"),
-                                    {"pickup_date":"2019-03-19", "ref" : 11111, "origin_city":"Miami, FL, USA", "destination_city":"Mesa, AZ, USA", "price":1111},
+                                    {
+                                        "pickup_date":"2019-03-19",
+                                        "ref" : 11111,
+                                        "origin_city":"Miami, FL, USA",
+                                        "destination_city":"Mesa, AZ, USA",
+                                        "price":1111
+                                    },
                                     format='json')
     def test_status_code(self):
         self.assertEqual(self.response.status_code, 200)
