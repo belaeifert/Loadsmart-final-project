@@ -29,5 +29,5 @@ class LoadSerializer(serializers.HyperlinkedModelSerializer):
         try:
             return object.carrier.user.get_full_name()
         except:
-            return ''
+            return None
 
