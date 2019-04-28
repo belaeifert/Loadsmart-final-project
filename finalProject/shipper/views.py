@@ -43,5 +43,11 @@ class EditPriceView(PassRequestMixin, SuccessMessageMixin, generic.UpdateView):
     model = Load
     template_name = 'edit-price_modal.html'
     form_class = LoadForm
-    success_message = 'Success: Price was updated.'
+    success_message = 'Success: Load price was updated.'
     success_url = reverse_lazy('shipper:home')
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.shipper = ShipperUser.objects.get(user_id=self.request.user.id)
+        super().form_valid(form)
+        return redirect('shipper:home')
