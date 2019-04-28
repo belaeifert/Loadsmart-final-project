@@ -22,15 +22,6 @@ class LoadSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'pickup_date', 'ref', 'origin_city', 'destination_city', 'price',
                   'status', 'shipper', 'carrier')
 
-    '''
-    def get_price(self, object):
-        try:
-            ShipperUser.objects.get(user_id=self.context['request'].user.id)
-            return object.price
-        except:
-            return object.carrier_price()
-    '''
-
     def get_shipper(self, object):
         return object.shipper.user.get_full_name()
 
@@ -38,5 +29,5 @@ class LoadSerializer(serializers.HyperlinkedModelSerializer):
         try:
             return object.carrier.user.get_full_name()
         except:
-            return None
+            return ''
 
