@@ -21,3 +21,4 @@ class LoadForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
         if suggested_price is None or '':
             raise forms.ValidationError("There are no road between origin and destination cities ")
         return suggested_price
+    

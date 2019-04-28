@@ -13,7 +13,6 @@ from finalProject.shipper.models import ShipperUser
 
 from .models import Load
 
-
 class ShipperView(LoginRequiredMixin, ListView):
     template_name = 'shipper_home.html'
     context_object_name = 'loads'
@@ -39,3 +38,10 @@ class PostLoadView(LoginRequiredMixin, PassRequestMixin, SuccessMessageMixin, ge
         obj.shipper = ShipperUser.objects.get(user_id=self.request.user.id)
         super().form_valid(form)
         return redirect('shipper:home')
+
+class EditPriceView(PassRequestMixin, SuccessMessageMixin, generic.UpdateView):
+    model = Load
+    template_name = 'edit-price_modal.html'
+    form_class = LoadForm
+    success_message = 'Success: Price was updated.'
+    success_url = reverse_lazy('shipper:home')
