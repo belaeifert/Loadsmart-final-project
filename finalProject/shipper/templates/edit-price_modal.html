@@ -13,7 +13,6 @@
     </div>
     
     {% for field in form %}
-    {% if field == form.price %}
       <div class="form-group{% if field.errors %} invalid{% endif %}">
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
         {{ field }}
@@ -21,7 +20,6 @@
           <p class="help-block">{{ error }}</p>
         {% endfor %}
       </div>
-    {% endif %}
     {% endfor %}
   </div>
 

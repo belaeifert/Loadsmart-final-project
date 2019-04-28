@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import ListView
 
-from finalProject.shipper.forms import LoadForm
+from finalProject.shipper.forms import LoadForm, UpdatePriceForm
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from finalProject.shipper.models import ShipperUser
@@ -42,12 +42,6 @@ class PostLoadView(LoginRequiredMixin, PassRequestMixin, SuccessMessageMixin, ge
 class EditPriceView(PassRequestMixin, SuccessMessageMixin, generic.UpdateView):
     model = Load
     template_name = 'edit-price_modal.html'
-    form_class = LoadForm
+    form_class = UpdatePriceForm
     success_message = 'Success: Load price was updated.'
     success_url = reverse_lazy('shipper:home')
-
-    def form_valid(self, form):
-        obj = form.save(commit=False)
-        obj.shipper = ShipperUser.objects.get(user_id=self.request.user.id)
-        super().form_valid(form)
-        return redirect('shipper:home')
