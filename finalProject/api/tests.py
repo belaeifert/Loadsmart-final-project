@@ -13,7 +13,6 @@ factory = APIRequestFactory()
 def create_user(is_shipper):
     if is_shipper:
         user = User.objects.create(email='shipper@teste.com', first_name='shipper', last_name='teste', password='123')
-        user.save()
         shipper = ShipperUser.objects.create(user=user)
         shipper.save()
         return user, shipper
@@ -149,7 +148,10 @@ class AcceptLoadTest(TestCase):
     def test_accepted_loads(self):
         self.assertTrue(Load.objects.filter(carrier=self.carrier, status='accepted').count())
 
-    def test_json(self):
+    def test_json_successful(self):
+        pass
+
+    def test_json_unsuccessful(self):
         pass
 
 
@@ -181,7 +183,10 @@ class RejectedLoadTest(TestCase):
     def test_rejected_load(self):
         self.assertTrue(RejectedLoad.objects.filter(carrier=self.carrier, load=self.obj).count())
 
-    def test_json(self):
+    def test_json_successful(self):
+        pass
+
+    def test_json_unsuccessful(self):
         pass
 
 class DropLoadTest(TestCase):
@@ -215,8 +220,16 @@ class DropLoadTest(TestCase):
     def test_status_load(self):
         self.assertTrue(Load.objects.filter(pk=self.obj.id, status='available').count())
 
-    def test_json(self):
-        pass
+    def test_json_successful(self):
+        self.assertEqual({'success': 'Load dropped successfully'}, self.response.json())
+    '''
+    def test_json_unsuccessful(self):
+        another_user = User.objects.create(email='carrier2@teste.com', first_name='carrier 2', last_name='teste', password='123')
+        another_carrier = CarrierUser.objects.create(user=another_user, MC_number=456)
+        another_carrier.save()
+        Load.objects.filter(id=self.obj.id).update(carrier=another_carrier)
+        self.assertEqual({'error': 'Load not found or Load is not accepted by you'}, self.response.json())
+    '''
 
 
 class ListShipperAvailableLoads(TestCase):
@@ -244,7 +257,9 @@ class ListShipperAvailableLoads(TestCase):
         self.assertEqual(len(self.response.data['results']), Load.objects.filter(shipper=self.shipper, status='available').count())
 
     def test_json(self):
-        pass
+        self.assertEqual(self.response.json()['results'][0],
+                         {'id': 1, 'pickup_date': '2019-04-17', 'ref': '123', 'origin_city': 'Miami Gardens, FL, USA', 'destination_city': 'Florida City, FL, USA', 'price': 50.0, 'status': 'available', 'shipper': 'shipper teste', 'carrier': None})
+
 
 class ListShipperAcceptedLoads(TestCase):
     def setUp(self):
@@ -271,7 +286,9 @@ class ListShipperAcceptedLoads(TestCase):
         self.assertEqual(len(self.response.data['results']), Load.objects.filter(shipper=self.shipper, status='accepted').count())
 
     def test_json(self):
-        pass
+        self.assertEqual(self.response.json()['results'][0],
+                            {'id': 1, 'pickup_date': '2019-04-17', 'ref': '123', 'origin_city': 'Miami Gardens, FL, USA', 'destination_city': 'Florida City, FL, USA', 'price': 50.0, 'status': 'accepted', 'shipper': 'shipper teste', 'carrier': None})
+
 
 class PostLoadTest(APITestCase):
     def setUp(self):
