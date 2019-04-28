@@ -72,8 +72,6 @@ class PostLoadGet(TestCase):
         self.assertIsInstance(form, LoadForm)
 
 
-        dic = {'x' :'x'}
-
 class PostLoadTest(TestCase):
 
     def setUp(self):

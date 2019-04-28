@@ -194,7 +194,7 @@ class AcceptLoadTest(TestCase):
 
 
 
-class RejectedLoadTest(TestCase):
+class RejectLoadTest(TestCase):
     def setUp(self):
         self.shipper_user, self.shipper = create_user(True)
         self.carrier_user, self.carrier = create_user(False)
@@ -218,7 +218,7 @@ class RejectedLoadTest(TestCase):
     def test_status_code(self):
         self.assertEqual(self.response.status_code, 200)
 
-    def test_rejected_load(self):
+    def test_reject_load(self):
         self.assertTrue(RejectedLoad.objects.filter(carrier=self.carrier, load=self.obj).count())
 
     def test_json_successful(self):
@@ -327,10 +327,10 @@ class ListShipperAcceptedLoads(TestCase):
         self.obj.save()
         self.response = self.client.get(r('api:list_shipper_accepted'), format='json')
 
-    def test_status_code_available_loads(self):
+    def test_status_code_accepted_loads(self):
         self.assertEqual(self.response.status_code, 200)
 
-    def test_available_loads(self):
+    def test_accepted_loads(self):
         self.assertEqual(len(self.response.data['results']), Load.objects.filter(shipper=self.shipper, status='accepted').count())
 
     def test_json(self):
