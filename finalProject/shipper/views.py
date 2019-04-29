@@ -45,3 +45,9 @@ class EditPriceView(PassRequestMixin, SuccessMessageMixin, generic.UpdateView):
     form_class = UpdatePriceForm
     success_message = 'Success: Load price was updated.'
     success_url = reverse_lazy('shipper:home')
+
+class CancelLoadView(PassRequestMixin, SuccessMessageMixin, generic.DeleteView):
+    model = Load
+    template_name = 'cancel-load_modal.html'
+    success_message = 'Success: Load was canceled.'
+    success_url = reverse_lazy('shipper:home')

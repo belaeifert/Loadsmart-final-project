@@ -89,8 +89,10 @@
                     <i class="far fa-edit"></i> Edit Price</a>
                 </a>
                 </td>
-                <td style="text-align: center;"><button type="button" class="btn ">
-                <i class="far fa-trash-alt"></i> Cancel</button>
+                <td style="text-align: center;">
+                <a class="cancel-load-popup-btn btn" data-id={% url 'shipper:cancel_load' load.pk %}>
+                    <i class="far fa-trash-alt"></i> Cancel</button>
+                </a>
                 </td>
             </tr>
             {% endif %}
@@ -118,6 +120,9 @@
             formURL: "{% url 'account:logout_popup' %}" 
         });
         $(".edit-price-popup-btn").each(function () {
+            $(this).modalForm({formURL: $(this).data('id')});
+        });
+        $(".cancel-load-popup-btn").each(function () {
             $(this).modalForm({formURL: $(this).data('id')});
         });
       });
