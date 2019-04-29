@@ -72,7 +72,6 @@ class PostLoadGet(TestCase):
         self.assertIsInstance(form, LoadForm)
 
 
-
 class PostLoadTest(TestCase):
 
     def setUp(self):

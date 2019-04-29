@@ -68,7 +68,7 @@ class CarrierRejectedLoads(viewsets.ReadOnlyModelViewSet):
         return rejected_loads
 
 
-@api_view(["POST"])
+@api_view(["PUT"])
 @permission_classes((IsAuthenticated, IsCarrier,))
 def CarrierAccept(request, pk_load):
     try:
@@ -83,7 +83,7 @@ def CarrierAccept(request, pk_load):
                     status=HTTP_200_OK)
 
 
-@api_view(["POST"])
+@api_view(["PUT"])
 @permission_classes((IsAuthenticated, IsCarrier,))
 def CarrierReject(request, pk_load):
     try:
@@ -98,7 +98,7 @@ def CarrierReject(request, pk_load):
                     status=HTTP_200_OK)
 
 
-@api_view(["POST"])
+@api_view(["PUT"])
 @permission_classes((IsAuthenticated, IsCarrier,))
 def CarrierDrop(request, pk_load):
     try:
