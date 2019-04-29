@@ -28,7 +28,7 @@ class ShipperView(LoginRequiredMixin, ListView):
 
 
 class PostLoadView(LoginRequiredMixin, PassRequestMixin, SuccessMessageMixin, generic.CreateView):
-    template_name = 'post-load.html'
+    template_name = 'post_load.html'
     form_class = LoadForm
     success_message = 'Success: Load was posted.'
     success_url = reverse_lazy('shipper:home')
@@ -41,13 +41,13 @@ class PostLoadView(LoginRequiredMixin, PassRequestMixin, SuccessMessageMixin, ge
 
 class EditPriceView(PassRequestMixin, SuccessMessageMixin, generic.UpdateView):
     model = Load
-    template_name = 'edit-price_modal.html'
+    template_name = 'edit_price_modal.html'
     form_class = UpdatePriceForm
     success_message = 'Success: Load price was updated.'
     success_url = reverse_lazy('shipper:home')
 
 class CancelLoadView(DeleteAjaxMixin, generic.DeleteView):
     model = Load
-    template_name = 'cancel-load_modal.html'
+    template_name = 'cancel_load_modal.html'
     success_message = 'Success: Load was canceled.'
     success_url = '/shipper/home/'

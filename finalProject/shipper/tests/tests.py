@@ -1,27 +1,14 @@
-from datetime import date
-from django.test import TestCase, Client
-from django.urls import reverse
-
+from django.test import TestCase
 from finalProject import settings
-from finalProject.account.models import User
 from finalProject.shipper.forms import LoadForm
-from finalProject.shipper.models import Load, ShipperUser
+from finalProject.shipper.models import Load
 from django.shortcuts import resolve_url as r
-
-def create_user():
-    user = User.objects.create(email='shipper@teste.com', first_name='shipper', last_name='teste')
-    user.save()
-
-    shipper = ShipperUser.objects.create(user=user)
-    shipper.save()
-
-    return user
-
+from finalProject.shipper.tests.create_user_setUp import create_user
 
 class ShipperHomeGet(TestCase):
 
     def setUp(self):
-        user = create_user()
+        user, shipper = create_user()
         self.client.force_login(user)
         self.response = self.client.get(r('shipper:home'))
 
@@ -39,7 +26,7 @@ class ShipperHomeGet(TestCase):
 class PostLoadGet(TestCase):
 
     def setUp(self):
-        user = create_user()
+        user, shipper = create_user()
         self.client.force_login(user)
         self.response = self.client.get(r('shipper:post_load'))
 
@@ -48,7 +35,7 @@ class PostLoadGet(TestCase):
 
 
     def test_template(self):
-        self.assertTemplateUsed(self.response, 'post-load.html')
+        self.assertTemplateUsed(self.response, 'post_load.html')
 
 
     def test_csrf(self):
@@ -75,8 +62,7 @@ class PostLoadGet(TestCase):
 class PostLoadTest(TestCase):
 
     def setUp(self):
-        user = create_user()
-        shipper = ShipperUser.objects.get(user=user)
+        user, shipper = create_user()
         self.obj = Load(
             pickup_date='2019-04-17',
             ref=123,
@@ -98,6 +84,5 @@ class PostLoadTest(TestCase):
             self.obj.pickup_date, self.obj.ref, self.obj.origin_city, self.obj.destination_city,
             self.obj.price, self.obj.carrier, self.obj.shipper)
         self.assertEqual(str(self.obj), test_str)
-
 
 
