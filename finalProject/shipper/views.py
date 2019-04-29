@@ -64,3 +64,13 @@ class CancelLoadView(DeleteAjaxMixin, generic.DeleteView):
     template_name = 'cancel_load_modal.html'
     success_message = 'Success: Load was canceled.'
     success_url = '/shipper/home/'
+
+    def delete(self, request, *args, **kwargs):
+        try:
+            super().delete(request, *args, **kwargs)
+        except Exception as e:
+            messages.error(request, 'ERROR: This load is not available anymore')
+            return redirect('/shipper/home/')
+
+
+
