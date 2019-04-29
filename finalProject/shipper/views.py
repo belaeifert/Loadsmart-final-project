@@ -1,10 +1,12 @@
 from bootstrap_modal_forms.mixins import PassRequestMixin, DeleteAjaxMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import ListView
+
 
 from finalProject.shipper.forms import LoadForm, UpdatePriceForm
 from django.conf import settings
@@ -39,12 +41,23 @@ class PostLoadView(LoginRequiredMixin, PassRequestMixin, SuccessMessageMixin, ge
         super().form_valid(form)
         return redirect('shipper:home')
 
+
 class EditPriceView(PassRequestMixin, SuccessMessageMixin, generic.UpdateView):
     model = Load
     template_name = 'edit-price_modal.html'
     form_class = UpdatePriceForm
     success_message = 'Success: Load price was updated.'
     success_url = reverse_lazy('shipper:home')
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        if obj.status == 'available':
+            super().form_valid(form)
+            return redirect('shipper:home')
+        else:
+            messages.error(self.request, 'ERROR: It is not possible to edit price because this load is not available anymore')
+            return redirect('shipper:home')
+
 
 class CancelLoadView(DeleteAjaxMixin, generic.DeleteView):
     model = Load
