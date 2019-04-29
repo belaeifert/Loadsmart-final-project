@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.shortcuts import resolve_url as r
-from django.urls import reverse
 
 from finalProject.shipper.models import Load
 from finalProject.shipper.tests.create_user_setUp import create_user

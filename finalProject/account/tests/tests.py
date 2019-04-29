@@ -3,6 +3,7 @@ from finalProject.account.models import User
 import unittest
 
 
+
 class UserModelTests(TestCase):
 
     def setUp(self):
@@ -15,6 +16,3 @@ class UserModelTests(TestCase):
     def test_carrier_atribute(self):
         self.assertEqual(self.user.email, 'carrier@teste.com')
 
-
-if __name__ == '__main__':
-    unittest.main()

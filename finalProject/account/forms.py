@@ -21,7 +21,7 @@ class ShipperSignUpForm(PopRequestMixin, CreateUpdateAjaxMixin,
     def save(self):
         user = super().save(commit=False)
         user.save()
-        shipper = ShipperUser.objects.create(user=user)
+        ShipperUser.objects.create(user=user)
         return user 
 
 
@@ -48,6 +48,6 @@ class CarrierSignUpForm(PopRequestMixin, CreateUpdateAjaxMixin,
     def save(self):
         user = super().save(commit=False)
         user.save()
-        carrier = CarrierUser.objects.create(
+        CarrierUser.objects.create(
             user=user, MC_number=self.cleaned_data["mc_numb"])
         return user
