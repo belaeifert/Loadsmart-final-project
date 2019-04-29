@@ -23,7 +23,7 @@ class ShipperUser(models.Model):
 
 
 class Load(models.Model):
-    pickup_date = models.DateField(blank=True, null=True)
+    pickup_date = models.DateField()
     ref = models.CharField(max_length=50)
     origin_city = models.CharField(max_length=500)
     destination_city = models.CharField(max_length=500)

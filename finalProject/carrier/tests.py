@@ -1,40 +1,184 @@
 from django.test import TestCase
-from django.shortcuts import reverse
+from django.shortcuts import resolve_url as r
 from finalProject.carrier.models import CarrierUser, RejectedLoad
 from finalProject.account.models import User
 from finalProject.shipper.models import Load, ShipperUser
 import unittest
 
 
+def create_carrier_user():
+    user = User.objects.create(
+        email='carrier@teste.com',
+        first_name='carrier',
+        last_name='teste')
+    user.save()
+
+    carrier = CarrierUser.objects.create(
+        user=user,
+        MC_number='12345')
+    carrier.save()
+
+    return user
+
+
+def create_load():
+    user = User.objects.create(
+        email='shipper@teste.com',
+        first_name='shipper',
+        last_name='teste')
+    user.save()
+    shipper = ShipperUser.objects.create(user=user)
+    shipper.save()
+
+    load = Load(
+        pickup_date='2019-06-10',
+        ref=123,
+        origin_city='Miami Gardens, FL, USA',
+        destination_city='Florida City, FL, USA',
+        price=50.0,
+        status="available",
+        suggested_price=67.04,
+        shipper=shipper,
+    )
+    load.save()
+
+    return load
+
+
+class CarrierHomeGet(TestCase):
+
+    def setUp(self):
+        user = create_carrier_user()
+        self.client.force_login(user)
+        self.response = self.client.get(r('carrier:list_loads'))
+
+    def test_template(self):
+        self.assertTemplateUsed(self.response, 'carrier_abas.html')
+
+    def test_get(self):
+        self.assertEqual(200, self.response.status_code)
+
+
+class CarrierAcceptLoadTest(TestCase):
+
+    def setUp(self):
+        user = create_carrier_user()
+        self.client.force_login(user)
+
+        self.load = create_load()
+
+        self.response = self.client.post(
+            r('carrier:accept_load', pk_load=self.load.pk), follow=True)
+
+    def test_get(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_template(self):
+        self.assertTemplateUsed(self.response, 'carrier_abas.html')
+
+    def test_status_load(self):
+        self.load.refresh_from_db()
+        self.assertEqual(self.load.status, 'accepted')
+
+    def test_accepted_loads_is_one(self):
+        self.response = self.client.get(r('carrier:list_loads'))
+        self.assertEqual(len(self.response.context['accepted_loads']), 1)
+
+    def test_available_loads_is_zero(self):
+        self.response = self.client.get(r('carrier:list_loads'))
+        self.assertEqual(len(self.response.context['available_loads']), 0)
+
+
+class CarrierRejectLoadTest(TestCase):
+
+    def setUp(self):
+        user = create_carrier_user()
+        self.client.force_login(user)
+
+        self.load = create_load()
+
+        self.response = self.client.post(
+            r('carrier:reject_load', pk_load=self.load.pk), follow=True)
+
+    def test_get(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_template(self):
+        self.assertTemplateUsed(self.response, 'carrier_abas.html')
+
+    def test_status_load(self):
+        self.load.refresh_from_db()
+        self.assertEqual(self.load.status, 'available')
+
+    def test_rejected_loads_is_one(self):
+        self.response = self.client.get(r('carrier:list_loads'))
+        self.assertEqual(len(self.response.context['rejected_loads']), 1)
+
+    def test_available_loads_is_zero(self):
+        self.response = self.client.get(r('carrier:list_loads'))
+        self.assertEqual(len(self.response.context['available_loads']), 0)
+
+
+class CarrierDropLoadTest(TestCase):
+
+    def setUp(self):
+        user = create_carrier_user()
+        self.client.force_login(user)
+
+        self.load = create_load()
+        self.load.status = 'accepted'
+        self.load.carrier = CarrierUser.objects.get(user_id=user.pk)
+        self.load.save()
+
+        self.response = self.client.post(
+            r('carrier:drop_load', pk_load=self.load.pk), follow=True)
+
+    def test_get(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_template(self):
+        self.assertTemplateUsed(self.response, 'carrier_abas.html')
+
+    def test_status_load(self):
+        self.load.refresh_from_db()
+        self.assertEqual(self.load.status, 'available')
+
+    def test_rejected_loads_is_one(self):
+        self.response = self.client.get(r('carrier:list_loads'))
+        self.assertEqual(len(self.response.context['rejected_loads']), 1)
+
+    def test_accepted_loads_is_zero(self):
+        self.response = self.client.get(r('carrier:list_loads'))
+        self.assertEqual(len(self.response.context['accepted_loads']), 0)
+
+    def test_available_loads_is_zero(self):
+        self.response = self.client.get(r('carrier:list_loads'))
+        self.assertEqual(len(self.response.context['available_loads']), 0)
+
+
 class CarrierUserModelTests(TestCase):
 
     def setUp(self):
-        self.user1 = User.objects.create(
-            email='carrier@teste.com', first_name='carrier', last_name='doe', password='teste1234')
-        self.carrier = CarrierUser.objects.create(
-            user=self.user1, MC_number='12345')
+        user = create_carrier_user()
+        self.carrier = CarrierUser.objects.get(user_id=user.pk)
 
     def test_carrier_creation(self):
         self.assertTrue(isinstance(self.carrier, CarrierUser))
 
-    def test_carrier_atribute(self):
+    def test_carrier_email(self):
         self.assertEqual(self.carrier.user.email, 'carrier@teste.com')
+
+    def test_carrier_MC_number(self):
+        self.assertEqual(self.carrier.MC_number, 12345)
 
 
 class RejectedLoadModelTests(TestCase):
 
     def setUp(self):
-        self.user1 = User.objects.create(
-            email='carrier@teste.com', first_name='carrier', last_name='doe', password='teste1234')
-        self.carrier = CarrierUser.objects.create(
-            user=self.user1, MC_number='12345')
+        user = create_carrier_user()
+        self.carrier = CarrierUser.objects.get(user_id=user.pk)
 
-        self.user2 = User.objects.create(
-            email='shipper@teste.com', first_name='shipper', last_name='doe', password='teste9988')
-        self.shipper = ShipperUser.objects.create(user=self.user2)
-
-        self.load = Load.objects.create(
-            ref='123', origin_city='miami', destination_city='new york', price='2000', shipper=self.shipper)
+        self.load = create_load()
 
         self.rej_load = RejectedLoad.objects.create(
             load=self.load, carrier=self.carrier)
@@ -42,48 +186,7 @@ class RejectedLoadModelTests(TestCase):
     def test_rejected_load_creation(self):
         self.assertTrue(isinstance(self.rej_load, RejectedLoad))
 
-    def test_rejected_load_atribute(self):   
-        self.assertEqual(self.rej_load.load.origin_city, 'miami')
+    def test_rejected_load_origin_city(self):
+        self.assertEqual(self.rej_load.load.origin_city,
+                         'Miami Gardens, FL, USA')
 
-
-class CarrierViewTests(TestCase):
-
-    def setUp(self):
-        self.user1 = User.objects.create(
-                email='carrier@teste.com', first_name='carrier', last_name='doe', password='teste1234')
-        self.carrier = CarrierUser.objects.create(user=self.user1, MC_number='12345')
-        
-        self.user2 = User.objects.create(
-            email='shipper@teste.com', first_name='shipper', last_name='doe', password='teste9988')
-        self.shipper = ShipperUser.objects.create(user=self.user2)        
-        
-        self.load = Load.objects.create(
-            ref='123', origin_city='miami', destination_city='new york', price='2000', shipper=self.shipper) 
-        
-        self.response = self.client.login(
-            email='carrier@teste.com', password='teste1234')
-
-    '''
-    def test_list_loads(self):
-        self.response = self.client.get(reverse('carrier:list_loads'))
-        self.assertEqual(200, self.response.status_code) 
-        # Not working: The status code should be 200 not 302 
-    '''
-    def test_accept_load(self):
-        pk_load = self.load.pk
-        self.response = self.client.get(reverse('carrier:accept_load', kwargs={'pk_load': pk_load}))
-        self.assertEqual(302, self.response.status_code)
-    
-    def test_reject_load(self):
-        pk_load = self.load.pk
-        self.response = self.client.get(reverse('carrier:reject_load', kwargs={'pk_load': pk_load}))
-        self.assertEqual(302, self.response.status_code) 
-
-    def test_drop_load(self):
-        pk_load = self.load.pk
-        self.response = self.client.get(reverse('carrier:drop_load', kwargs={'pk_load': pk_load}))
-        self.assertEqual(302, self.response.status_code)   
-
-
-if __name__ == '__main__':
-    unittest.main()
