@@ -1,4 +1,4 @@
-from bootstrap_modal_forms.mixins import PassRequestMixin
+from bootstrap_modal_forms.mixins import PassRequestMixin, DeleteAjaxMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
@@ -46,8 +46,8 @@ class EditPriceView(PassRequestMixin, SuccessMessageMixin, generic.UpdateView):
     success_message = 'Success: Load price was updated.'
     success_url = reverse_lazy('shipper:home')
 
-class CancelLoadView(PassRequestMixin, SuccessMessageMixin, generic.DeleteView):
+class CancelLoadView(DeleteAjaxMixin, generic.DeleteView):
     model = Load
     template_name = 'cancel-load_modal.html'
     success_message = 'Success: Load was canceled.'
-    success_url = reverse_lazy('shipper:home')
+    success_url = '/shipper/home/'
