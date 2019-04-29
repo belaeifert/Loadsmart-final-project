@@ -51,10 +51,6 @@ class Load(models.Model):
     def carrier_price(self):
         return round(self.price*0.95, 2)
 
-    def delete(self, using=None, keep_parents=False):
-        if (self.pickup_date <= date.today()) and (self.status == 'accepted'):
-            raise Exception('The load was already picked up')
-        super(Load, self)
 
     def __str__(self):
         return "Pickup date: {}, REF: {}, Origin City: {}, Destination city: {}, Price: {}, Carrier: {}, Shipper: {}".format(
