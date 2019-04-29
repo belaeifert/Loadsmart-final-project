@@ -59,7 +59,7 @@ class PostLoadGet(TestCase):
         self.assertIsInstance(form, LoadForm)
 
 
-class PostLoadTest(TestCase):
+class PostModelLoadTest(TestCase):
 
     def setUp(self):
         user, shipper = create_user()
@@ -86,3 +86,28 @@ class PostLoadTest(TestCase):
         self.assertEqual(str(self.obj), test_str)
 
 
+class PostLoadTest(TestCase):
+
+    def setUp(self):
+        user, shipper = create_user()
+        self.client.force_login(user)
+
+        data = {
+                    'pickup_date':'2019-04-17',
+                    'ref':123,
+                    'origin_city':'Miami Gardens, FL, USA',
+                    'destination_city': 'Miami Gardens, FL, USA',
+                    'price': '50.0',
+                    'status': 'available',
+                    'suggested_price': 67.04,
+                }
+
+
+        self.response = self.client.post(r('shipper:post_load'), data=data)
+
+    def test_status_code(self):
+        self.assertEqual(self.response.status_code, 302)
+
+    def test_create(self):
+        ''' Data from valid Post must exist in database '''
+        self.assertTrue(Load.objects.exists())
