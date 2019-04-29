@@ -25,8 +25,8 @@ class ShipperUser(models.Model):
 class Load(models.Model):
     pickup_date = models.DateField(blank=True, null=True)
     ref = models.CharField(max_length=50)
-    origin_city = models.CharField(max_length=500, blank=True)
-    destination_city = models.CharField(max_length=500, blank=True)
+    origin_city = models.CharField(max_length=500)
+    destination_city = models.CharField(max_length=500)
     price = models.FloatField()
     status = models.CharField(max_length=50, default="available")
     suggested_price = models.FloatField(null=True)
