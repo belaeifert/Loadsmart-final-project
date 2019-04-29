@@ -21,3 +21,13 @@ class LoadForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
         if suggested_price is None or '':
             raise forms.ValidationError("There are no road between origin and destination cities ")
         return suggested_price
+
+
+class UpdatePriceForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
+    suggested_price = forms.FloatField(required=False, disabled=True)
+    ref = forms.CharField(required=False, disabled=True)
+
+    class Meta:
+        model = Load
+        fields = ['ref','price', 'suggested_price']
+    

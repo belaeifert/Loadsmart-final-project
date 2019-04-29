@@ -1,0 +1,13 @@
+<form method="post" action="">
+{% csrf_token %}
+    <div class="modal-header">
+        <h5 id="myModalLabel">Cancel Load</h5>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure you want to cancel the load?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Dismiss</button>
+        <button type="submit" class="delete-btn btn btn-danger">Confirm</button>
+    </div>
+</form>
