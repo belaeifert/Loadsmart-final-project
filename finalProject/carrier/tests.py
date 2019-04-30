@@ -3,7 +3,6 @@ from django.shortcuts import resolve_url as r
 from finalProject.carrier.models import CarrierUser, RejectedLoad
 from finalProject.account.models import User
 from finalProject.shipper.models import Load, ShipperUser
-import unittest
 
 
 def create_carrier_user():
@@ -50,10 +49,10 @@ class CarrierHomeGet(TestCase):
     def setUp(self):
         user = create_carrier_user()
         self.client.force_login(user)
-        self.response = self.client.get(r('carrier:list_loads'))
+        self.response = self.client.get(r('carrier:home'))
 
     def test_template(self):
-        self.assertTemplateUsed(self.response, 'carrier_abas.html')
+        self.assertTemplateUsed(self.response, 'carrier_home.html')
 
     def test_get(self):
         self.assertEqual(200, self.response.status_code)
@@ -74,18 +73,18 @@ class CarrierAcceptLoadTest(TestCase):
         self.assertEqual(self.response.status_code, 200)
 
     def test_template(self):
-        self.assertTemplateUsed(self.response, 'carrier_abas.html')
+        self.assertTemplateUsed(self.response, 'carrier_home.html')
 
     def test_status_load(self):
         self.load.refresh_from_db()
         self.assertEqual(self.load.status, 'accepted')
 
     def test_accepted_loads_is_one(self):
-        self.response = self.client.get(r('carrier:list_loads'))
+        self.response = self.client.get(r('carrier:home'))
         self.assertEqual(len(self.response.context['accepted_loads']), 1)
 
     def test_available_loads_is_zero(self):
-        self.response = self.client.get(r('carrier:list_loads'))
+        self.response = self.client.get(r('carrier:home'))
         self.assertEqual(len(self.response.context['available_loads']), 0)
 
 
@@ -104,18 +103,18 @@ class CarrierRejectLoadTest(TestCase):
         self.assertEqual(self.response.status_code, 200)
 
     def test_template(self):
-        self.assertTemplateUsed(self.response, 'carrier_abas.html')
+        self.assertTemplateUsed(self.response, 'carrier_home.html')
 
     def test_status_load(self):
         self.load.refresh_from_db()
         self.assertEqual(self.load.status, 'available')
 
     def test_rejected_loads_is_one(self):
-        self.response = self.client.get(r('carrier:list_loads'))
+        self.response = self.client.get(r('carrier:home'))
         self.assertEqual(len(self.response.context['rejected_loads']), 1)
 
     def test_available_loads_is_zero(self):
-        self.response = self.client.get(r('carrier:list_loads'))
+        self.response = self.client.get(r('carrier:home'))
         self.assertEqual(len(self.response.context['available_loads']), 0)
 
 
@@ -137,22 +136,22 @@ class CarrierDropLoadTest(TestCase):
         self.assertEqual(self.response.status_code, 200)
 
     def test_template(self):
-        self.assertTemplateUsed(self.response, 'carrier_abas.html')
+        self.assertTemplateUsed(self.response, 'carrier_home.html')
 
     def test_status_load(self):
         self.load.refresh_from_db()
         self.assertEqual(self.load.status, 'available')
 
     def test_rejected_loads_is_one(self):
-        self.response = self.client.get(r('carrier:list_loads'))
+        self.response = self.client.get(r('carrier:home'))
         self.assertEqual(len(self.response.context['rejected_loads']), 1)
 
     def test_accepted_loads_is_zero(self):
-        self.response = self.client.get(r('carrier:list_loads'))
+        self.response = self.client.get(r('carrier:home'))
         self.assertEqual(len(self.response.context['accepted_loads']), 0)
 
     def test_available_loads_is_zero(self):
-        self.response = self.client.get(r('carrier:list_loads'))
+        self.response = self.client.get(r('carrier:home'))
         self.assertEqual(len(self.response.context['available_loads']), 0)
 
 
@@ -189,4 +188,3 @@ class RejectedLoadModelTests(TestCase):
     def test_rejected_load_origin_city(self):
         self.assertEqual(self.rej_load.load.origin_city,
                          'Miami Gardens, FL, USA')
-

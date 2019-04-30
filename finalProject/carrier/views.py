@@ -17,7 +17,7 @@ def list_loads(request):
         status='accepted', carrier=carrier)
     rejected_loads = Load.objects.filter(id__in=rej_loads.values('load_id'))
 
-    return render(request, 'carrier_abas.html', {
+    return render(request, 'carrier_home.html', {
         'available_loads': available_loads,
         'accepted_loads': accepted_loads,
         'rejected_loads': rejected_loads})
@@ -30,12 +30,12 @@ def accept_load(request, pk_load):
         load = Load.objects.get(pk=pk_load, status='available')
     except:
         messages.error(request, 'ERROR: This load is not available anymore')
-        return redirect('carrier:list_loads')
+        return redirect('carrier:home')
 
     carrier = CarrierUser.objects.get(user_id=request.user.id)
     load.accept_load(carrier)
     messages.success(request, 'Load accepted successfully')
-    return redirect('carrier:list_loads')
+    return redirect('carrier:home')
 
 
 @login_required
@@ -45,12 +45,12 @@ def reject_load(request, pk_load):
         load = Load.objects.get(pk=pk_load, status='available')
     except:
         messages.error(request, 'ERROR: This load is not available anymore')
-        return redirect('carrier:list_loads')
+        return redirect('carrier:home')
 
     carrier = CarrierUser.objects.get(user_id=request.user.id)
     rej_load = RejectedLoad.objects.create(load=load, carrier=carrier)
     messages.success(request, 'Load rejected successfully')
-    return redirect('carrier:list_loads')
+    return redirect('carrier:home')
 
 
 @login_required
@@ -61,9 +61,9 @@ def drop_load(request, pk_load):
         load = Load.objects.get(pk=pk_load, status='accepted', carrier=carrier)
     except:
         messages.error(request, 'ERROR: This load is not accepted by you')
-        return redirect('carrier:list_loads')
+        return redirect('carrier:home')
 
     load.drop_load()
     drop_load = RejectedLoad.objects.create(load=load, carrier=carrier)
     messages.success(request, 'Load dropped successfully')
-    return redirect('carrier:list_loads')
+    return redirect('carrier:home')
