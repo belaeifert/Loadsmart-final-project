@@ -1,18 +1,18 @@
 from django.contrib.auth import authenticate
-from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
-from rest_framework import generics, viewsets, mixins
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.generics import get_object_or_404
-from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.authtoken.models import Token
-from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_200_OK
-from finalProject.api.serializers import LoadSerializer
+
 from finalProject.api.permissions import IsCarrier, IsShipper
-from finalProject.shipper.models import Load, ShipperUser
+from finalProject.api.serializers import LoadSerializer
 from finalProject.carrier.models import CarrierUser, RejectedLoad
+from finalProject.shipper.models import Load, ShipperUser
 
 
 @csrf_exempt
@@ -44,6 +44,7 @@ class CarrierAvailableLoads(viewsets.ReadOnlyModelViewSet):
         available_loads = Load.objects.filter(status='available').exclude(
             id__in=rej_loads.values('load_id'))
         return available_loads
+
 
 class CarrierAcceptedLoads(viewsets.ReadOnlyModelViewSet):
     authentication_classes = (TokenAuthentication,)
@@ -94,7 +95,7 @@ def CarrierReject(request, pk_load):
                         status=HTTP_404_NOT_FOUND)
 
     carrier = CarrierUser.objects.get(user_id=request.user.id)
-    rej_load = RejectedLoad.objects.create(load=load, carrier=carrier)
+    RejectedLoad.objects.create(load=load, carrier=carrier)
     return Response({'success': 'Load rejected successfully'},
                     status=HTTP_200_OK)
 
@@ -108,9 +109,9 @@ def CarrierDrop(request, pk_load):
     except:
         return Response({'error': 'Load not found or Load is not accepted by you'},
                         status=HTTP_404_NOT_FOUND)
-    
+
     load.drop_load()
-    drop_load = RejectedLoad.objects.create(load=load, carrier=carrier)
+    RejectedLoad.objects.create(load=load, carrier=carrier)
     return Response({'success': 'Load dropped successfully'},
                     status=HTTP_200_OK)
 
@@ -153,4 +154,3 @@ def ShipperPostLoad(request):
 
 def apiDocumentation(request):
     return render(request, 'index_api.html')
-

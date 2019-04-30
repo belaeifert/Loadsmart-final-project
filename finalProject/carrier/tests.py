@@ -1,7 +1,8 @@
-from django.test import TestCase
 from django.shortcuts import resolve_url as r
-from finalProject.carrier.models import CarrierUser, RejectedLoad
+from django.test import TestCase
+
 from finalProject.account.models import User
+from finalProject.carrier.models import CarrierUser, RejectedLoad
 from finalProject.shipper.models import Load, ShipperUser
 
 

@@ -1,8 +1,9 @@
 from rest_framework.authtoken.models import Token
+from rest_framework.test import APIClient
+
 from finalProject.account.models import User
 from finalProject.carrier.models import CarrierUser
 from finalProject.shipper.models import ShipperUser
-from rest_framework.test import APIClient
 
 
 def create_user(is_shipper):
@@ -16,6 +17,7 @@ def create_user(is_shipper):
         carrier = CarrierUser.objects.create(user=user, MC_number=123)
         carrier.save()
         return user, carrier
+
 
 def set_auth_client(user):
     token = Token.objects.create(user=user)

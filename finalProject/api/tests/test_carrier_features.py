@@ -1,10 +1,10 @@
-from django.test import TestCase
 from django.shortcuts import resolve_url as r
+from django.test import TestCase
+
 from finalProject.account.models import User
 from finalProject.api.tests.auth_setUp import create_user, set_auth_client
 from finalProject.carrier.models import CarrierUser, RejectedLoad
 from finalProject.shipper.models import Load
-
 
 
 class AcceptLoadSuccessfulTest(TestCase):
@@ -27,7 +27,6 @@ class AcceptLoadSuccessfulTest(TestCase):
         self.obj.save()
         self.response = self.client.put(r('api:accept_load', pk_load=self.obj.pk), format='json')
 
-
     def test_status_code(self):
         self.assertEqual(self.response.status_code, 200)
 
@@ -45,7 +44,8 @@ class AcceptLoadUnsuccessfulTest(TestCase):
 
         self.client = set_auth_client(self.carrier_user)
 
-        another_user = User.objects.create(email='carrier2@teste.com', first_name='carrier 2', last_name='teste', password='123')
+        another_user = User.objects.create(email='carrier2@teste.com', first_name='carrier 2', last_name='teste',
+                                           password='123')
         another_carrier = CarrierUser.objects.create(user=another_user, MC_number=456)
         another_carrier.save()
 
@@ -63,7 +63,6 @@ class AcceptLoadUnsuccessfulTest(TestCase):
         self.obj.save()
         self.response = self.client.put(r('api:accept_load', pk_load=self.obj.pk), format='json')
 
-
     def test_status_code(self):
         self.assertEqual(self.response.status_code, 404)
 
@@ -72,7 +71,6 @@ class AcceptLoadUnsuccessfulTest(TestCase):
 
     def test_json_unsuccessful(self):
         self.assertEqual(self.response.data, {'error': 'Load not found or Load not available'})
-
 
 
 class RejectLoadSuccessfulTest(TestCase):
@@ -95,7 +93,6 @@ class RejectLoadSuccessfulTest(TestCase):
         self.obj.save()
         self.response = self.client.put(r('api:reject_load', pk_load=self.obj.pk), format='json')
 
-
     def test_status_code(self):
         self.assertEqual(self.response.status_code, 200)
 
@@ -113,7 +110,8 @@ class RejectLoadUnsuccessfulTest(TestCase):
 
         self.client = set_auth_client(self.carrier_user)
 
-        another_user = User.objects.create(email='carrier2@teste.com', first_name='carrier 2', last_name='teste', password='123')
+        another_user = User.objects.create(email='carrier2@teste.com', first_name='carrier 2', last_name='teste',
+                                           password='123')
         another_carrier = CarrierUser.objects.create(user=another_user, MC_number=456)
         another_carrier.save()
 
@@ -131,7 +129,6 @@ class RejectLoadUnsuccessfulTest(TestCase):
         self.obj.save()
         self.response = self.client.put(r('api:reject_load', pk_load=self.obj.pk), format='json')
 
-
     def test_status_code(self):
         self.assertEqual(self.response.status_code, 404)
 
@@ -140,6 +137,7 @@ class RejectLoadUnsuccessfulTest(TestCase):
 
     def test_json_unsuccessful(self):
         self.assertEqual(self.response.data, {'error': 'Load not found or Load not available'})
+
 
 class DropLoadSuccessfulTest(TestCase):
     def setUp(self):
@@ -162,7 +160,6 @@ class DropLoadSuccessfulTest(TestCase):
         self.obj.save()
         self.response = self.client.put(r('api:drop_load', pk_load=self.obj.pk), format='json')
 
-
     def test_status_code_drop_load(self):
         self.assertEqual(self.response.status_code, 200)
 
@@ -183,7 +180,8 @@ class DropLoadUnsuccessfulTest(TestCase):
 
         self.client = set_auth_client(self.carrier_user)
 
-        another_user = User.objects.create(email='carrier2@teste.com', first_name='carrier 2', last_name='teste', password='123')
+        another_user = User.objects.create(email='carrier2@teste.com', first_name='carrier 2', last_name='teste',
+                                           password='123')
         another_carrier = CarrierUser.objects.create(user=another_user, MC_number=456)
         another_carrier.save()
 
@@ -200,7 +198,6 @@ class DropLoadUnsuccessfulTest(TestCase):
         )
         self.obj.save()
         self.response = self.client.put(r('api:drop_load', pk_load=self.obj.pk), format='json')
-
 
     def test_status_code(self):
         self.assertEqual(self.response.status_code, 404)

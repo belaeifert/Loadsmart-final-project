@@ -1,6 +1,6 @@
 from django.db import models
+
 from finalProject.account.models import User
-from datetime import date
 
 
 class ShipperUser(models.Model):
@@ -15,12 +15,6 @@ class ShipperUser(models.Model):
         return "shipper id: {}, user id: {}, Name: {}".format(
             self.pk, self.user.pk, self.user.first_name
         )
-
-    #def __repr__(self):
-    #    return "ID: {}, Name: {}".format(self.pk, self.user.first_name)
-
-    #def __str__(self):
-    #    return self.user.first_name + ' ' + self.user.last_name
 
 
 class Load(models.Model):
@@ -49,14 +43,10 @@ class Load(models.Model):
         self.save()
 
     def carrier_price(self):
-        return round(self.price*0.95, 2)
-
+        return round(self.price * 0.95, 2)
 
     def __str__(self):
         return "Pickup date: {}, REF: {}, Origin City: {}, Destination city: {}, Price: {}, Carrier: {}, Shipper: {}".format(
             self.pickup_date, self.ref, self.origin_city, self.destination_city,
             self.price, self.carrier, self.shipper)
 
-    #def __str__(self):
-    #    return self.ref
-    

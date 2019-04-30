@@ -1,9 +1,11 @@
+from django.shortcuts import resolve_url as r
 from django.test import TestCase
+
 from finalProject import settings
 from finalProject.shipper.forms import LoadForm
 from finalProject.shipper.models import Load
-from django.shortcuts import resolve_url as r
 from finalProject.shipper.tests.create_user_setUp import create_user
+
 
 class ShipperHomeGet(TestCase):
 
@@ -11,7 +13,6 @@ class ShipperHomeGet(TestCase):
         user, shipper = create_user()
         self.client.force_login(user)
         self.response = self.client.get(r('shipper:home'))
-
 
     def test_template(self):
         self.assertTemplateUsed(self.response, 'shipper_home.html')
@@ -33,14 +34,11 @@ class PostLoadGet(TestCase):
     def test_get(self):
         self.assertEqual(self.response.status_code, 200)
 
-
     def test_template(self):
         self.assertTemplateUsed(self.response, 'post_load.html')
 
-
     def test_csrf(self):
         self.assertContains(self.response, 'csrfmiddlewaretoken')
-
 
     def test_post_load_html(self):
         tags = (
@@ -93,15 +91,14 @@ class PostLoadTest(TestCase):
         self.client.force_login(user)
 
         data = {
-                    'pickup_date':'2019-04-17',
-                    'ref':123,
-                    'origin_city':'Miami Gardens, FL, USA',
-                    'destination_city': 'Miami Gardens, FL, USA',
-                    'price': '50.0',
-                    'status': 'available',
-                    'suggested_price': 67.04,
-                }
-
+            'pickup_date': '2019-04-17',
+            'ref': 123,
+            'origin_city': 'Miami Gardens, FL, USA',
+            'destination_city': 'Miami Gardens, FL, USA',
+            'price': '50.0',
+            'status': 'available',
+            'suggested_price': 67.04,
+        }
 
         self.response = self.client.post(r('shipper:post_load'), data=data)
 

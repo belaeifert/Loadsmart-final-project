@@ -1,4 +1,5 @@
 from django.urls import path
+
 from finalProject.shipper.views import ShipperView, PostLoadView, EditPriceView, CancelLoadView
 
 app_name = "shipper"

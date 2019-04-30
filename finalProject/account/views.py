@@ -1,6 +1,5 @@
 from django.contrib.auth import login
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from finalProject.carrier.models import CarrierUser
 from finalProject.shipper.models import ShipperUser
@@ -18,17 +17,17 @@ class CustomLoginView(LoginAjaxMixin, LoginView):
 
 
 def LogoutPopup(request):
-    return render(request,'registration/logout_modal.html')
+    return render(request, 'registration/logout_modal.html')
 
 
 def RedirectHome(request):
     # After login, redirect Shipper/Carrier to respective homepage
     try:
-        shipper = ShipperUser.objects.get(user__id=request.user.id)
+        ShipperUser.objects.get(user__id=request.user.id)
         return redirect('shipper:home')
     except:
         try:
-            carrier = CarrierUser.objects.get(user__id=request.user.id)
+            CarrierUser.objects.get(user__id=request.user.id)
             return redirect('carrier:home')
         except:
             return redirect('index')
@@ -56,4 +55,3 @@ class CarrierSignUpView(PassRequestMixin, CreateView):
             user = form.save()
             login(self.request, user)
         return redirect('carrier:home')
-

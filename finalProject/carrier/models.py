@@ -1,7 +1,8 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
 from finalProject.account.models import User
 from finalProject.shipper.models import Load
-from django.utils.translation import ugettext_lazy as _
 
 
 class CarrierUser(models.Model):

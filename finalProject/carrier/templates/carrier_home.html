@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %} Carrier's Page {% endblock title %} 
+{% block title %} Carrier's Page {% endblock title %}
 
-{% block navbar-options %} 
-<li><a title="logout" class="logout-popup-button" >Logout</a></li>
+{% block navbar-options %}
+<li><a title="logout" class="logout-popup-button">Logout</a></li>
 {% endblock navbar-options%}
 
 {% block content %}
@@ -15,9 +15,9 @@
 {% if messages %}
 {% for message in messages %}
 <div class="alert alert-{{message.level_tag}}" role="alert">
-   <ul class="messages">
-      <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-   </ul>
+    <ul class="messages">
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+    </ul>
 </div>
 {% endfor %}
 {% endif %}
@@ -27,99 +27,100 @@
 <br/>
 
 <ul class="nav nav-pills" id="pills-tab" style="width:80%; margin: 0px auto; ">
-   <li class="active"><a href="#tab1" data-toggle="tab">Available loads</a></li>
-   <li><a href="#tab2" data-toggle="tab">Accepted loads</a></li>
-   <li><a href="#tab3" data-toggle="tab">Rejected loads</a></li>
+    <li class="active"><a href="#tab1" data-toggle="tab">Available loads</a></li>
+    <li><a href="#tab2" data-toggle="tab">Accepted loads</a></li>
+    <li><a href="#tab3" data-toggle="tab">Rejected loads</a></li>
 </ul>
 <div class="tab-content">
     <div class="tab-pane active" id="tab1" style="width:80%; margin: 0px auto;">
-      <table id="tableAvailable" class="table " >
+        <table id="tableAvailable" class="table ">
             <thead style="color:white; background-color: #4c4c4c;">
-            <tr >
-               <th>Pickup Date</th>
-               <th>Ref.</th>
-               <th>Origin City</th>
-               <th>Destination City</th>
-               <th>Price</th>
-               <th>Shipper</th>
-               <th> </th>
+            <tr>
+                <th>Pickup Date</th>
+                <th>Ref.</th>
+                <th>Origin City</th>
+                <th>Destination City</th>
+                <th>Price</th>
+                <th>Shipper</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             {% for load in available_loads %}
             <tr>
-               <td>{{load.pickup_date}}</td>
-               <td>{{load.ref}}</td>
-               <td>{{load.origin_city}}</td>
-               <td>{{load.destination_city}}</td>
-               <td>${{load.carrier_price|floatformat:2}}</td>
-               <td>{{load.shipper.user.get_full_name}}</td>
-               <td style="text-align: center;">
-                  <a class="btn " href="{% url 'carrier:reject_load' pk_load=load.pk %}"> Reject </a>
-                  <a class="btn btn-success " href="{% url 'carrier:accept_load' pk_load=load.pk %}"> Accept </a>
-               </td>
-               
+                <td>{{load.pickup_date}}</td>
+                <td>{{load.ref}}</td>
+                <td>{{load.origin_city}}</td>
+                <td>{{load.destination_city}}</td>
+                <td>${{load.carrier_price|floatformat:2}}</td>
+                <td>{{load.shipper.user.get_full_name}}</td>
+                <td style="text-align: center;">
+                    <a class="btn " href="{% url 'carrier:reject_load' pk_load=load.pk %}"> Reject </a>
+                    <a class="btn btn-success " href="{% url 'carrier:accept_load' pk_load=load.pk %}"> Accept </a>
+                </td>
+
             </tr>
             {% endfor %}
             </tbody>
-         </table>
-         <br/> <br/> <br/>
+        </table>
+        <br/> <br/> <br/>
     </div>
     <div class="tab-pane" id="tab2" style="width:80%; margin: 0px auto;">
-      <table id="tableAccepted" class="table " >
+        <table id="tableAccepted" class="table ">
             <thead style="color:white; background-color: #4c4c4c;">
             <tr>
-               <th>Pickup Date</th>
-               <th>Ref.</th>
-               <th>Origin City</th>
-               <th>Destination City</th>
-               <th>Price</th>
-               <th>Shipper</th>
-               <th> </th>
+                <th>Pickup Date</th>
+                <th>Ref.</th>
+                <th>Origin City</th>
+                <th>Destination City</th>
+                <th>Price</th>
+                <th>Shipper</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             {% for load in accepted_loads %}
             <tr>
-               <td>{{load.pickup_date}}</td>
-               <td>{{load.ref}}</td>
-               <td>{{load.origin_city}}</td>
-               <td>{{load.destination_city}}</td>
-               <td>${{load.carrier_price|floatformat:2 }}</td>
-               <td>{{load.shipper.user.get_full_name}}</td>
-               <td style="text-align: center;"><a class="btn " href="{% url 'carrier:drop_load' pk_load=load.pk %}"> Drop </a></td>
+                <td>{{load.pickup_date}}</td>
+                <td>{{load.ref}}</td>
+                <td>{{load.origin_city}}</td>
+                <td>{{load.destination_city}}</td>
+                <td>${{load.carrier_price|floatformat:2 }}</td>
+                <td>{{load.shipper.user.get_full_name}}</td>
+                <td style="text-align: center;"><a class="btn " href="{% url 'carrier:drop_load' pk_load=load.pk %}">
+                    Drop </a></td>
             </tr>
             {% endfor %}
             </tbody>
-         </table>
-         <br/> <br/> <br/>
+        </table>
+        <br/> <br/> <br/>
     </div>
     <div class="tab-pane" id="tab3" style="width:80%; margin: 0px auto;">
-      <table id="tableRejected" class="table " >
+        <table id="tableRejected" class="table ">
             <thead style="color:white; background-color: #4c4c4c;">
             <tr>
-               <th>Pickup Date</th>
-               <th>Ref.</th>
-               <th>Origin City</th>
-               <th>Destination City</th>
-               <th>Price</th>
-               <th>Shipper</th>
+                <th>Pickup Date</th>
+                <th>Ref.</th>
+                <th>Origin City</th>
+                <th>Destination City</th>
+                <th>Price</th>
+                <th>Shipper</th>
             </tr>
             </thead>
             <tbody>
             {% for load in rejected_loads %}
             <tr>
-               <td>{{load.pickup_date}}</td>
-               <td>{{load.ref}}</td>
-               <td>{{load.origin_city}}</td>
-               <td>{{load.destination_city}}</td>
-               <td>${{load.carrier_price|floatformat:2}}</td>
-               <td>{{load.shipper.user.get_full_name}}</td>
+                <td>{{load.pickup_date}}</td>
+                <td>{{load.ref}}</td>
+                <td>{{load.origin_city}}</td>
+                <td>{{load.destination_city}}</td>
+                <td>${{load.carrier_price|floatformat:2}}</td>
+                <td>{{load.shipper.user.get_full_name}}</td>
             </tr>
             {% endfor %}
             </tbody>
-         </table>
-         <br/> <br/> <br/>
+        </table>
+        <br/> <br/> <br/>
     </div>
 </div>
 
@@ -147,24 +148,26 @@
          }
       });
    } );
+
 </script>
 
 <section>
 
-   <div class="modal fade" tabindex="-1" role="dialog" id="modal">
-      <div class="modal-dialog" role="document">
-         <div class="modal-content">
-         </div>
-      </div>
-   </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
 
-   <script type="text/javascript">
+    <script type="text/javascript">
       $(document).ready(function() {
           $(".logout-popup-button").modalForm({
               formURL: "{% url 'account:logout_popup' %}" 
           });
       });
-   </script>
+
+    </script>
 
 </section>
 

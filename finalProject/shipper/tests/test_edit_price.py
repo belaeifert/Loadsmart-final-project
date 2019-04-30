@@ -1,5 +1,5 @@
-from django.test import TestCase
 from django.shortcuts import resolve_url as r
+from django.test import TestCase
 
 from finalProject.shipper.models import Load
 from finalProject.shipper.tests.create_user_setUp import create_user
@@ -25,12 +25,12 @@ class EditPriceGet(TestCase):
 
         self.response = self.client.get(r('shipper:edit_price', self.obj.pk))
 
-
     def test_template(self):
         self.assertTemplateUsed(self.response, 'edit_price_modal.html')
 
     def test_get(self):
         self.assertEqual(200, self.response.status_code)
+
 
 class EditPricePut(TestCase):
     def setUp(self):
@@ -49,7 +49,7 @@ class EditPricePut(TestCase):
         )
         self.obj.save()
 
-        self.response = self.client.post(r('shipper:edit_price', self.obj.pk), {'price':67.04})
+        self.response = self.client.post(r('shipper:edit_price', self.obj.pk), {'price': 67.04})
         self.obj.refresh_from_db()
 
     def test_status_code(self):
@@ -57,4 +57,3 @@ class EditPricePut(TestCase):
 
     def test_update(self):
         self.assertEqual(self.obj.price, 67.04)
-

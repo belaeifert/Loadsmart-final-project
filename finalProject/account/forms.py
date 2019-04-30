@@ -8,10 +8,9 @@ from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
 from django.core.validators import MaxValueValidator, MinValueValidator, ValidationError
 
 
-
 class ShipperSignUpForm(PopRequestMixin, CreateUpdateAjaxMixin,
-                             UserCreationForm):
-    user_type = "Shipper" 
+                        UserCreationForm):
+    user_type = "Shipper"
 
     class Meta(UserCreationForm):
         model = User
@@ -22,17 +21,17 @@ class ShipperSignUpForm(PopRequestMixin, CreateUpdateAjaxMixin,
         user = super().save(commit=False)
         user.save()
         ShipperUser.objects.create(user=user)
-        return user 
+        return user
 
 
 class CarrierSignUpForm(PopRequestMixin, CreateUpdateAjaxMixin,
-                             UserCreationForm): 
-    user_type = "Carrier" 
+                        UserCreationForm):
+    user_type = "Carrier"
 
     mc_numb = forms.IntegerField(label='MC Number', required=True, validators=[
-                                    MaxValueValidator(99999999),
-                                    MinValueValidator(1)
-                                ])
+        MaxValueValidator(99999999),
+        MinValueValidator(1)
+    ])
 
     class Meta(UserCreationForm):
         model = User

@@ -1,9 +1,10 @@
-from django.db import transaction
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from finalProject.shipper.models import Load
+from django.db import transaction
+from django.shortcuts import render, redirect
+
 from finalProject.carrier.models import RejectedLoad, CarrierUser
+from finalProject.shipper.models import Load
 
 
 @login_required
@@ -48,7 +49,7 @@ def reject_load(request, pk_load):
         return redirect('carrier:home')
 
     carrier = CarrierUser.objects.get(user_id=request.user.id)
-    rej_load = RejectedLoad.objects.create(load=load, carrier=carrier)
+    RejectedLoad.objects.create(load=load, carrier=carrier)
     messages.success(request, 'Load rejected successfully')
     return redirect('carrier:home')
 
@@ -64,6 +65,6 @@ def drop_load(request, pk_load):
         return redirect('carrier:home')
 
     load.drop_load()
-    drop_load = RejectedLoad.objects.create(load=load, carrier=carrier)
+    RejectedLoad.objects.create(load=load, carrier=carrier)
     messages.success(request, 'Load dropped successfully')
     return redirect('carrier:home')

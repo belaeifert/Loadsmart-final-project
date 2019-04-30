@@ -1,11 +1,13 @@
 from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
 from django import forms
-from finalProject.shipper.models import Load
 from django.forms import DateInput, TextInput
+
+from finalProject.shipper.models import Load
 
 
 class LoadForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
-    suggested_price = forms.FloatField(required=False, widget=forms.TextInput(attrs={'id':'suggested_price_id', 'readonly':'readonly'}))
+    suggested_price = forms.FloatField(required=False, widget=forms.TextInput(
+        attrs={'id': 'suggested_price_id', 'readonly': 'readonly'}))
 
     class Meta:
         model = Load
@@ -29,5 +31,4 @@ class UpdatePriceForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
 
     class Meta:
         model = Load
-        fields = ['ref','price', 'suggested_price']
-    
+        fields = ['ref', 'price', 'suggested_price']
