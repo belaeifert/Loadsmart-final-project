@@ -18,7 +18,7 @@ from finalProject.shipper.models import Load, ShipperUser
 @csrf_exempt
 @api_view(["POST"])
 @permission_classes((AllowAny,))
-def get_token(request):
+def getToken(request):
     email = request.data.get("email")
     password = request.data.get("password")
     if email is None or password is None:

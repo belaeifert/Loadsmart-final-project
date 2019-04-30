@@ -2,13 +2,13 @@ from django.shortcuts import resolve_url as r
 from django.test import TestCase
 
 from finalProject.shipper.models import Load
-from finalProject.shipper.tests.create_user_setUp import create_user
+from finalProject.shipper.tests.create_user_setUp import createUser
 
 
 class CancelLoadGet(TestCase):
 
     def setUp(self):
-        user, shipper = create_user()
+        user, shipper = createUser()
         self.client.force_login(user)
 
         self.obj = Load(
@@ -34,7 +34,7 @@ class CancelLoadGet(TestCase):
 
 class CancelLoadDelete(TestCase):
     def setUp(self):
-        user, shipper = create_user()
+        user, shipper = createUser()
         self.client.force_login(user)
 
         self.obj = Load(

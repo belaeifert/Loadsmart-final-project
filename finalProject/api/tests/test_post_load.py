@@ -1,14 +1,14 @@
 from django.shortcuts import resolve_url as r
 from django.test import TestCase
 
-from finalProject.api.tests.auth_setUp import create_user, set_auth_client
+from finalProject.api.tests.auth_setUp import createUser, setAuthClient
 from finalProject.shipper.models import Load
 
 
 class PostLoadSuccessfulTest(TestCase):
     def setUp(self):
-        self.user, self.shipper = create_user(True)
-        self.client = set_auth_client(self.user)
+        self.user, self.shipper = createUser(True)
+        self.client = setAuthClient(self.user)
 
         self.response = self.client.post(r("api:post_load"),
                                          {

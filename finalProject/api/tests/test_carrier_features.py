@@ -2,17 +2,17 @@ from django.shortcuts import resolve_url as r
 from django.test import TestCase
 
 from finalProject.account.models import User
-from finalProject.api.tests.auth_setUp import create_user, set_auth_client
+from finalProject.api.tests.auth_setUp import createUser, setAuthClient
 from finalProject.carrier.models import CarrierUser, RejectedLoad
 from finalProject.shipper.models import Load
 
 
 class AcceptLoadSuccessfulTest(TestCase):
     def setUp(self):
-        self.shipper_user, self.shipper = create_user(True)
-        self.carrier_user, self.carrier = create_user(False)
+        self.shipper_user, self.shipper = createUser(True)
+        self.carrier_user, self.carrier = createUser(False)
 
-        self.client = set_auth_client(self.carrier_user)
+        self.client = setAuthClient(self.carrier_user)
 
         self.obj = Load(
             pickup_date='2019-04-17',
@@ -39,10 +39,10 @@ class AcceptLoadSuccessfulTest(TestCase):
 
 class AcceptLoadUnsuccessfulTest(TestCase):
     def setUp(self):
-        self.shipper_user, self.shipper = create_user(True)
-        self.carrier_user, self.carrier = create_user(False)
+        self.shipper_user, self.shipper = createUser(True)
+        self.carrier_user, self.carrier = createUser(False)
 
-        self.client = set_auth_client(self.carrier_user)
+        self.client = setAuthClient(self.carrier_user)
 
         another_user = User.objects.create(email='carrier2@teste.com', first_name='carrier 2', last_name='teste',
                                            password='123')
@@ -75,10 +75,10 @@ class AcceptLoadUnsuccessfulTest(TestCase):
 
 class RejectLoadSuccessfulTest(TestCase):
     def setUp(self):
-        self.shipper_user, self.shipper = create_user(True)
-        self.carrier_user, self.carrier = create_user(False)
+        self.shipper_user, self.shipper = createUser(True)
+        self.carrier_user, self.carrier = createUser(False)
 
-        self.client = set_auth_client(self.carrier_user)
+        self.client = setAuthClient(self.carrier_user)
 
         self.obj = Load(
             pickup_date='2019-04-17',
@@ -105,10 +105,10 @@ class RejectLoadSuccessfulTest(TestCase):
 
 class RejectLoadUnsuccessfulTest(TestCase):
     def setUp(self):
-        self.shipper_user, self.shipper = create_user(True)
-        self.carrier_user, self.carrier = create_user(False)
+        self.shipper_user, self.shipper = createUser(True)
+        self.carrier_user, self.carrier = createUser(False)
 
-        self.client = set_auth_client(self.carrier_user)
+        self.client = setAuthClient(self.carrier_user)
 
         another_user = User.objects.create(email='carrier2@teste.com', first_name='carrier 2', last_name='teste',
                                            password='123')
@@ -141,10 +141,10 @@ class RejectLoadUnsuccessfulTest(TestCase):
 
 class DropLoadSuccessfulTest(TestCase):
     def setUp(self):
-        self.shipper_user, self.shipper = create_user(True)
-        self.carrier_user, self.carrier = create_user(False)
+        self.shipper_user, self.shipper = createUser(True)
+        self.carrier_user, self.carrier = createUser(False)
 
-        self.client = set_auth_client(self.carrier_user)
+        self.client = setAuthClient(self.carrier_user)
 
         self.obj = Load(
             pickup_date='2019-04-17',
@@ -175,10 +175,10 @@ class DropLoadSuccessfulTest(TestCase):
 
 class DropLoadUnsuccessfulTest(TestCase):
     def setUp(self):
-        self.shipper_user, self.shipper = create_user(True)
-        self.carrier_user, self.carrier = create_user(False)
+        self.shipper_user, self.shipper = createUser(True)
+        self.carrier_user, self.carrier = createUser(False)
 
-        self.client = set_auth_client(self.carrier_user)
+        self.client = setAuthClient(self.carrier_user)
 
         another_user = User.objects.create(email='carrier2@teste.com', first_name='carrier 2', last_name='teste',
                                            password='123')

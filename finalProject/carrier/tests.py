@@ -6,7 +6,7 @@ from finalProject.carrier.models import CarrierUser, RejectedLoad
 from finalProject.shipper.models import Load, ShipperUser
 
 
-def create_carrier_user():
+def createCarrierUser():
     user = User.objects.create(
         email='carrier@teste.com',
         first_name='carrier',
@@ -21,7 +21,7 @@ def create_carrier_user():
     return user
 
 
-def create_load():
+def createLoad():
     user = User.objects.create(
         email='shipper@teste.com',
         first_name='shipper',
@@ -48,7 +48,7 @@ def create_load():
 class CarrierHomeGet(TestCase):
 
     def setUp(self):
-        user = create_carrier_user()
+        user = createCarrierUser()
         self.client.force_login(user)
         self.response = self.client.get(r('carrier:home'))
 
@@ -62,10 +62,10 @@ class CarrierHomeGet(TestCase):
 class CarrierAcceptLoadTest(TestCase):
 
     def setUp(self):
-        user = create_carrier_user()
+        user = createCarrierUser()
         self.client.force_login(user)
 
-        self.load = create_load()
+        self.load = createLoad()
 
         self.response = self.client.post(
             r('carrier:accept_load', pk_load=self.load.pk), follow=True)
@@ -92,10 +92,10 @@ class CarrierAcceptLoadTest(TestCase):
 class CarrierRejectLoadTest(TestCase):
 
     def setUp(self):
-        user = create_carrier_user()
+        user = createCarrierUser()
         self.client.force_login(user)
 
-        self.load = create_load()
+        self.load = createLoad()
 
         self.response = self.client.post(
             r('carrier:reject_load', pk_load=self.load.pk), follow=True)
@@ -122,10 +122,10 @@ class CarrierRejectLoadTest(TestCase):
 class CarrierDropLoadTest(TestCase):
 
     def setUp(self):
-        user = create_carrier_user()
+        user = createCarrierUser()
         self.client.force_login(user)
 
-        self.load = create_load()
+        self.load = createLoad()
         self.load.status = 'accepted'
         self.load.carrier = CarrierUser.objects.get(user_id=user.pk)
         self.load.save()
@@ -159,7 +159,7 @@ class CarrierDropLoadTest(TestCase):
 class CarrierUserModelTests(TestCase):
 
     def setUp(self):
-        user = create_carrier_user()
+        user = createCarrierUser()
         self.carrier = CarrierUser.objects.get(user_id=user.pk)
 
     def test_carrier_creation(self):
@@ -175,10 +175,10 @@ class CarrierUserModelTests(TestCase):
 class RejectedLoadModelTests(TestCase):
 
     def setUp(self):
-        user = create_carrier_user()
+        user = createCarrierUser()
         self.carrier = CarrierUser.objects.get(user_id=user.pk)
 
-        self.load = create_load()
+        self.load = createLoad()
 
         self.rej_load = RejectedLoad.objects.create(
             load=self.load, carrier=self.carrier)
