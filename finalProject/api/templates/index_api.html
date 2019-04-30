@@ -1,8 +1,8 @@
 {% load static %}
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   
 <html xmlns="http://www.w3.org/1999/xhtml">
    <head>
       <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
@@ -120,7 +120,7 @@
                                     <tbody valign="top">
                                        <tr class="field-odd field">
                                           <th class="field-name">Request:</th>
-                                          <td class="field-body">GET /api/shipper/list-available/</td>
+                                          <td class="field-body">GET /api/shipper/loads/available/</td>
                                        </tr>
                                        <tr class="field-even field">
                                           <th class="field-name">Parameters:</th>
@@ -138,7 +138,7 @@
                                        <div class="highlight-default notranslate">
                                           <div class="highlight">
                                              <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token 09211697a0acc58e598f18f13d6b1cd73ebd91e6&quot;</span> \
-        <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">shipper</span><span class="o">/</span><span class="nb">list</span><span class="o">-</span><span class="n">available</span><span class="o">/</span>
+        <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">shipper</span><span class="o">/</span><span class="n">loads</span><span class="o">/</span><span class="n">available</span><span class="o">/</span>
 </pre>
                                           </div>
                                        </div>
@@ -215,7 +215,7 @@
                                     <tbody valign="top">
                                        <tr class="field-odd field">
                                           <th class="field-name">Request:</th>
-                                          <td class="field-body">GET /api/shipper/list-accepted/</td>
+                                          <td class="field-body">GET /api/shipper/loads/accepted/</td>
                                        </tr>
                                        <tr class="field-even field">
                                           <th class="field-name">Parameters:</th>
@@ -233,7 +233,7 @@
                                        <div class="highlight-default notranslate">
                                           <div class="highlight">
                                              <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token 09211697a0acc58e598f18f13d6b1cd73ebd91e6&quot;</span> \
-        <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">shipper</span><span class="o">/</span><span class="nb">list</span><span class="o">-</span><span class="n">accepted</span><span class="o">/</span>
+        <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">shipper</span><span class="o">/</span><span class="n">loads</span><span class="o">/</span><span class="n">accepted</span><span class="o">/</span>
 </pre>
                                           </div>
                                        </div>
@@ -298,7 +298,7 @@
                                        <tr class="field-odd field">
                                           <th class="field-name">Request:</th>
                                           <td class="field-body">
-                                             <p class="first">POST /api/shipper/post-load/</p>
+                                             <p class="first">POST /shipper/load/post/</p>
                                           </td>
                                        </tr>
                                        <tr class="field-even field">
@@ -330,7 +330,7 @@
                                              <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token 09211697a0acc58e598f18f13d6b1cd73ebd91e6&quot;</span> \
         <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Content-Type: application/json&quot;</span> \
         <span class="o">-</span><span class="n">d</span> <span class="s2">&quot;{&quot;</span><span class="n">pickup_date</span><span class="s2">&quot;:&quot;</span><span class="mi">2019</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">13</span><span class="s2">&quot;, &quot;</span><span class="n">ref</span><span class="s2">&quot;:&quot;</span><span class="mi">3550</span><span class="s2">&quot;, &quot;</span><span class="n">origin_city</span><span class="s2">&quot;:&quot;</span><span class="n">Houston</span><span class="s2">&quot;, &quot;</span><span class="n">destination_city</span><span class="s2">&quot;:&quot;</span><span class="n">San</span> <span class="n">Diego</span><span class="s2">&quot;, &quot;</span><span class="n">price</span><span class="s2">&quot;:1000}&quot;</span> \
-        <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">shipper</span><span class="o">/</span><span class="n">post</span><span class="o">-</span><span class="n">load</span><span class="o">/</span>
+        <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">shipper</span><span class="o">/</span><span class="n">load</span><span class="o">/</span><span class="n">post</span><span class="o">/</span>
 </pre>
                                           </div>
                                        </div>
@@ -385,7 +385,7 @@
                                     <tbody valign="top">
                                        <tr class="field-odd field">
                                           <th class="field-name">Request:</th>
-                                          <td class="field-body">GET /api/carrier/list-available/</td>
+                                          <td class="field-body">GET /api/carrier/loads/available/</td>
                                        </tr>
                                        <tr class="field-even field">
                                           <th class="field-name">Parameters:</th>
@@ -403,7 +403,7 @@
                                        <div class="highlight-default notranslate">
                                           <div class="highlight">
                                              <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token a58d372f58af11ac458f3695bb8504ca8e462af4&quot;</span> \
-        <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="nb">list</span><span class="o">-</span><span class="n">available</span><span class="o">/</span>
+        <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="n">loads</span><span class="o">/</span><span class="n">available</span><span class="o">/</span>
 </pre>
                                           </div>
                                        </div>
@@ -471,7 +471,7 @@
                                     <tbody valign="top">
                                        <tr class="field-odd field">
                                           <th class="field-name">Request:</th>
-                                          <td class="field-body">GET /api/carrier/list-accepted/</td>
+                                          <td class="field-body">GET /api/carrier/loads/accepted/</td>
                                        </tr>
                                        <tr class="field-even field">
                                           <th class="field-name">Parameters:</th>
@@ -489,7 +489,7 @@
                                        <div class="highlight-default notranslate">
                                           <div class="highlight">
                                              <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token a58d372f58af11ac458f3695bb8504ca8e462af4&quot;</span> \
-        <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="nb">list</span><span class="o">-</span><span class="n">accepted</span><span class="o">/</span>
+        <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="n">loads</span><span class="o">/</span><span class="n">accepted</span><span class="o">/</span>
 </pre>
                                           </div>
                                        </div>
@@ -556,7 +556,7 @@
                                     <tbody valign="top">
                                        <tr class="field-odd field">
                                           <th class="field-name">Request:</th>
-                                          <td class="field-body">GET /api/carrier/list-rejected/</td>
+                                          <td class="field-body">GET /api/carrier/loads/rejected/</td>
                                        </tr>
                                        <tr class="field-even field">
                                           <th class="field-name">Parameters:</th>
@@ -574,7 +574,7 @@
                                        <div class="highlight-default notranslate">
                                           <div class="highlight">
                                              <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token a58d372f58af11ac458f3695bb8504ca8e462af4&quot;</span> \
-        <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="nb">list</span><span class="o">-</span><span class="n">rejected</span><span class="o">/</span>
+        <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="n">loads</span><span class="o">/</span><span class="n">rejected</span><span class="o">/</span>
 </pre>
                                           </div>
                                        </div>
@@ -640,7 +640,7 @@
                                        <tr class="field-odd field">
                                           <th class="field-name">Request:</th>
                                           <td class="field-body">
-                                             <p class="first">PUT /api/carrier/accept-load/&lt;<em>int:load_id</em>&gt;/</p>
+                                             <p class="first">PUT /api/carrier/load/accept/&lt;int:pk_load&gt;/</p>
                                           </td>
                                        </tr>
                                        <tr class="field-even field">
@@ -666,7 +666,7 @@
                                        <div class="highlight-default notranslate">
                                           <div class="highlight">
                                              <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token a58d372f58af11ac458f3695bb8504ca8e462af4&quot;</span> \
-        <span class="o">-</span><span class="n">X</span> <span class="n">PUT</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="n">accept</span><span class="o">-</span><span class="n">load</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span>
+        <span class="o">-</span><span class="n">X</span> <span class="n">PUT</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="n">load</span><span class="o">/</span><span class="n">accept</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span>
 </pre>
                                           </div>
                                        </div>
@@ -722,7 +722,7 @@
                                        <tr class="field-odd field">
                                           <th class="field-name">Request:</th>
                                           <td class="field-body">
-                                             <p class="first">PUT /api/carrier/reject-load/&lt;<em>int:load_id</em>&gt;/</p>
+                                             <p class="first">PUT /api/carrier/load/reject/&lt;int:pk_load&gt;/</p>
                                           </td>
                                        </tr>
                                        <tr class="field-even field">
@@ -748,7 +748,7 @@
                                        <div class="highlight-default notranslate">
                                           <div class="highlight">
                                              <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token a58d372f58af11ac458f3695bb8504ca8e462af4&quot;</span> \
-        <span class="o">-</span><span class="n">X</span> <span class="n">PUT</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="n">reject</span><span class="o">-</span><span class="n">load</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span>
+        <span class="o">-</span><span class="n">X</span> <span class="n">PUT</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="n">load</span><span class="o">/</span><span class="n">reject</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span>
 </pre>
                                           </div>
                                        </div>
@@ -804,7 +804,7 @@
                                        <tr class="field-odd field">
                                           <th class="field-name">Request:</th>
                                           <td class="field-body">
-                                             <p class="first">PUT /api/carrier/drop-load/&lt;<em>int:load_id</em>&gt;/</p>
+                                             <p class="first">PUT /api/carrier/load/drop/&lt;int:pk_load&gt;/</p>
                                           </td>
                                        </tr>
                                        <tr class="field-even field">
@@ -830,7 +830,7 @@
                                        <div class="highlight-default notranslate">
                                           <div class="highlight">
                                              <pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Token a58d372f58af11ac458f3695bb8504ca8e462af4&quot;</span> \
-        <span class="o">-</span><span class="n">X</span> <span class="n">PUT</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="n">drop</span><span class="o">-</span><span class="n">load</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span>
+        <span class="o">-</span><span class="n">X</span> <span class="n">PUT</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">loadsmart</span><span class="o">-</span><span class="n">aceleradev</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">carrier</span><span class="o">/</span><span class="n">load</span><span class="o">/</span><span class="n">drop</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span>
 </pre>
                                           </div>
                                        </div>

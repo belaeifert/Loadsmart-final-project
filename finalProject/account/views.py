@@ -29,7 +29,7 @@ def RedirectHome(request):
     except:
         try:
             carrier = CarrierUser.objects.get(user__id=request.user.id)
-            return redirect('carrier:list_loads')
+            return redirect('carrier:home')
         except:
             return redirect('index')
 
@@ -55,5 +55,5 @@ class CarrierSignUpView(PassRequestMixin, CreateView):
         if not self.request.is_ajax():
             user = form.save()
             login(self.request, user)
-        return redirect('carrier:list_loads')
+        return redirect('carrier:home')
 
