@@ -31,7 +31,7 @@ class CancelLoadGet(TestCase):
 
     def test_get(self):
         self.assertEqual(200, self.response.status_code)
-'''
+
 class CancelLoadDelete(TestCase):
     def setUp(self):
         user, shipper = create_user()
@@ -49,11 +49,10 @@ class CancelLoadDelete(TestCase):
         )
         self.obj.save()
         self.response = self.client.post(r('shipper:cancel_load', pk=self.obj.pk))
-        self.obj.refresh_from_db()
+
 
     def test_status_code(self):
         self.assertEqual(self.response.status_code, 302)
 
-    #def test_update(self):
-    #    self.assertFalse(Load.objects.exists())
-'''
+    def test_update(self):
+        self.assertFalse(Load.objects.exists())
