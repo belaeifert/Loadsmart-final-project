@@ -1,4 +1,4 @@
-#LoadSmart Final Project squad 1
+# LoadSmart Final Project squad 1
 
 ## How to Develop?
 1. Clone repository
