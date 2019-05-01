@@ -6,7 +6,7 @@ from finalProject.api import views
 app_name = "api"
 
 urlpatterns = [
-    path('get-token/', views.getToken, name="get_token"),
+    path('token/', views.getToken, name="get_token"),
     path('carrier/loads/available/', views.CarrierAvailableLoads.as_view({'get': 'list'}),
          name='list_carrier_available'),
     path('carrier/loads/accepted/', views.CarrierAcceptedLoads.as_view({'get': 'list'}), name='list_carrier_accepted'),
