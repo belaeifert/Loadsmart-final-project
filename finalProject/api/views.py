@@ -72,7 +72,7 @@ class CarrierRejectedLoads(viewsets.ReadOnlyModelViewSet):
 
 @api_view(["PUT"])
 @permission_classes((IsAuthenticated, IsCarrier,))
-def CarrierAccept(request, pk_load):
+def carrierAccept(request, pk_load):
     try:
         load = Load.objects.get(pk=pk_load, status='available')
     except:
@@ -87,7 +87,7 @@ def CarrierAccept(request, pk_load):
 
 @api_view(["PUT"])
 @permission_classes((IsAuthenticated, IsCarrier,))
-def CarrierReject(request, pk_load):
+def carrierReject(request, pk_load):
     try:
         load = Load.objects.get(pk=pk_load, status='available')
     except:
@@ -102,7 +102,7 @@ def CarrierReject(request, pk_load):
 
 @api_view(["PUT"])
 @permission_classes((IsAuthenticated, IsCarrier,))
-def CarrierDrop(request, pk_load):
+def carrierDrop(request, pk_load):
     try:
         carrier = CarrierUser.objects.get(user_id=request.user.id)
         load = Load.objects.get(pk=pk_load, status='accepted', carrier=carrier)
@@ -140,7 +140,7 @@ class ShipperAcceptedLoads(viewsets.ReadOnlyModelViewSet):
 
 @api_view(["POST"])
 @permission_classes((IsAuthenticated, IsShipper,))
-def ShipperPostLoad(request):
+def shipperPostLoad(request):
     serializer = LoadSerializer(data=request.data)
 
     if serializer.is_valid():
