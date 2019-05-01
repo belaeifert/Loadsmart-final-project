@@ -1,8 +1,7 @@
-from django.contrib.auth.views import LogoutView, PasswordResetView, PasswordResetDoneView, \
-    PasswordResetConfirmView, PasswordResetCompleteView
-from django.urls import path, reverse_lazy
-
+from django.contrib.auth.views import LogoutView
+from django.urls import path
 from . import views
+
 
 app_name = "account"
 
@@ -13,28 +12,9 @@ urlpatterns = [
     path('redirect-home/', views.RedirectHome, name='redirect_home'),
     path('signup-shipper/', views.ShipperSignUpView.as_view(), name='shipper_signup'),
     path('signup-carrier/', views.CarrierSignUpView.as_view(), name='carrier_signup'),
-
-    path('password/reset/',
-         PasswordResetView.as_view(
-             template_name='reset_password/password_reset_form.html',
-             email_template_name='reset_password/password_reset_email.html',
-             subject_template_name='reset_password/password_reset_subject.txt',
-             success_url=reverse_lazy('account:reset_password_done')
-         ), name='reset_password'),
-    path('password_reset_done',
-         PasswordResetDoneView.as_view(
-             template_name='reset_password/password_reset_done.html'
-         ), name='reset_password_done'),
-
-    path('password/reset/confirm/<uidb64>/<token>',
-         PasswordResetConfirmView.as_view(
-             template_name='reset_password/password_reset_confirm.html',
-             success_url=reverse_lazy('account:password_reset_complete')
-         ), name='password_reset_confirm'),
-
-    path('password/reset/complete/',
-         PasswordResetCompleteView.as_view(
-            template_name='reset_password/password_reset_complete.html',
-         ), name='password_reset_complete'),
+    path('password/reset/', views.CustomPasswordResetView.as_view(), name='reset_password'),
+    path('password_reset_done', views.CustomPasswordResetDoneView.as_view(), name='reset_password_done'),
+    path('password/reset/confirm/<uidb64>/<token>', views.CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('password/reset/complete/', views.CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
 ]
