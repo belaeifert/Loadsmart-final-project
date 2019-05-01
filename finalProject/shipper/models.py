@@ -1,4 +1,7 @@
+from datetime import date
+
 from django.db import models
+from django.core.exceptions import ValidationError
 
 from finalProject.account.models import User
 
@@ -16,9 +19,12 @@ class ShipperUser(models.Model):
             self.pk, self.user.pk, self.user.first_name
         )
 
+def pickup_date_validation(value):
+        if value < date.today():
+            raise ValidationError('You can\'t use a past date for a new load.')
 
 class Load(models.Model):
-    pickup_date = models.DateField()
+    pickup_date = models.DateField(validators=[pickup_date_validation])
     ref = models.CharField(max_length=50)
     origin_city = models.CharField(max_length=500)
     destination_city = models.CharField(max_length=500)
