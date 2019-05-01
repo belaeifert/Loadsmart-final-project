@@ -1,0 +1,18 @@
+{% autoescape off %}
+
+Dear {{ load.shipper.user.get_full_name }},
+
+The following load was DROPPED by {{ load.carrier.user.get_full_name }}:
+
+Pickup Date: {{ load.pickup_date }}
+REF. : {{ load.ref }}
+Origin City: {{ load.origin_city }}
+Destination City: {{ load.destination_city }}
+Price: {{ load.price }}
+
+This load is now available for other Carriers.
+You will be notified if someone else accepts it.
+
+Sincerely,
+Squad 1
+{% endautoescape %}

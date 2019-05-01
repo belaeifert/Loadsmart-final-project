@@ -1,0 +1,16 @@
+{% autoescape off %}
+
+Dear {{ load.shipper.user.get_full_name }},
+
+The following load was ACCEPTED by {{ load.carrier.user.get_full_name }}:
+
+Pickup Date: {{ load.pickup_date }}
+REF. : {{ load.ref }}
+Origin City: {{ load.origin_city }}
+Destination City: {{ load.destination_city }}
+Price: {{ load.price }}
+
+
+Sincerely,
+Squad 1
+{% endautoescape %}

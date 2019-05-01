@@ -49,7 +49,7 @@
 <body>
 <div id="general">
     <div id="content-wrap">
-
+        {% block navbar %}
         <!-- navbar -->
         <div class="navbar-wrapper">
             <div class="navbar navbar-inverse navbar-fixed-top">
@@ -71,6 +71,7 @@
                 </div>
             </div>
         </div>
+        {% endblock %}
 
         <!-- Content -->
         <div id="content" style="margin-top: 20px;">
@@ -81,6 +82,7 @@
             {% endblock content %}
         </div>
     </div>
+    {% block footer %}
     <footer id="footer">
         <div class="container">
             <div class="row">
@@ -102,6 +104,7 @@
         </div>
         <!-- ./container -->
     </footer>
+    {% endblock %}
 </div>
 </body>
 

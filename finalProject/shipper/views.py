@@ -7,10 +7,13 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import ListView
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 from finalProject.shipper.forms import LoadForm, UpdatePriceForm
 from finalProject.shipper.models import ShipperUser
 from .models import Load
+from finalProject.settings import DEFAULT_FROM_EMAIL
 
 
 class ShipperView(LoginRequiredMixin, ListView):
@@ -63,3 +66,15 @@ class CancelLoadView(DeleteAjaxMixin, generic.DeleteView):
     template_name = 'cancel_load_modal.html'
     success_message = 'Success: Load was canceled.'
     success_url = '/shipper/home/'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.status == 'accepted':
+            load = self.object
+            email_subject = 'Shipper canceled an accepted load'
+            html_message = render_to_string('email_message_load_canceled.html', {'load': load})
+            from_email = DEFAULT_FROM_EMAIL
+            to_email = [load.carrier.user.email]
+            send_mail(email_subject, html_message, from_email, to_email)
+
+        return self.delete(request, *args, **kwargs)

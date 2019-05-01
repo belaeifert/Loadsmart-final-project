@@ -68,7 +68,7 @@ ROOT_URLCONF = 'finalProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -142,3 +142,23 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ),
 }
+
+# Email config
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+'''
+EMAIL_HOST = 'smtp.zoho.com'
+DEFAULT_FROM_EMAIL = 'squad1_aceleradev_loadsmart@zoho.com'
+EMAIL_HOST_USER = 'squad1_aceleradev_loadsmart@zoho.com'
+EMAIL_HOST_PASSWORD = 'womentech'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+'''
+EMAIL_HOST = 'smtp.zoho.com'
+DEFAULT_FROM_EMAIL = '1squad_aceleradev_loadsmart@zoho.com'
+EMAIL_HOST_USER = '1squad_aceleradev_loadsmart@zoho.com'
+EMAIL_HOST_PASSWORD = 'womentech'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
