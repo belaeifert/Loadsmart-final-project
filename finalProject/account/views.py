@@ -1,11 +1,14 @@
 from django.contrib.auth import login
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetDoneView, \
+    PasswordResetConfirmView, PasswordResetCompleteView
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from finalProject.carrier.models import CarrierUser
 from finalProject.shipper.models import ShipperUser
 from .forms import CarrierSignUpForm, ShipperSignUpForm
-from django.contrib.auth.views import LoginView
-from django.contrib.auth.forms import AuthenticationForm
+
 from bootstrap_modal_forms.mixins import LoginAjaxMixin, PassRequestMixin
 
 
@@ -55,3 +58,23 @@ class CarrierSignUpView(PassRequestMixin, CreateView):
             user = form.save()
             login(self.request, user)
         return redirect('carrier:home')
+
+
+class CustomPasswordResetView(PasswordResetView):
+    template_name='reset_password/password_reset_form.html'
+    email_template_name='reset_password/password_reset_email.html'
+    subject_template_name='reset_password/password_reset_subject.txt'
+    success_url=reverse_lazy('account:reset_password_done')
+
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name='reset_password/password_reset_done.html'
+
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name='reset_password/password_reset_confirm.html'
+    success_url=reverse_lazy('account:password_reset_complete')
+
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name='reset_password/password_reset_complete.html'
