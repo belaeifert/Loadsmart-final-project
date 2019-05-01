@@ -6,7 +6,7 @@ from finalProject.carrier.models import CarrierUser
 from finalProject.shipper.models import ShipperUser
 
 
-def create_user(is_shipper):
+def createUser(is_shipper):
     if is_shipper:
         user = User.objects.create(email='shipper@teste.com', first_name='shipper', last_name='teste', password='123')
         shipper = ShipperUser.objects.create(user=user)
@@ -19,7 +19,7 @@ def create_user(is_shipper):
         return user, carrier
 
 
-def set_auth_client(user):
+def setAuthClient(user):
     token = Token.objects.create(user=user)
 
     client = APIClient()

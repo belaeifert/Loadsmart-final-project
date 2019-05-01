@@ -11,7 +11,7 @@ from finalProject.settings import DEFAULT_FROM_EMAIL
 
 
 @login_required
-def list_loads(request):
+def listLoads(request):
     carrier = CarrierUser.objects.get(user_id=request.user.id)
 
     rej_loads = RejectedLoad.objects.filter(carrier=carrier)
@@ -29,7 +29,7 @@ def list_loads(request):
 
 @login_required
 @transaction.atomic
-def accept_load(request, pk_load):
+def acceptLoad(request, pk_load):
     try:
         load = Load.objects.get(pk=pk_load, status='available')
     except:
@@ -52,7 +52,7 @@ def accept_load(request, pk_load):
 
 @login_required
 @transaction.atomic
-def reject_load(request, pk_load):
+def rejectLoad(request, pk_load):
     try:
         load = Load.objects.get(pk=pk_load, status='available')
     except:
@@ -67,7 +67,7 @@ def reject_load(request, pk_load):
 
 @login_required
 @transaction.atomic
-def drop_load(request, pk_load):
+def dropLoad(request, pk_load):
     try:
         carrier = CarrierUser.objects.get(user_id=request.user.id)
         load = Load.objects.get(pk=pk_load, status='accepted', carrier=carrier)

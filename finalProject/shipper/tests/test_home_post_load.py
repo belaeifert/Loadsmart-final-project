@@ -4,13 +4,13 @@ from django.test import TestCase
 from finalProject import settings
 from finalProject.shipper.forms import LoadForm
 from finalProject.shipper.models import Load
-from finalProject.shipper.tests.create_user_setUp import create_user
+from finalProject.shipper.tests.create_user_setUp import createUser
 
 
 class ShipperHomeGet(TestCase):
 
     def setUp(self):
-        user, shipper = create_user()
+        user, shipper = createUser()
         self.client.force_login(user)
         self.response = self.client.get(r('shipper:home'))
 
@@ -27,7 +27,7 @@ class ShipperHomeGet(TestCase):
 class PostLoadGet(TestCase):
 
     def setUp(self):
-        user, shipper = create_user()
+        user, shipper = createUser()
         self.client.force_login(user)
         self.response = self.client.get(r('shipper:post_load'))
 
@@ -60,7 +60,7 @@ class PostLoadGet(TestCase):
 class PostModelLoadTest(TestCase):
 
     def setUp(self):
-        user, shipper = create_user()
+        user, shipper = createUser()
         self.obj = Load(
             pickup_date='2019-04-17',
             ref=123,
@@ -87,7 +87,7 @@ class PostModelLoadTest(TestCase):
 class PostLoadTest(TestCase):
 
     def setUp(self):
-        user, shipper = create_user()
+        user, shipper = createUser()
         self.client.force_login(user)
 
         data = {
