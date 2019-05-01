@@ -1,0 +1,17 @@
+{% autoescape off %}
+
+Dear {{ load.carrier.user.get_full_name }},
+
+The following load was CANCELED by {{ load.shipper.user.get_full_name }}:
+
+Pickup Date: {{ load.pickup_date }}
+REF. : {{ load.ref }}
+Origin City: {{ load.origin_city }}
+Destination City: {{ load.destination_city }}
+Price: {{ load.price }}
+
+You can check in our website the loads that are available.
+
+Sincerely,
+Squad 1
+{% endautoescape %}
