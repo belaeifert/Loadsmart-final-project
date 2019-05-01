@@ -11,3 +11,4 @@ myvenv
 *.mwb
 *.mwb.bak
 staticfiles
+.coverage

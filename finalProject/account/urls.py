@@ -17,7 +17,8 @@ urlpatterns = [
     path('password/reset/',
          PasswordResetView.as_view(
              template_name='reset_password/password_reset_form.html',
-             email_template_name='reset_password/reset_password_confirm.html',
+             email_template_name='reset_password/password_reset_email.html',
+             subject_template_name='reset_password/password_reset_subject.txt',
              success_url=reverse_lazy('account:reset_password_done')
          ), name='reset_password'),
     path('password_reset_done',
@@ -28,9 +29,12 @@ urlpatterns = [
     path('password/reset/confirm/<uidb64>/<token>',
          PasswordResetConfirmView.as_view(
              template_name='reset_password/password_reset_confirm.html',
-         ), name='reset_password_confirm'),
+             success_url=reverse_lazy('account:password_reset_complete')
+         ), name='password_reset_confirm'),
 
-    path('password/reset/confirm/<uidb64>/<token>',
-         PasswordResetCompleteView.as_view()),
+    path('password/reset/complete/',
+         PasswordResetCompleteView.as_view(
+            template_name='reset_password/password_reset_complete.html',
+         ), name='password_reset_complete'),
 
 ]
