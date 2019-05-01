@@ -13,17 +13,15 @@
 <br/>
 
 {% if messages %}
-{% for message in messages %}
-<div class="alert alert-{{message.level_tag}}" role="alert">
-    <ul class="messages">
-        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-    </ul>
-</div>
-{% endfor %}
+    {% for message in messages %}
+    <div class="alert alert-{{message.level_tag}} message" role="alert" style="width:77%; margin: 0px auto; ">
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+            {{ message }} <a href="#" class="del-msg">&times;</a>
+        </li>
+    </div>
+    {% endfor %}
 {% endif %}
 
-<br/>
-<br/>
 <br/>
 
 <ul class="nav nav-pills" id="pills-tab" style="width:80%; margin: 0px auto; ">
@@ -167,6 +165,20 @@
           });
       });
 
+    </script>
+
+    <script>
+      $(document).ready(function() {
+        // messages timeout for 10 sec 
+        setTimeout(function() {
+            $('.message').fadeOut('slow');
+        }, 10000); // <-- time in milliseconds, 1000 =  1 sec
+
+        // delete message
+        $('.del-msg').live('click',function(){
+            $('.del-msg').parent().parent().attr('style', 'display:none;');
+        })
+      });
     </script>
 
 </section>

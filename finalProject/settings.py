@@ -142,6 +142,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ),
 }
+
 # Email config
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
