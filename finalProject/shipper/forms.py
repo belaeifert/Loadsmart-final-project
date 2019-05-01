@@ -1,8 +1,16 @@
-from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
+import datetime
 from django import forms
 from django.forms import DateInput, TextInput
-
+from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
 from finalProject.shipper.models import Load
+
+
+def priceValidation(price):
+    if price <= 0:
+        raise forms.ValidationError("Price should be positive")
+    if len(str(price).split('.')[1]) >= 3:
+        raise forms.ValidationError("Price should have up to 2 decimal places")
+    return price
 
 
 class LoadForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
@@ -11,7 +19,8 @@ class LoadForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
 
     class Meta:
         model = Load
-        fields = ['pickup_date', 'ref', 'origin_city', 'destination_city', 'price', 'suggested_price']
+        fields = ['pickup_date', 'ref', 'origin_city',
+                  'destination_city', 'price', 'suggested_price']
         widgets = {
             'pickup_date': DateInput(attrs={'type': 'date'}),
             'origin_city': TextInput(attrs={'id': 'origin_city_id'}),
@@ -21,8 +30,13 @@ class LoadForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
     def clean_suggested_price(self):
         suggested_price = self.cleaned_data.get('suggested_price')
         if suggested_price is None or '':
-            raise forms.ValidationError("There are no road between origin and destination cities ")
+            raise forms.ValidationError(
+                "There are no road between origin and destination cities ")
         return suggested_price
+
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
+        return priceValidation(price)
 
 
 class UpdatePriceForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
@@ -32,3 +46,7 @@ class UpdatePriceForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
     class Meta:
         model = Load
         fields = ['ref', 'price', 'suggested_price']
+
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
+        return priceValidation(price)
