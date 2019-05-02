@@ -1,0 +1,25 @@
+<section>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+         </div>
+      </div>
+   </div>
+
+   <script type="text/javascript" >
+      $(document).ready(function() {
+          $(".login-popup-button").modalForm({
+              formURL: "{% url 'account:login' %}"
+          });
+          $(".shipper-signup-popup-button").modalForm({
+              formURL: "{% url 'account:shipper_signup' %}"
+          });
+          $(".carrier-signup-popup-button").modalForm({
+              formURL: "{% url 'account:carrier_signup' %}"
+          });
+          $(".logout-popup-button").modalForm({
+              formURL: "{% url 'account:logout_popup' %}"
+          });
+      });
+   </script>
+</section>
