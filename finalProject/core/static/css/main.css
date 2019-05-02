@@ -32,7 +32,7 @@
 }
 
 .about-loadsmart {
-    color: white;
+    color: var(--color-white);
     margin-right: 2vw;
 }
 
