@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import resolve_url as r
 from django.test import TestCase
 
@@ -62,7 +63,7 @@ class PostModelLoadTest(TestCase):
     def setUp(self):
         user, shipper = createUser()
         self.obj = Load(
-            pickup_date='2019-04-17',
+            pickup_date=str(datetime.date.today()),
             ref=123,
             origin_city='Miami Gardens, FL, USA',
             destination_city='Florida City, FL, USA',
@@ -91,7 +92,7 @@ class PostLoadTest(TestCase):
         self.client.force_login(user)
 
         data = {
-            'pickup_date': '2019-04-17',
+            'pickup_date': str(datetime.date.today()),
             'ref': 123,
             'origin_city': 'Miami Gardens, FL, USA',
             'destination_city': 'Miami Gardens, FL, USA',
