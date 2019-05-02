@@ -49,9 +49,11 @@
 
 {% block content %}
 
-
 <!-- Header area -->
 <div id="header-wrapper" class="header-slider">
+    <video autoplay muted loop id="hero-video" poster="{% static 'videos/Road-Tripping.jpg' %}">
+        <source src="{% static 'videos/Road-Tripping.mp4' %}" type="video/mp4">
+    </video>
     <header class="clearfix">
         <div class="logo">
         </div>
@@ -116,7 +118,7 @@
             </div>
             <div class="span3 flyIn">
                 <div class="people">
-                    <img class="team-thumb img-circle" src="{% static 'img/team/ester.jpeg' %}" alt=""/>
+                    <img class="team-thumb img-circle" src="{% static 'img/team/ester.png' %}" alt=""/>
                     <h3> Ester Fogaça</h3>
                     <p>
                         Back-end developer
@@ -214,5 +216,26 @@ print(response.content)</pre>
       </div>
    </div>
 </section>
+
+<style>
+#header-wrapper {
+    position: relative;
+    background: none !important;
+}
+
+#hero-video {
+    position: absolute;
+    z-index: -1;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+}
+
+.team-thumb {
+    max-width: 250px;
+    max-height: 250px;
+}
+</style>
 
 {% endblock content %}
