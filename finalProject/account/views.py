@@ -59,7 +59,7 @@ class CarrierSignUpView(PassRequestMixin, CreateView):
             login(self.request, user)
         return redirect('carrier:home')
 
-
+'''
 class CustomPasswordResetView(PasswordResetView):
     template_name='reset_password/password_reset_form.html'
     email_template_name='reset_password/password_reset_email.html'
@@ -78,3 +78,4 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
 
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name='reset_password/password_reset_complete.html'
+'''
