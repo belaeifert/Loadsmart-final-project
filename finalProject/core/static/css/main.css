@@ -6,6 +6,12 @@
     --color-grey: #4C4C4C;
 }
 
+/* Navbar */
+.brand {
+    margin-top: 1.5rem !important;
+    font-weight: bold;
+}
+
 /* Main content container */
 #content-wrapper {
     position: relative;
