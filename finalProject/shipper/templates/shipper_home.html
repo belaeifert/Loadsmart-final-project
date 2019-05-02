@@ -24,10 +24,16 @@
 
 <br/>
 
-<br/>
 <ul class="nav nav-pills table-size" id="pills-tab">
     <li class="active"><a href="#tab1" data-toggle="tab">Available loads</a></li>
     <li><a href="#tab2" data-toggle="tab">Accepted loads</a></li>
+    <li><div class="span2 ">
+            <button class="post-load btn btn-block btn-success" type="button" name="button" style="border-radius: 20px;">
+                <i class="fas fa-plus-circle"></i>
+                Add New
+            </button>
+        </div>
+    </li>
 </ul>
 <div class="tab-content">
     <div class="tab-pane table-size active" id="tab1">
@@ -56,14 +62,13 @@
                     <td>${{ load.price|floatformat:2 }}</td>
                     <td style="text-align: center;">
                         <a class="edit-price-popup-btn btn" data-id="{% url 'shipper:edit_price' load.pk %}">
-                            <i class="far fa-edit"></i><br/>
+                            <i class="far fa-edit"></i>
                             Edit Price
                         </a>
                     </td>
                     <td style="text-align: center;">
                         <a class="cancel-load-popup-btn btn btn-danger" data-id="{% url 'shipper:cancel_load' load.pk %}">
-                            <i class="far fa-trash-alt"></i><br/>
-                            Cancel
+                            <i class="far fa-trash-alt"></i>
                         </a>
                     </td>
                 </tr>
@@ -99,8 +104,7 @@
                     <td></td>
                     <td style="text-align: center;">
                         <a class="cancel-load-popup-btn btn btn-danger" data-id="{% url 'shipper:cancel_load' load.pk %}">
-                            <i class="far fa-trash-alt"></i><br/>
-                            Cancel
+                            <i class="far fa-trash-alt"></i>
                         </a>
                     </td>
                 </tr>
@@ -108,21 +112,13 @@
                 {% endfor %}
             </tbody>
         </table>
+        
     </div>
 </div>
 
 <br/>
+<br/>
 
-<div class="container table-size">
-    <div class="row-fluid">
-        <div class="span2 offset10">
-            <button class="post-load btn btn-block btn-success" type="button" name="button" style="border-radius: 20px;">
-                <i class="fas fa-plus-circle"></i>
-                Add New
-            </button>
-        </div>
-    </div>
-</div>
 
 <section>
     <div class="modal fade" tabindex="-1" role="dialog" id="modal">
@@ -150,13 +146,12 @@
                 "emptyTable": "There are no accepted loads"
             }
         });
-
         // Modals
         $(".post-load").modalForm({
             formURL: "{% url 'shipper:post_load' %}"
         });
         $(".logout-popup-button").modalForm({
-            formURL: "{% url 'account:logout_popup' %}" 
+            formURL: "{% url 'account:logout_popup' %}"
         });
         $(".edit-price-popup-btn").each(function () {
             $(this).modalForm({formURL: $(this).data('id')});
@@ -164,17 +159,17 @@
         $(".cancel-load-popup-btn").each(function () {
             $(this).modalForm({formURL: $(this).data('id')});
         });
-
-        // messages timeout for 10 sec 
+        // messages timeout for 10 sec
         setTimeout(function() {
             $('.message').fadeOut('slow');
         }, 10000); // <-- time in milliseconds, 1000 =  1 sec
-
         // delete message
         $('.del-msg').live('click',function(){
             $('.del-msg').parent().parent().attr('style', 'display:none;');
         })
     });
  </script>
+
+
 
 {% endblock content %}
