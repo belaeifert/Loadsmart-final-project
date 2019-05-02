@@ -27,9 +27,18 @@
     min-height: 100%;
 }
 
+#main-flexslider {
+    margin-top: 20vh !important;
+}
+
 .team-thumb {
     max-width: var(--thumb-size);
     max-height: var(--thumb-size);
+}
+
+/* Undesired elements */
+.flex-direction-nav {
+    display: none;
 }
 
 /* Breakpoint for mobile support */
