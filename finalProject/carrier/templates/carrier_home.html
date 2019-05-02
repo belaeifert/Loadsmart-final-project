@@ -14,7 +14,7 @@
 
 {% if messages %}
     {% for message in messages %}
-    <div class="alert alert-{{message.level_tag}} message" role="alert" style="width:77%; margin: 0px auto; ">
+    <div class="alert alert-{{message.level_tag}} message" role="alert" style="width:77%; margin: 0px auto;">
         <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
             {{ message }} <a href="#" class="del-msg">&times;</a>
         </li>
@@ -24,22 +24,22 @@
 
 <br/>
 
-<ul class="nav nav-pills" id="pills-tab" style="width:80%; margin: 0px auto; ">
+<ul class="nav nav-pills table-size" id="pills-tab">
     <li class="active"><a href="#tab1" data-toggle="tab">Available loads</a></li>
     <li><a href="#tab2" data-toggle="tab">Accepted loads</a></li>
     <li><a href="#tab3" data-toggle="tab">Rejected loads</a></li>
 </ul>
 <div class="tab-content">
-    <div class="tab-pane active" id="tab1" style="width:80%; margin: 0px auto;">
+    <div class="tab-pane table-size active" id="tab1">
         <table id="tableAvailable" class="table ">
-            <thead style="color:white; background-color: #4c4c4c;">
+            <thead class="table-head">
             <tr>
-                <th>Pickup Date</th>
-                <th>Ref.</th>
-                <th>Origin City</th>
-                <th>Destination City</th>
-                <th>Price</th>
-                <th>Shipper</th>
+                <th>PICK UP</th>
+                <th>REF.#</th>
+                <th>ORIGIN</th>
+                <th>DESTINATION</th>
+                <th>PRICE</th>
+                <th>SHIPPER</th>
                 <th></th>
             </tr>
             </thead>
@@ -63,16 +63,16 @@
         </table>
         <br/> <br/> <br/>
     </div>
-    <div class="tab-pane" id="tab2" style="width:80%; margin: 0px auto;">
-        <table id="tableAccepted" class="table ">
-            <thead style="color:white; background-color: #4c4c4c;">
+    <div class="tab-pane table-size" id="tab2">
+        <table id="tableAccepted" class="table">
+            <thead class="table-head">
             <tr>
-                <th>Pickup Date</th>
-                <th>Ref.</th>
-                <th>Origin City</th>
-                <th>Destination City</th>
-                <th>Price</th>
-                <th>Shipper</th>
+                <th>PICK UP</th>
+                <th>REF.#</th>
+                <th>ORIGIN</th>
+                <th>DESTINATION</th>
+                <th>PRICE</th>
+                <th>SHIPPER</th>
                 <th></th>
             </tr>
             </thead>
@@ -93,16 +93,16 @@
         </table>
         <br/> <br/> <br/>
     </div>
-    <div class="tab-pane" id="tab3" style="width:80%; margin: 0px auto;">
+    <div class="tab-pane table-size" id="tab3">
         <table id="tableRejected" class="table ">
-            <thead style="color:white; background-color: #4c4c4c;">
+            <thead class="table-head">
             <tr>
-                <th>Pickup Date</th>
-                <th>Ref.</th>
-                <th>Origin City</th>
-                <th>Destination City</th>
-                <th>Price</th>
-                <th>Shipper</th>
+                <th>PICK UP</th>
+                <th>REF.#</th>
+                <th>ORIGIN</th>
+                <th>DESTINATION</th>
+                <th>PRICE</th>
+                <th>SHIPPER</th>
             </tr>
             </thead>
             <tbody>

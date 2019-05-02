@@ -14,7 +14,7 @@
 
 {% if messages %}
     {% for message in messages %}
-    <div class="alert alert-{{message.level_tag}} message" role="alert" style="width:77%; margin: 0px auto; ">
+    <div class="alert alert-{{message.level_tag}} message" role="alert" style="width:77%; margin: 0px auto;">
         <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
             {{ message }} <a href="#" class="del-msg">&times;</a>
         </li>
@@ -25,14 +25,14 @@
 <br/>
 
 <br/>
-<ul class="nav nav-pills" id="pills-tab" style="width:80%; margin: 0px auto; ">
+<ul class="nav nav-pills table-size" id="pills-tab">
     <li class="active"><a href="#tab1" data-toggle="tab">Available loads</a></li>
     <li><a href="#tab2" data-toggle="tab">Accepted loads</a></li>
 </ul>
 <div class="tab-content">
-    <div class="tab-pane active" id="tab1" style="width:80%; margin: 0px auto;">
+    <div class="tab-pane table-size active" id="tab1">
         <table id="tableAvailable" class="table">
-            <thead style="color:white; background-color: #4c4c4c;">
+            <thead class="table-head">
                 <tr>
                     <th>PICK UP</th>
                     <th>REF.#</th>
@@ -56,12 +56,14 @@
                     <td>${{ load.price|floatformat:2 }}</td>
                     <td style="text-align: center;">
                         <a class="edit-price-popup-btn btn" data-id="{% url 'shipper:edit_price' load.pk %}">
-                            <i class="far fa-edit"></i> Edit Price</a>
+                            <i class="far fa-edit"></i><br/>
+                            Edit Price
                         </a>
                     </td>
                     <td style="text-align: center;">
                         <a class="cancel-load-popup-btn btn btn-danger" data-id="{% url 'shipper:cancel_load' load.pk %}">
-                            <i class="far fa-trash-alt"></i> Cancel</button>
+                            <i class="far fa-trash-alt"></i><br/>
+                            Cancel
                         </a>
                     </td>
                 </tr>
@@ -70,9 +72,9 @@
             </tbody>
         </table>
     </div>
-    <div class="tab-pane" id="tab2" style="width:80%; margin: 0px auto;">
+    <div class="tab-pane table-size" id="tab2">
         <table id="tableAccepted" class="table">
-            <thead style="color:white; background-color: #4c4c4c;">
+            <thead class="table-head">
                 <tr>
                     <th>PICK UP</th>
                     <th>REF.#</th>
@@ -97,7 +99,8 @@
                     <td></td>
                     <td style="text-align: center;">
                         <a class="cancel-load-popup-btn btn btn-danger" data-id="{% url 'shipper:cancel_load' load.pk %}">
-                            <i class="far fa-trash-alt"></i> Cancel</button>
+                            <i class="far fa-trash-alt"></i><br/>
+                            Cancel
                         </a>
                     </td>
                 </tr>
@@ -110,7 +113,7 @@
 
 <br/>
 
-<div class="container" style="width:80%; margin: 0px auto;">
+<div class="container table-size">
     <div class="row-fluid">
         <div class="span12 main">
             <div class="span10">
