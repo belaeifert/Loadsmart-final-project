@@ -1,30 +1,80 @@
 .pac-container {
     z-index: 100000;
+    }
+    
+/* Variables */
+:root {
+    --thumb-size: 250px;
+    --footer-height: 249px;
+    --color-white: #FFFFFF;
+    --color-grey: #4C4C4C;
 }
 
-#content{
-    margin-top: 20px;
-
+/* Navbar */
+.brand {
+    margin-top: 1.5rem !important;
+    font-weight: bold;
 }
 
-#general{
+/* Main content container */
+#content-wrapper {
     position: relative;
-    min-height: 100vh;
+    max-width: 100vw;
+    min-height: calc(100vh - var(--footer-height));
+    overflow: hidden;
 }
 
-#content-wrap {
-  padding-bottom:10%;
-
+/* Hero section */
+#header-wrapper {
+    position: relative;
+    background: none !important;
 }
 
-#footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 2.5rem;            /* Footer height */
-  margin-top:20%;
+#hero-video {
+    position: absolute;
+    z-index: -1;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
 }
 
-.about{
-    font-color:white;
+#main-flexslider {
+    margin-top: 20vh !important;
 }
+
+.flex-direction-nav {
+    display: none;
+}
+
+/* Spacer section */
+.about-loadsmart {
+    color: var(--color-white);
+    margin-right: 2vw;
+}
+
+/* Team section */
+.team-thumb {
+    max-width: var(--thumb-size);
+    max-height: var(--thumb-size);
+}
+
+/* Tables */
+.table-size {
+    width: 80%; 
+    margin: 0px auto;
+}
+
+.table-head {
+    color: var(--color-white); 
+    background-color: var(--color-grey);
+}
+
+/* Breakpoint for mobile support */
+@media (max-width: 700px) {
+    .table,
+    .btn {
+        font-size: 8px;
+    }
+}
+

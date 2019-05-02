@@ -1,0 +1,38 @@
+{% load static %}
+
+<div id="header-wrapper" class="header-slider">
+    <video autoplay muted loop id="hero-video" poster="{% static 'videos/Road-Tripping.jpg' %}">
+        <source src="{% static 'videos/Road-Tripping.mp4' %}" type="video/mp4">
+    </video>
+    <header class="clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <!-- start slider -->
+                     <div id="main-flexslider" class="flexslider">
+                        <ul class="slides">
+                            <li>
+                                <p class="home-slide-content">
+                                    <strong>LoadSmart Women </strong>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="home-slide-content">
+                                    <strong> AceleraDev </strong>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- end slider -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12">
+                    <div class="span3 offset4">
+                        <a href="#api" class="btn btn-success">Learn about our API</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>

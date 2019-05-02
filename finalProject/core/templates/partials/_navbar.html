@@ -1,0 +1,9 @@
+<li><a title="api doc" href="{% url 'api:docs' %}" target="_blank"><i class="icon-book icon-white"></i> API</a></li>
+{% if user.is_authenticated %}
+    <li><a title="home" href="{% url 'account:redirect_home' %}"><i class="icon-home icon-white"></i> Homepage</a></li>
+    <li><a title="logout" class="logout-popup-button" ><i class="icon-user icon-white"></i> Logout</a></li>
+{% else %}
+    <li><a title="sign up shipper" class="shipper-signup-popup-button" ><i class="icon-briefcase icon-white"></i> Become a Shipper</a></li>  
+    <li><a title="sign up carrier" class="carrier-signup-popup-button" ><i class="icon-road icon-white"></i> Become a Carrier</a></li>   
+    <li><a title="login" class="login-popup-button" ><i class="icon-user icon-white"></i> Login</a></li>   
+{% endif %}

@@ -1,15 +1,20 @@
 {% extends 'base.html' %}
 
+{% block title %} Shipper's Page {% endblock title %}
+
 {% block navbar-options %}
 <li><a title="logout" class="logout-popup-button">Logout</a></li>
 {% endblock navbar-options%}
 
 {% block content %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+
 <br/>
 
 {% if messages %}
     {% for message in messages %}
-    <div class="alert alert-{{message.level_tag}} message" role="alert" style="width:77%; margin: 0px auto; ">
+    <div class="alert alert-{{message.level_tag}} message" role="alert" style="width:77%; margin: 0px auto;">
         <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
             {{ message }} <a href="#" class="del-msg">&times;</a>
         </li>
@@ -19,109 +24,134 @@
 
 <br/>
 
-<div class="container">
-    <div class="row-fluid">
-        <div class="span12 main">
-            <div class="control-label span3">
-                <h3>Posted Loads</h3>
-            </div>
-            <div class="span2">
-                <button class="post-load btn btn-block " type="button" name="button" style="border-radius: 20px;">
-                    <i class="fas fa-plus-circle"></i>
-                    Add New
-                </button>
-            </div>
+<ul class="nav nav-pills table-size" id="pills-tab">
+    <li class="active"><a href="#tab1" data-toggle="tab">Available loads</a></li>
+    <li><a href="#tab2" data-toggle="tab">Accepted loads</a></li>
+    <li><div class="span2 ">
+            <button class="post-load btn btn-block btn-success" type="button" name="button" style="border-radius: 20px;">
+                <i class="fas fa-plus-circle"></i>
+                Add New
+            </button>
         </div>
+    </li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane table-size active" id="tab1">
+        <table id="tableAvailable" class="table">
+            <thead class="table-head">
+                <tr>
+                    <th>PICK UP</th>
+                    <th>REF.#</th>
+                    <th>ORIGIN</th>
+                    <th>DESTINATION</th>
+                    <th>STATUS</th>
+                    <th>PRICE</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for load in loads %}
+                {% if load.status == 'available' %}
+                <tr>
+                    <td>{{ load.pickup_date }}</td>
+                    <td>{{ load.ref }}</td>
+                    <td>{{ load.origin_city }}</td>
+                    <td>{{ load.destination_city }}</td>
+                    <td>{{ load.status }}</td>
+                    <td>${{ load.price|floatformat:2 }}</td>
+                    <td style="text-align: center;">
+                        <a class="edit-price-popup-btn btn" data-id="{% url 'shipper:edit_price' load.pk %}">
+                            <i class="far fa-edit"></i>
+                            Edit Price
+                        </a>
+                    </td>
+                    <td style="text-align: center;">
+                        <a class="cancel-load-popup-btn btn btn-danger" data-id="{% url 'shipper:cancel_load' load.pk %}">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="tab-pane table-size" id="tab2">
+        <table id="tableAccepted" class="table">
+            <thead class="table-head">
+                <tr>
+                    <th>PICK UP</th>
+                    <th>REF.#</th>
+                    <th>ORIGIN</th>
+                    <th>DESTINATION</th>
+                    <th>STATUS</th>
+                    <th>PRICE</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for load in loads %}
+                {% if load.status == 'accepted' %}
+                <tr>
+                    <td>{{ load.pickup_date }}</td>
+                    <td>{{ load.ref }}</td>
+                    <td>{{ load.origin_city }}</td>
+                    <td>{{ load.destination_city }}</td>
+                    <td>{{ load.status }} by {{load.carrier.user.get_full_name}}</td>
+                    <td>${{ load.price|floatformat:2 }}</td>
+                    <td></td>
+                    <td style="text-align: center;">
+                        <a class="cancel-load-popup-btn btn btn-danger" data-id="{% url 'shipper:cancel_load' load.pk %}">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        
     </div>
 </div>
 
 <br/>
+<br/>
 
-<div style="width:80%; margin: 0px auto;">
-    <table id="tableShipperLoads" class="table">
-        <thead style="color:white; background-color: #4c4c4c;">
-        <tr>
-            <th>PICK UP</th>
-            <th>REF.#</th>
-            <th>ORIGIN</th>
-            <th>DESTINATION</th>
-            <th>STATUS</th>
-            <th>PRICE</th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th colspan=100%>Accepted Loads
-            <th>
-        </tr>
-        {% for load in loads %}
-        {% if load.status == 'accepted' %}
-        <tr>
-            <td>{{ load.pickup_date }}</td>
-            <td>{{ load.ref }}</td>
-            <td>{{ load.origin_city }}</td>
-            <td>{{ load.destination_city }}</td>
-            <td>{{ load.status }} by {{load.carrier.user.get_full_name}}</td>
-            <td>${{ load.price|floatformat:2 }}</td>
-            <td></td>
-            <td style="text-align: center;">
-                <a class="cancel-load-popup-btn btn" data-id="{% url 'shipper:cancel_load' load.pk %}">
-                    <i class="far fa-trash-alt"></i> Cancel</button>
-                </a>
-            </td>
-        </tr>
-        {% endif %}
-        {% endfor %}
-        </tbody>
-        <tbody>
-        <tr>
-            <th colspan=100%>Available Loads</th>
-        </tr>
-        {% for load in loads %}
-        {% if load.status == 'available' %}
-        <tr>
-            <td>{{ load.pickup_date }}</td>
-            <td>{{ load.ref }}</td>
-            <td>{{ load.origin_city }}</td>
-            <td>{{ load.destination_city }}</td>
-            <td>{{ load.status }}</td>
-            <td>${{ load.price|floatformat:2 }}</td>
-            <td style="text-align: center;">
-                <a class="edit-price-popup-btn btn" data-id="{% url 'shipper:edit_price' load.pk %}">
-                    <i class="far fa-edit"></i> Edit Price</a>
-                </a>
-            </td>
-            <td style="text-align: center;">
-                <a class="cancel-load-popup-btn btn" data-id="{% url 'shipper:cancel_load' load.pk %}">
-                    <i class="far fa-trash-alt"></i> Cancel</button>
-                </a>
-            </td>
-        </tr>
-        {% endif %}
-        {% endfor %}
-        </tbody>
-    </table>
-    <br/> <br/> <br/>
-</div>
 
 <section>
-
     <div class="modal fade" tabindex="-1" role="dialog" id="modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             </div>
         </div>
     </div>
+</section>
 
-    <script type="text/javascript">
-      $(document).ready(function() {
+<script type="text/javascript">
+    $(document).ready(function() {
+        // Tables
+        $('#tableAvailable').DataTable({
+            "paging": false,
+            "info": false,
+            "language": {
+                "emptyTable": "There are no available loads"
+            }
+        });
+        $('#tableAccepted').DataTable({
+            "paging": false,
+            "info": false,
+            "language": {
+                "emptyTable": "There are no accepted loads"
+            }
+        });
+        // Modals
         $(".post-load").modalForm({
             formURL: "{% url 'shipper:post_load' %}"
         });
         $(".logout-popup-button").modalForm({
-            formURL: "{% url 'account:logout_popup' %}" 
+            formURL: "{% url 'account:logout_popup' %}"
         });
         $(".edit-price-popup-btn").each(function () {
             $(this).modalForm({formURL: $(this).data('id')});
@@ -129,24 +159,17 @@
         $(".cancel-load-popup-btn").each(function () {
             $(this).modalForm({formURL: $(this).data('id')});
         });
-      });
-
-    </script>
-
-    <script>
-      $(document).ready(function() {
-        // messages timeout for 10 sec 
+        // messages timeout for 10 sec
         setTimeout(function() {
             $('.message').fadeOut('slow');
         }, 10000); // <-- time in milliseconds, 1000 =  1 sec
-
         // delete message
         $('.del-msg').live('click',function(){
             $('.del-msg').parent().parent().attr('style', 'display:none;');
         })
-      });
-    </script>
+    });
+ </script>
 
-</section>
+
 
 {% endblock content %}
