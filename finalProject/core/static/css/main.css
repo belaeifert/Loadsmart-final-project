@@ -31,6 +31,11 @@
     margin-top: 20vh !important;
 }
 
+.about-loadsmart {
+    color: white;
+    margin-right: 2vw;
+}
+
 .team-thumb {
     max-width: var(--thumb-size);
     max-height: var(--thumb-size);
