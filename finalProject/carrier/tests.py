@@ -67,7 +67,7 @@ class CarrierAcceptLoadTest(TestCase):
 
         self.load = createLoad()
 
-        self.response = self.client.post(
+        self.response = self.client.get(
             r('carrier:accept_load', pk_load=self.load.pk), follow=True)
 
     def test_get(self):
@@ -97,7 +97,7 @@ class CarrierRejectLoadTest(TestCase):
 
         self.load = createLoad()
 
-        self.response = self.client.post(
+        self.response = self.client.get(
             r('carrier:reject_load', pk_load=self.load.pk), follow=True)
 
     def test_get(self):
@@ -130,7 +130,7 @@ class CarrierDropLoadTest(TestCase):
         self.load.carrier = CarrierUser.objects.get(user_id=user.pk)
         self.load.save()
 
-        self.response = self.client.post(
+        self.response = self.client.get(
             r('carrier:drop_load', pk_load=self.load.pk), follow=True)
 
     def test_get(self):
