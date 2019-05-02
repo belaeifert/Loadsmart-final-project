@@ -150,13 +150,12 @@
                 "emptyTable": "There are no accepted loads"
             }
         });
-
         // Modals
         $(".post-load").modalForm({
             formURL: "{% url 'shipper:post_load' %}"
         });
         $(".logout-popup-button").modalForm({
-            formURL: "{% url 'account:logout_popup' %}" 
+            formURL: "{% url 'account:logout_popup' %}"
         });
         $(".edit-price-popup-btn").each(function () {
             $(this).modalForm({formURL: $(this).data('id')});
@@ -164,12 +163,10 @@
         $(".cancel-load-popup-btn").each(function () {
             $(this).modalForm({formURL: $(this).data('id')});
         });
-
-        // messages timeout for 10 sec 
+        // messages timeout for 10 sec
         setTimeout(function() {
             $('.message').fadeOut('slow');
         }, 10000); // <-- time in milliseconds, 1000 =  1 sec
-
         // delete message
         $('.del-msg').live('click',function(){
             $('.del-msg').parent().parent().attr('style', 'display:none;');
