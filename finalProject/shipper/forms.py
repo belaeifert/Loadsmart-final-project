@@ -1,7 +1,10 @@
 import datetime
-from django import forms
-from django.forms import DateInput, TextInput
+
 from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
+from django import forms
+from django.core.exceptions import ValidationError
+from django.forms import DateInput, TextInput
+
 from finalProject.shipper.models import Load
 
 
@@ -37,6 +40,12 @@ class LoadForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
     def clean_price(self):
         price = self.cleaned_data.get('price')
         return priceValidation(price)
+
+    def clean_pickup_date(self):
+        pickup_date = self.cleaned_data.get('pickup_date')
+        if pickup_date < datetime.date.today():
+            raise ValidationError('You can\'t use a past date for a new load.')
+        return pickup_date
 
 
 class UpdatePriceForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
