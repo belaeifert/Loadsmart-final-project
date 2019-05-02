@@ -37,73 +37,70 @@
 
 <br/>
 
-<div style="width:80%; margin: 0px auto;">
+<div class="container">
     <table id="tableShipperLoads" class="table">
         <thead style="color:white; background-color: #4c4c4c;">
-        <tr>
-            <th>PICK UP</th>
-            <th>REF.#</th>
-            <th>ORIGIN</th>
-            <th>DESTINATION</th>
-            <th>STATUS</th>
-            <th>PRICE</th>
-            <th></th>
-            <th></th>
-        </tr>
+            <tr>
+                <th>PICK UP</th>
+                <th>REF.#</th>
+                <th>ORIGIN</th>
+                <th>DESTINATION</th>
+                <th>STATUS</th>
+                <th>PRICE</th>
+                <th></th>
+                <th></th>
+            </tr>
         </thead>
         <tbody>
-        <tr>
-            <th colspan=100%>Accepted Loads
-            <th>
-        </tr>
-        {% for load in loads %}
-        {% if load.status == 'accepted' %}
-        <tr>
-            <td>{{ load.pickup_date }}</td>
-            <td>{{ load.ref }}</td>
-            <td>{{ load.origin_city }}</td>
-            <td>{{ load.destination_city }}</td>
-            <td>{{ load.status }} by {{load.carrier.user.get_full_name}}</td>
-            <td>${{ load.price|floatformat:2 }}</td>
-            <td></td>
-            <td style="text-align: center;">
-                <a class="cancel-load-popup-btn btn" data-id="{% url 'shipper:cancel_load' load.pk %}">
-                    <i class="far fa-trash-alt"></i> Cancel</button>
-                </a>
-            </td>
-        </tr>
-        {% endif %}
-        {% endfor %}
-        </tbody>
-        <tbody>
-        <tr>
-            <th colspan=100%>Available Loads</th>
-        </tr>
-        {% for load in loads %}
-        {% if load.status == 'available' %}
-        <tr>
-            <td>{{ load.pickup_date }}</td>
-            <td>{{ load.ref }}</td>
-            <td>{{ load.origin_city }}</td>
-            <td>{{ load.destination_city }}</td>
-            <td>{{ load.status }}</td>
-            <td>${{ load.price|floatformat:2 }}</td>
-            <td style="text-align: center;">
-                <a class="edit-price-popup-btn btn" data-id="{% url 'shipper:edit_price' load.pk %}">
-                    <i class="far fa-edit"></i> Edit Price</a>
-                </a>
-            </td>
-            <td style="text-align: center;">
-                <a class="cancel-load-popup-btn btn" data-id="{% url 'shipper:cancel_load' load.pk %}">
-                    <i class="far fa-trash-alt"></i> Cancel</button>
-                </a>
-            </td>
-        </tr>
-        {% endif %}
-        {% endfor %}
+            <tr>
+                <th colspan=100%>Accepted Loads
+                <th>
+            </tr>
+            {% for load in loads %}
+            {% if load.status == 'accepted' %}
+            <tr>
+                <td>{{ load.pickup_date }}</td>
+                <td>{{ load.ref }}</td>
+                <td>{{ load.origin_city }}</td>
+                <td>{{ load.destination_city }}</td>
+                <td>{{ load.status }} by {{load.carrier.user.get_full_name}}</td>
+                <td>${{ load.price|floatformat:2 }}</td>
+                <td></td>
+                <td style="text-align: center;">
+                    <a class="cancel-load-popup-btn btn" data-id="{% url 'shipper:cancel_load' load.pk %}">
+                        <i class="far fa-trash-alt"></i> Cancel</button>
+                    </a>
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            <tr>
+                <th colspan=100%>Available Loads</th>
+            </tr>
+            {% for load in loads %}
+            {% if load.status == 'available' %}
+            <tr>
+                <td>{{ load.pickup_date }}</td>
+                <td>{{ load.ref }}</td>
+                <td>{{ load.origin_city }}</td>
+                <td>{{ load.destination_city }}</td>
+                <td>{{ load.status }}</td>
+                <td>${{ load.price|floatformat:2 }}</td>
+                <td style="text-align: center;">
+                    <a class="edit-price-popup-btn btn" data-id="{% url 'shipper:edit_price' load.pk %}">
+                        <i class="far fa-edit"></i> Edit Price</a>
+                    </a>
+                </td>
+                <td style="text-align: center;">
+                    <a class="cancel-load-popup-btn btn" data-id="{% url 'shipper:cancel_load' load.pk %}">
+                        <i class="far fa-trash-alt"></i> Cancel</button>
+                    </a>
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
         </tbody>
     </table>
-    <br/> <br/> <br/>
 </div>
 
 <section>
