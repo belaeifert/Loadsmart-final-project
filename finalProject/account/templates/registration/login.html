@@ -18,7 +18,9 @@
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
             {{ field }}
             {% for error in field.errors %}
-            <p class="help-block">{{ error }}</p>
+            <div class="alert alert-danger" role="alert">
+                <p class="help-block">{{ error }}</p>
+            </div>
             {% endfor %}
         </div>
         {% endfor %}
