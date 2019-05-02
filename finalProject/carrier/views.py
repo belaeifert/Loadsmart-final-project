@@ -38,12 +38,14 @@ def acceptLoad(request, pk_load):
 
     carrier = CarrierUser.objects.get(user_id=request.user.id)
     load.accept_load(carrier)
-    
+
+    '''
     email_subject = 'Your load was accepted'
     html_message = render_to_string('email_message_load_accepted.html', {'load': load})
     from_email = DEFAULT_FROM_EMAIL
     to_email = [load.shipper.user.email]
     send_mail(email_subject, html_message, from_email, to_email)
+    '''
 
     messages.success(request, 'Load accepted successfully')
 
@@ -78,11 +80,12 @@ def dropLoad(request, pk_load):
     load.drop_load()
     RejectedLoad.objects.create(load=load, carrier=carrier)
     messages.success(request, 'Load dropped successfully')
-
+    '''
     email_subject = 'Your load was dropped'
     html_message = render_to_string('email_message_load_dropped.html', {'load': load})
     from_email = DEFAULT_FROM_EMAIL
     to_email = [load.shipper.user.email]
     send_mail(email_subject, html_message, from_email, to_email)
+    '''
 
     return redirect('carrier:home')

@@ -69,6 +69,7 @@ class CancelLoadView(DeleteAjaxMixin, generic.DeleteView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
+        '''
         if self.object.status == 'accepted':
             load = self.object
             email_subject = 'Shipper canceled an accepted load'
@@ -76,5 +77,5 @@ class CancelLoadView(DeleteAjaxMixin, generic.DeleteView):
             from_email = DEFAULT_FROM_EMAIL
             to_email = [load.carrier.user.email]
             send_mail(email_subject, html_message, from_email, to_email)
-
+        '''
         return self.delete(request, *args, **kwargs)
